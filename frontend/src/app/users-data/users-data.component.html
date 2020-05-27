@@ -1,0 +1,14 @@
+<table id="userData">
+  <tr>
+    <th *ngFor="let column of headers">
+      {{column}}
+    </th>
+  </tr>
+
+  <tr *ngFor="let row of user_data">
+    <td *ngFor="let col of headers">
+      {{row[col]}}
+    </td>
+  </tr>
+
+</table>
