@@ -7,7 +7,12 @@
 
   <tr *ngFor="let row of user_data">
     <td *ngFor="let col of headers">
-      {{row[col]}}
+      <ul *ngIf="col === 'roles'">
+        <li *ngFor="let role of row[col]">
+          {{role}}
+        </li>
+      </ul>
+      <span *ngIf="col != 'roles'">{{row[col]}}</span>
     </td>
   </tr>
 

@@ -12,7 +12,10 @@ export class UsersDataComponent implements OnInit {
 
   dataSub: Subscription;
   user_data: Data[];
-  headers = ['usuario', 'first_name', 'last_name', 'email'];
+  headers = [
+    'id', 'username', 'first_name', 'last_name',
+    'email', 'roles', 'location', 'gender', 'information'
+  ];
 
   constructor(private restService: RestService) { }
 
@@ -22,6 +25,7 @@ export class UsersDataComponent implements OnInit {
       .subscribe(
         res => {
           this.user_data = res['data'];
+          console.log(this.user_data)
         },
         error => {
           console.log('oops', error)
