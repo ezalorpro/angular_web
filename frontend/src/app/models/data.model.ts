@@ -1,9 +1,11 @@
-export class Data {
-    constructor(
-        public usuario: string,
-        public password: string,
-        public first_name: string,
-        public last_name: string,
-        public email: string,
-    ) {}
+export interface Data {
+    username: string,
+    password: string,
+    first_name: string,
+    last_name: string,
+    email: string,
+    location: string,
+    information: string,
+    gender: string,
+    roles: string[],
 }

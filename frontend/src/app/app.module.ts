@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
 import { RestService } from './rest/rest.service';
 import { UsersDataComponent } from './users-data/users-data.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material-module';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { UsersDataComponent } from './users-data/users-data.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [RestService],
   bootstrap: [AppComponent]
