@@ -4,15 +4,17 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
-import { RestService } from './rest/rest.service';
-import { UsersDataComponent } from './users-data/users-data.component';
+import { RestService } from './services/rest/rest.service';
+import { UsersDataComponent } from './components/users-data/users-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersDataComponent
+    UsersDataComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
