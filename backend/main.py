@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 from flask_cors import CORS
 from sqlalchemy_serializer import SerializerMixin
 import datetime
@@ -12,34 +13,34 @@ CORS(app)
 db = SQLAlchemy(app)
 
 class User(db.Model, SerializerMixin):
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
-    username = db.Column(db.String, index=True, unique=True, nullable=False)
-    first_name = db.Column(db.String, index=True)
-    last_name = db.Column(db.String, index=True)
-    email = db.Column(db.String, index=True, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
-    avatar = db.Column(db.String, index=True)
-    avatar_url = db.Column(db.String, index=True)
-    location = db.Column(db.String, index=True)
-    gender = db.Column(JSON)
-    information = db.Column(db.Text, index=True)
-    roles = db.Column(JSON)
+    id = Column(Integer, primary_key=True, nullable=False)
+    username = Column(String, index=True, unique=True, nullable=False)
+    first_name = Column(String, index=True)
+    last_name = Column(String, index=True)
+    email = Column(String, index=True, unique=True, nullable=False)
+    password = Column(String, nullable=False)
+    avatar = Column(String, index=True)
+    avatar_url = Column(String, index=True)
+    location = Column(String, index=True)
+    gender = Column(JSON)
+    information = Column(Text, index=True)
+    roles = Column(JSON)
 
 class Post(db.Model, SerializerMixin):
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
-    title = db.Column(db.String, index=True, nullable=False, unique=True)
-    post_text = db.Column(db.Text, index=True)
-    post_date = db.Column(
-        db.DateTime, index=True, nullable=False, default=datetime.datetime.now
+    id = Column(Integer, primary_key=True, nullable=False)
+    title = Column(String, index=True, nullable=False, unique=True)
+    post_text = Column(Text, index=True)
+    post_date = Column(
+        DateTime, index=True, nullable=False, default=datetime.datetime.now
     )
-    post_modified = db.Column(
-        db.DateTime,
+    post_modified = Column(
+        DateTime,
         index=True,
         nullable=False,
         default=datetime.datetime.now,
         onupdate=datetime.datetime.now,
     )
-    usuario_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"))
+    usuario_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
 
  
 @app.route("/", methods=['GET'])
