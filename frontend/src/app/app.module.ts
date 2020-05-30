@@ -7,7 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { RestService } from './services/rest/rest.service';
 import { UsersDataComponent } from './components/users-data/users-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material-module';
+import { MaterialModule } from './modules/material.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
