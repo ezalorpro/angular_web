@@ -10,8 +10,11 @@ flask = "*"
 flask-cors = "*"
 flask-sqlalchemy = "*"
 psycopg2 = "*"
-sqlalchemy-serializer = "*"
 pylint = "*"
+flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
+flask-praetorian = "*"
+flask-restful = "*"
 
 [requires]
 python_version = "3.7"

@@ -18,7 +18,7 @@ export class UsersDataComponent implements OnInit {
   PostDataSub: Subscription;
   DataSource: MatTableDataSource<Data>;
   users_data: Data[];
-  post_data: MatTableDataSource<Post[]>;
+  post_data: MatTableDataSource<Post>;
   user_data: MatTableDataSource<Data[]>;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -61,7 +61,8 @@ export class UsersDataComponent implements OnInit {
       .getData()
       .subscribe(
         res => {
-          this.users_data = res['data'];
+          this.users_data = res;
+          console.log(this.users_data)
           this.DataSource = new MatTableDataSource(this.users_data);
           this.DataSource.sort = this.sort;
         },
@@ -95,7 +96,7 @@ export class UsersDataComponent implements OnInit {
       .getPostData(user_data['username'])
       .subscribe(
         res => {
-          this.post_data = new MatTableDataSource(res['data'])
+          this.post_data = new MatTableDataSource(res)
           this.post_data.sort = this.sort;
           console.log(this.post_data)
         },
