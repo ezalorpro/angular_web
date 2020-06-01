@@ -8,6 +8,8 @@ import { AuthInterceptorService } from './auth-interceptor.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthGuardService } from './auth-guard.service';
+import { MaterialModule } from '../material/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -17,7 +19,9 @@ import { AuthGuardService } from './auth-guard.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MaterialModule,
+    FlexLayoutModule
   ],
   providers: [
     AuthService,

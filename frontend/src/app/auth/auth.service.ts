@@ -20,22 +20,16 @@ export class AuthService {
   
 
   register(data) {
-    return this.httpClient.post(`${API_URL}/register/`, data).subscribe(res => {
-      console.log(res);
-      this.router.navigate([res['redirect']]);
-    })
+    return this.httpClient.post(`${API_URL}/register/`, data)
   }
 
 
   login(credentials: Object) {
-    return this.httpClient.post(`${API_URL}/login/`, credentials).subscribe(res => {
-      this.setSession(res)
-      this.router.navigate(['dashboard'])
-    });
+    return this.httpClient.post(`${API_URL}/login/`, credentials)
   }
 
 
-  private setSession(authResult) {
+  setSession(authResult) {
     const expiresAt = moment().add(authResult.expiresAt, 'second');
     console.log(expiresAt)
     localStorage.setItem('token', authResult.idToken);

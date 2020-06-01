@@ -12,6 +12,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    AuthModule
+    AuthModule,
+    FlexLayoutModule
   ],
   providers: [RestService],
   bootstrap: [AppComponent]

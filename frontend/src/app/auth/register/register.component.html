@@ -8,8 +8,11 @@
 
     <label for="password">password</label>
     <input type="password" id='password' formControlName="password">
+    
+    <span *ngIf="error">{{error}}</span>
 
-    <button type="submit">Enviar</button>
+    <button type="submit" [disabled]="form.invalid">Enviar</button>
+    
   </form>
 </div>
 

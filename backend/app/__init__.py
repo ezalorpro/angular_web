@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Resource, Api
 from flask_marshmallow import Marshmallow
@@ -72,6 +72,12 @@ class Register(Resource):
         email = data.get('email', None)
         password = data.get('password', None)
         roles = data.get('roles', [])
+        
+        if User.query.filter_by(username=username).first():
+            return abort(409, 'Usuario ya registrado')
+        
+        if User.query.filter_by(email=email).first():
+            return abort(409, 'Correo ya registrado')
         
         user = User(
             username=username,
