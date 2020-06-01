@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,8 +13,14 @@ export class LoginComponent implements OnInit {
   form;
   error: string;
   form_iterator = [
-    { control: 'username', type: 'text', placeholder: 'Usuario', label: 'usuario' },
-    { control: 'password', type: 'password', placeholder: 'Contraseña', label: 'Contraseña' }
+    {
+      control: 'username', type: 'text', placeholder: 'Usuario', label: 'usuario',
+      icon: 'person', error: 'Ingrese el nombre de usuario'
+    },
+    {
+      control: 'password', type: 'password', placeholder: 'Contraseña', label: 'Contraseña',
+      icon: 'lock', error: 'Ingrese la contraseña'
+    }
   ]
 
   constructor(
@@ -23,8 +29,8 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { 
     this.form = this.formBuilder.group({
-      username: '',
-      password: '',
+      username: [null, Validators.required],
+      password: [null, Validators.required]
     });
     console.log(this.form);
   }

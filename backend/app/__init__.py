@@ -71,6 +71,8 @@ class Register(Resource):
         username = data.get('username', None)
         email = data.get('email', None)
         password = data.get('password', None)
+        first_name = data.get('first_name', None)
+        last_name = data.get('last_name', None)
         roles = data.get('roles', [])
         
         if User.query.filter_by(username=username).first():
