@@ -9,9 +9,10 @@ import flask_praetorian as fprae
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///php_web"
-app.config['SECRET_KEY'] = "supersecreto"
-app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
+app.config['SECRET_KEY'] = "157c03c94cc1aa67b95cad155a095b23"
+app.config['JWT_ACCESS_LIFESPAN'] = {'seconds': 86400}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
+app.config['PRAETORIAN_HASH_SCHEME'] = 'argon2'
 
 cors = CORS(app)
 api = Api(app)
@@ -24,13 +25,15 @@ from app.schemas import UserSchema, PostSchema
 
 guard.init_app(app, User)
 
+
 class Index(Resource):
     def get(self):
         return {'hola': 'hola mundo'}
 
+
 class Data(Resource):
     
-    # method_decorators = [fprae.auth_required]
+    method_decorators = [fprae.auth_required]
     
     def get(self):
         users = User.query.order_by(User.id).all()
@@ -43,14 +46,43 @@ class Data(Resource):
         user_schema = UserSchema()
         return user_schema.dump(user)
 
+
 class PostData(Resource):
+    
+    method_decorators = [fprae.auth_required]
+    
     def get(self, username):
         user = User.query.filter_by(username=username).first()
         posts = Post.query.filter_by(usuario_id=user.id).all()
         post_schema = PostSchema(many=True)
         return post_schema.dump(posts)
         
+class Login(Resource):
+    def post(self):
+        credentials = request.get_json(force=True)
+        user = guard.authenticate(**credentials)
+        token = guard.encode_jwt_token(user)
+        return jsonify({'idToken': token, 'expiresAt': 86400})
 
+
+class Register(Resource):
+    def post(self):
+        data = request.get_json(force=True)
+        username = data.get('username', None)
+        email = data.get('email', None)
+        password = data.get('password', None)
+        roles = data.get('roles', [])
+        
+        user = User(
+            username=username,
+            email=email,
+            password=guard.hash_password(password),
+            roles=roles,
+            )
+        db.session.add(user)
+        db.session.commit()
+        return jsonify({'message': 'Registro exitoso', 'redirect': 'login'})
+    
 # @app.route("/PostData/<username>", methods=['GET', 'POST'])
 # def post_data(username=None):
 #     if request.method == 'GET' and username:
@@ -76,4 +108,6 @@ class PostData(Resource):
 api.add_resource(Index, '/') 
 api.add_resource(Data, '/data/') 
 api.add_resource(PostData, '/posts/<string:username>/')
+api.add_resource(Login, '/login/')
+api.add_resource(Register, '/register/')
 

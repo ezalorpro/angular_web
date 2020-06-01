@@ -107,7 +107,9 @@ export class UsersDataComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.dataSub.unsubscribe();
+    if (this.dataSub) {
+      this.dataSub.unsubscribe();
+    }
   }
 
 }

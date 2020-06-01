@@ -7,9 +7,11 @@ import { HttpClientModule } from "@angular/common/http";
 import { RestService } from './services/rest/rest.service';
 import { UsersDataComponent } from './components/users-data/users-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './modules/material.module';
+import { MaterialModule } from './material/material.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
+import { AuthModule } from './auth/auth.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,10 +22,12 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    AuthModule
   ],
   providers: [RestService],
   bootstrap: [AppComponent]

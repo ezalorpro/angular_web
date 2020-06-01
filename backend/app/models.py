@@ -19,6 +19,9 @@ class User(db.Model):
     information = Column(Text, index=True)
     roles = Column(JSON)
     
+    def __repr__(self):
+        return f'<User:{self.username}>'
+    
     @property
     def rolenames(self):
         try:

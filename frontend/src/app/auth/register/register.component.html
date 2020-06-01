@@ -1,0 +1,17 @@
+<div>
+  <form [formGroup]="form" (ngSubmit)="register(form.value)">
+    <label for="username">Usuario</label>
+    <input type="text" id='username' formControlName="username">
+
+    <label for="email">Correo</label>
+    <input type="text" id='email' formControlName="email">
+
+    <label for="password">password</label>
+    <input type="password" id='password' formControlName="password">
+
+    <button type="submit">Enviar</button>
+  </form>
+</div>
+
+<button [routerLink]="['/login']">Login</button>
+<button [routerLink]="['/dashboard']">Dashboard</button>
