@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthDialogService } from './auth/auth-dialog.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +10,9 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Probando backend';  
+  title = 'Probando backend';
+  constructor(
+    public authService: AuthService,
+    public authDialog: AuthDialogService
+  ) { }
 }

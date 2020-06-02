@@ -5,6 +5,7 @@ from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 
 import flask_praetorian as fprae
+from flask_praetorian.utilities import current_user_id
 
 
 app = Flask(__name__)
@@ -38,6 +39,7 @@ class Data(Resource):
     def get(self):
         users = User.query.order_by(User.id).all()
         user_schema = UserSchema(many=True)
+        print(current_user_id())
         return user_schema.dump(users)
     
     def post(self):
@@ -47,13 +49,9 @@ class Data(Resource):
         return user_schema.dump(user)
 
 
-class PostData(Resource):
-    
-    method_decorators = [fprae.auth_required]
-    
-    def get(self, username):
-        user = User.query.filter_by(username=username).first()
-        posts = Post.query.filter_by(usuario_id=user.id).all()
+class PostData(Resource):    
+    def get(self):
+        posts = Post.query.all()
         post_schema = PostSchema(many=True)
         return post_schema.dump(posts)
         
@@ -91,7 +89,7 @@ class Register(Resource):
             )
         db.session.add(user)
         db.session.commit()
-        return jsonify({'message': 'Registro exitoso', 'redirect': 'login'})
+        return jsonify({'message': 'Registro exitoso', 'redirect': 'register_succes'})
     
 # @app.route("/PostData/<username>", methods=['GET', 'POST'])
 # def post_data(username=None):
@@ -117,7 +115,7 @@ class Register(Resource):
 
 api.add_resource(Index, '/') 
 api.add_resource(Data, '/data/') 
-api.add_resource(PostData, '/posts/<string:username>/')
+api.add_resource(PostData, '/posts/')
 api.add_resource(Login, '/login/')
 api.add_resource(Register, '/register/')
 

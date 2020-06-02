@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="center center">
-  <mat-card fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+  <mat-card fxLayout="column" fxLayoutAlign="space-around center">
 
     <mat-card-header>
       <mat-card-title>Registrarse</mat-card-title>
@@ -18,7 +18,7 @@
             <mat-icon matSuffix>person_outline</mat-icon>
           </mat-form-field>
 
-          <div fxLayout="row" fxLayoutAlign="space-around center">
+          <div fxLayout="row" fxLayoutAlign="space-around">
             <!-- Nombre -->
             <mat-form-field appearance="outline">
               <mat-label>Nombre</mat-label>
@@ -62,10 +62,7 @@
           </div>
 
 
-          <div fxLayout="row" fxLayoutAlign="space-around center">
-            <a mat-button mat-raised-button class="button-register" [routerLink]="['/login']">
-              Login?
-            </a>
+          <div fxLayout="row" fxLayoutAlign="end center">
             <button mat-button mat-raised-button class="button-register" color="primary" [disabled]="form.invalid">
               <mat-icon>input</mat-icon> Enviar
             </button>

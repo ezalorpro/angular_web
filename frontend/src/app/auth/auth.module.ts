@@ -10,11 +10,13 @@ import { RouterModule } from '@angular/router';
 import { AuthGuardService } from './auth-guard.service';
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SuccesMessageComponent } from './succes-message/succes-message.component';
+import { AuthDialogService } from './auth-dialog.service';
 
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, SuccesMessageComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -25,6 +27,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   ],
   providers: [
     AuthService,
+    AuthDialogService,
     AuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,

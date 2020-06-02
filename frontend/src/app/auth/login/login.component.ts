@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -26,22 +27,22 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
-  ) { 
+    private router: Router,
+    private dialogRef: MatDialogRef<LoginComponent>
+  ) { }
+
+  ngOnInit(): void {
     this.form = this.formBuilder.group({
       username: [null, Validators.required],
       password: [null, Validators.required]
     });
-    console.log(this.form);
-  }
-
-  ngOnInit(): void {
   }
 
   login(credentials) {
     this.authService.login(credentials).subscribe(
       res => {
         this.authService.setSession(res)
+        this.dialogRef.close();
         this.router.navigate(['dashboard'])
       },
       error => {
@@ -49,6 +50,10 @@ export class LoginComponent implements OnInit {
         this.error = 'Usuario y/o contraseña invalidos.'
       }
     );
+  }
+
+  onClose() {
+    this.dialogRef.close();
   }
   
 }

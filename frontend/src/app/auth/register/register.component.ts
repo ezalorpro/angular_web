@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
+import { AuthDialogService } from '../auth-dialog.service';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +25,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authDialog: AuthDialogService
   ) {
     this.form = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
@@ -54,6 +58,9 @@ export class RegisterComponent implements OnInit {
     return this.authService.register(data).subscribe(
       res => {
         this.router.navigate([res['redirect']])
+        setTimeout(() => {
+          this.authDialog.loginDialog();
+        }, 3500);
     },
       error => {
         console.log(error)

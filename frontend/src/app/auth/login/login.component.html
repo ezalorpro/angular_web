@@ -1,34 +1,30 @@
-<div fxLayout="row" fxLayoutAlign="center center">
-  <mat-card fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+<div fxLayout="column" fxLayoutAlign="space-around center">
+  <h3 mat-dialog-title>Login</h3>
+  <div mat-dialog-content>
+    <form [formGroup]="form" (ngSubmit)="login(form.value)" class="card-login">
+      <div fxLayout="column" fxLayoutGap="5px">
 
-    <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
+        <mat-form-field *ngFor="let field of form_iterator" appearance="outline">
+          <mat-label>{{field.label}}</mat-label>
+          <input matInput type={{field.type}} placeholder={{field.placeholder}} formControlName={{field.control}}>
+          <mat-error *ngIf="form.controls[field.control].invalid">{{field.error}}</mat-error>
+          <mat-icon matSuffix>{{field.icon}}</mat-icon>
+        </mat-form-field>
+        
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <button mat-button mat-raised-button class="button-login" color="primary" [disabled]="form.invalid"
+            (click)="login(form.value)">
+            <mat-icon>input</mat-icon> Enviar
+          </button>
 
-    <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="login(form.value)" class="card-login">
-        <div fxLayout="column" fxLayoutGap="5px">
-
-          <mat-form-field *ngFor="let field of form_iterator" appearance="outline">
-            <mat-label>{{field.label}}</mat-label>
-            <input matInput type={{field.type}} placeholder={{field.placeholder}} formControlName={{field.control}}>
-            <mat-error *ngIf="form.controls[field.control].invalid">{{field.error}}</mat-error>
-            <mat-icon matSuffix>{{field.icon}}</mat-icon>
-          </mat-form-field>
-          <div fxLayout="row" fxLayoutAlign="space-around center">
-            <a mat-button mat-raised-button class="button-login" [routerLink]="['/register']">
-              Registrarse?
-            </a>
-            <button mat-button mat-raised-button class="button-login" color="primary" [disabled]="form.invalid">
-              <mat-icon>input</mat-icon> Enviar
-            </button>
-          </div>
-
-          <span *ngIf="error" class="error-span">{{error}}</span>
-
+          <a mat-button mat-raised-button color="warn" class="button-login" (click)="onClose()">
+            Cancelar
+          </a>
         </div>
-      </form>
-    </mat-card-content>
 
-  </mat-card>
+        <span *ngIf="error" class="error-span">{{error}}</span>
+
+      </div>
+    </form>
+  </div>
 </div>
