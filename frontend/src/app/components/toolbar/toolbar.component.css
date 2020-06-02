@@ -1,0 +1,13 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+span.main-title:focus {
+  outline: none;
+  border: 0;
+  cursor: pointer;
+}
+
+span.main-title:hover {
+  cursor: pointer;
+}

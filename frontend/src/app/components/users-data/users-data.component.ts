@@ -97,7 +97,6 @@ export class UsersDataComponent implements OnInit {
       .subscribe(
         res => {
           this.post_data = new MatTableDataSource(res)
-          this.post_data.sort = this.sort;
           console.log(this.post_data)
         },
         error => {

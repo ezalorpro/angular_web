@@ -1,0 +1,10 @@
+<mat-toolbar color="primary" class="app-header">
+  <mat-toolbar-row>
+    <span class="main-title" [routerLink]="['/home']">Pagina en Angular</span>
+    <span class="example-spacer"></span>
+    <a mat-button (click)="authDialog.loginDialog()" *ngIf="authService.isLoggedOut()">Login</a>
+    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active"
+      *ngIf="authService.isLoggedOut()">Registrarse</a>
+    <a mat-button (click)="authService.logout()" *ngIf="authService.isLoggedIn()">Logout</a>
+  </mat-toolbar-row>
+</mat-toolbar>

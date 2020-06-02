@@ -14,6 +14,8 @@ import { AuthModule } from './auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './components/home/home.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { HomeComponent } from './components/home/home.component';
     AppComponent,
     UsersDataComponent,
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
+    ToolbarComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,

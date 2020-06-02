@@ -1,8 +1,8 @@
 <div fxLayout="column" fxLayoutAlign="space-around center">
-  <h3 mat-dialog-title>Login</h3>
+  <h2 mat-dialog-title>Login</h2>
   <div mat-dialog-content>
     <form [formGroup]="form" (ngSubmit)="login(form.value)" class="card-login">
-      <div fxLayout="column" fxLayoutGap="5px">
+      <div fxLayout="column" fxLayoutGap="7px">
 
         <mat-form-field *ngFor="let field of form_iterator" appearance="outline">
           <mat-label>{{field.label}}</mat-label>

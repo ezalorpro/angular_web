@@ -1,20 +1,23 @@
-<div gdAreas="header header | sidenav content" gdGap="0px" gdRows="auto auto" gdColumns="100%">
-  <mat-toolbar color="primary" class="app-header" gdArea="header">
-    <mat-toolbar-row>
-      <span class="main-title" [routerLink]="['/home']">Pagina en Angular</span>
-      <span class="example-spacer"></span>
-      <a mat-button (click)="authDialog.loginDialog()" *ngIf="authService.isLoggedOut()">Login</a>
-      <a mat-button mat-raised-button routerLink="register" routerLinkActive="active"
-        *ngIf="authService.isLoggedOut()">Registrarse</a>
-      <a mat-button (click)="authService.logout()" *ngIf="authService.isLoggedIn()">Logout</a>
-    </mat-toolbar-row>
-  </mat-toolbar>
+<div gdAreas="header header | sidenav content" gdRows="auto auto" gdColumns="100%">
+  
+  <!-- Navbar (Barra superior) -->
+  <div gdArea="header">
+    <app-toolbar></app-toolbar>
+  </div>
+  
 
   <mat-drawer-container class="main-container">
-    <mat-drawer opened mode="side" gdArea="sidenav" class="sidenav-right">
-      <p>Drawer as dasd asd asd as das dasd contentasd as das das das das dasd asd asd as das das das dasd as das das dasd asd as dasd asd  </p>
+
+    <!-- Sidenav (Barra lateral) -->
+    <mat-drawer opened mode="side" class="sidenav-right" gdArea="sidenav">
+      <app-sidenav></app-sidenav>
     </mat-drawer>
-    <router-outlet gdArea="content"></router-outlet>
+
+    <!-- Contenido -->
+    <mat-drawer-content gdArea="content">
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+
   </mat-drawer-container>
 
 </div>
