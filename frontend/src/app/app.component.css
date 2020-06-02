@@ -6,6 +6,16 @@
   width: 15%;
 }
 
+span.main-title:focus{
+  outline: none;
+  border: 0;
+  cursor: pointer;
+}
+
+span.main-title:hover {
+  cursor: pointer;
+}
+
 .main-container {
   position: absolute;
   top: 64px;

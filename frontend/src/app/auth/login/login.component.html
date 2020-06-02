@@ -11,15 +11,14 @@
           <mat-icon matSuffix>{{field.icon}}</mat-icon>
         </mat-form-field>
         
-        <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <a mat-button mat-raised-button color="warn" class="button-login" (click)="onClose()">
+            Cancelar
+          </a>
           <button mat-button mat-raised-button class="button-login" color="primary" [disabled]="form.invalid"
             (click)="login(form.value)">
             <mat-icon>input</mat-icon> Enviar
           </button>
-
-          <a mat-button mat-raised-button color="warn" class="button-login" (click)="onClose()">
-            Cancelar
-          </a>
         </div>
 
         <span *ngIf="error" class="error-span">{{error}}</span>

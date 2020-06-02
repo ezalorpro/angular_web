@@ -1,7 +1,7 @@
 <div gdAreas="header header | sidenav content" gdGap="0px" gdRows="auto auto" gdColumns="100%">
   <mat-toolbar color="primary" class="app-header" gdArea="header">
     <mat-toolbar-row>
-      <span [routerLink]="['/home']">Pagina en Angular</span>
+      <span class="main-title" [routerLink]="['/home']">Pagina en Angular</span>
       <span class="example-spacer"></span>
       <a mat-button (click)="authDialog.loginDialog()" *ngIf="authService.isLoggedOut()">Login</a>
       <a mat-button mat-raised-button routerLink="register" routerLinkActive="active"
