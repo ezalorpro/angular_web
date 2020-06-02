@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -27,13 +27,4 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     return next.handle(request)
   }
-
-  // private handleError(err) {
-  //   if (err instanceof HttpErrorResponse) {
-  //     if (err.status === 401) {
-  //       this.router.navigate(['/register']);
-  //     }
-  //   }
-  //   return throwError(err);
-  // }
 }

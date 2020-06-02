@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="center center">
-  <mat-card fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <mat-card fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="10px">
 
     <mat-card-header>
       <mat-card-title>Login</mat-card-title>
@@ -7,18 +7,25 @@
 
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="login(form.value)" class="card-login">
-        <div fxLayout="column" fxLayoutGap="20px">
-          
+        <div fxLayout="column" fxLayoutGap="5px">
+
           <mat-form-field *ngFor="let field of form_iterator" appearance="outline">
             <mat-label>{{field.label}}</mat-label>
             <input matInput type={{field.type}} placeholder={{field.placeholder}} formControlName={{field.control}}>
             <mat-error *ngIf="form.controls[field.control].invalid">{{field.error}}</mat-error>
             <mat-icon matSuffix>{{field.icon}}</mat-icon>
           </mat-form-field>
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+            <a mat-button mat-raised-button class="button-login" [routerLink]="['/register']">
+              Registrarse?
+            </a>
+            <button mat-button mat-raised-button class="button-login" color="primary" [disabled]="form.invalid">
+              <mat-icon>input</mat-icon> Enviar
+            </button>
+          </div>
 
-          <span *ngIf="error">{{error}}</span>
+          <span *ngIf="error" class="error-span">{{error}}</span>
 
-          <button mat-button color="primary" [disabled]="form.invalid">Enviar</button>
         </div>
       </form>
     </mat-card-content>

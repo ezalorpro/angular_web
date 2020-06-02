@@ -1,20 +1,81 @@
-<div>
-  <form [formGroup]="form" (ngSubmit)="register(form.value)">
-    <label for="username">Usuario</label>
-    <input type="text" id='username' formControlName="username">
+<div fxLayout="row" fxLayoutAlign="center center">
+  <mat-card fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="10px">
 
-    <label for="email">Correo</label>
-    <input type="text" id='email' formControlName="email">
+    <mat-card-header>
+      <mat-card-title>Registrarse</mat-card-title>
+    </mat-card-header>
 
-    <label for="password">password</label>
-    <input type="password" id='password' formControlName="password">
-    
-    <span *ngIf="error">{{error}}</span>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="register(form.value)" class="card-register">
+        
+        <div fxLayout="column" fxLayoutGap="5px">
+          
+          <!-- usuario -->
+          <mat-form-field appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <input matInput type="text" placeholder="Usuario" formControlName="username" required>
+            <mat-error *ngIf="form.controls.username.invalid">{{errors_messages.username}}</mat-error>
+            <mat-icon matSuffix>person_outline</mat-icon>
+          </mat-form-field>
 
-    <button type="submit" [disabled]="form.invalid">Enviar</button>
-    
-  </form>
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+            <!-- Nombre -->
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" placeholder="Nombre" formControlName="first_name">
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+
+            <!-- Apellido -->
+            <mat-form-field appearance="outline">
+              <mat-label>Apeelido</mat-label>
+              <input matInput type="text" placeholder="Apellido" formControlName="last_name">
+              <mat-icon matSuffix>person_add</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <!-- email -->
+          <mat-form-field appearance="outline">
+            <mat-label>Correo electronico</mat-label>
+            <input matInput type="email" placeholder="Correo electronico" formControlName="email" required>
+            <mat-error *ngIf="form.controls.email.invalid">{{errors_messages.email}}</mat-error>
+            <mat-icon matSuffix>mail_outline</mat-icon>
+          </mat-form-field>
+
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+            <!-- password -->
+            <mat-form-field appearance="outline">
+              <mat-label>Contraseña</mat-label>
+              <input matInput type="password" placeholder="Contraseña" formControlName="password" required>
+              <mat-error *ngIf="form.controls.password.invalid">{{errors_messages.password}}</mat-error>
+              <mat-icon matSuffix>lock_outline</mat-icon>
+            </mat-form-field>
+
+            <!-- password2 -->
+            <mat-form-field appearance="outline">
+              <mat-label>Confirmar contraseña</mat-label>
+              <input matInput type="password" placeholder="Confirmar contraseña" formControlName="password2" required>
+              <mat-error
+                *ngIf="form.get('password2').errors?.nomatch">{{errors_messages.password2}}</mat-error>
+              <mat-icon matSuffix>lock_open</mat-icon>
+            </mat-form-field>
+          </div>
+
+
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+            <a mat-button mat-raised-button class="button-register" [routerLink]="['/login']">
+              Login?
+            </a>
+            <button mat-button mat-raised-button class="button-register" color="primary" [disabled]="form.invalid">
+              <mat-icon>input</mat-icon> Enviar
+            </button>
+          </div>
+
+          <span *ngIf="error" class="error-span">{{error}}</span>
+        </div>
+
+      </form>
+    </mat-card-content>
+
+  </mat-card>
 </div>
-
-<button [routerLink]="['/login']">Login</button>
-<button [routerLink]="['/dashboard']">Dashboard</button>

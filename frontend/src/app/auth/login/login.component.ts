@@ -15,11 +15,11 @@ export class LoginComponent implements OnInit {
   form_iterator = [
     {
       control: 'username', type: 'text', placeholder: 'Usuario', label: 'usuario',
-      icon: 'person', error: 'Ingrese el nombre de usuario'
+      icon: 'person_outline', error: 'Ingrese el nombre de usuario'
     },
     {
       control: 'password', type: 'password', placeholder: 'Contraseña', label: 'Contraseña',
-      icon: 'lock', error: 'Ingrese la contraseña'
+      icon: 'lock_outline', error: 'Ingrese la contraseña'
     }
   ]
 
