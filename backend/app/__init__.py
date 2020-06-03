@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, make_response, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Resource, Api
 from flask_marshmallow import Marshmallow
@@ -15,7 +15,7 @@ app.config['JWT_ACCESS_LIFESPAN'] = {'seconds': 86400}
 app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 app.config['PRAETORIAN_HASH_SCHEME'] = 'argon2'
 
-cors = CORS(app)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api = Api(app)
 guard = fprae.Praetorian()
 db = SQLAlchemy(app)
@@ -27,9 +27,18 @@ from app.schemas import UserSchema, PostSchema
 guard.init_app(app, User)
 
 
-class Index(Resource):
-    def get(self):
-        return {'hola': 'hola mundo'}
+@app.route('/')
+def main():
+    return redirect('home')
+
+@app.route('/home')
+def home():
+    return make_response(open('app/templates/index.html').read())
+
+
+@app.route('/dashboard')
+def dashboard():
+    return make_response(open('app/templates/index.html').read())
 
 
 class Data(Resource):
@@ -113,9 +122,8 @@ class Register(Resource):
 #         #     data['data'].append(user_dict)
 #         # return jsonify(data)
 
-api.add_resource(Index, '/') 
-api.add_resource(Data, '/data/') 
-api.add_resource(PostData, '/posts/')
-api.add_resource(Login, '/login/')
-api.add_resource(Register, '/register/')
+api.add_resource(Data, '/api/data/') 
+api.add_resource(PostData, '/api/posts/')
+api.add_resource(Login, '/api/login/')
+api.add_resource(Register, '/api/register/')
 
