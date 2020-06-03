@@ -1,14 +1,24 @@
-from flask import Flask, jsonify, request, abort, make_response, redirect
+import os
+import os.path as op
+
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_restful import Resource, Api
+from flask_restful import Api
 from flask_marshmallow import Marshmallow
+from flask_admin import Admin
+from flask_login import LoginManager
 from flask_cors import CORS
 
 import flask_praetorian as fprae
-from flask_praetorian.utilities import current_user_id
 
+file_path = op.join(op.dirname(__file__), "static/images")
 
-app = Flask(__name__)
+try:
+    os.mkdir(file_path)
+except OSError:
+    pass
+
+app = Flask(__name__, static_folder="static")
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///php_web"
 app.config['SECRET_KEY'] = "157c03c94cc1aa67b95cad155a095b23"
 app.config['JWT_ACCESS_LIFESPAN'] = {'seconds': 86400}
@@ -20,110 +30,30 @@ api = Api(app)
 guard = fprae.Praetorian()
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-
-from app.models import User, Post
-from app.schemas import UserSchema, PostSchema
-
-guard.init_app(app, User)
+login_manager = LoginManager(app)
+login_manager.init_app(app)
 
 
-@app.route('/')
-def main():
-    return redirect('home')
-
-@app.route('/home')
-def home():
-    return make_response(open('app/templates/index.html').read())
+from app import admin_views
 
 
-@app.route('/dashboard')
-def dashboard():
-    return make_response(open('app/templates/index.html').read())
+admin = Admin(
+    app,
+    name="Flask Web",
+    template_mode="bootstrap3",
+    index_view=admin_views.MyAdminIndexView(),
+    base_template='admin/mybase.html'
+)
 
 
-class Data(Resource):
-    
-    method_decorators = [fprae.auth_required]
-    
-    def get(self):
-        users = User.query.order_by(User.id).all()
-        user_schema = UserSchema(many=True)
-        print(current_user_id())
-        return user_schema.dump(users)
-    
-    def post(self):
-        username = request.get_json()['username']
-        user = User.query.filter_by(username=username).first()
-        user_schema = UserSchema()
-        return user_schema.dump(user)
+from app import admin_views, forms, models, views, restful
 
 
-class PostData(Resource):    
-    def get(self):
-        posts = Post.query.all()
-        post_schema = PostSchema(many=True)
-        return post_schema.dump(posts)
-        
-class Login(Resource):
-    def post(self):
-        credentials = request.get_json(force=True)
-        user = guard.authenticate(**credentials)
-        token = guard.encode_jwt_token(user)
-        return jsonify({'idToken': token, 'expiresAt': 86400})
+guard.init_app(app, models.User)
 
-
-class Register(Resource):
-    def post(self):
-        data = request.get_json(force=True)
-        username = data.get('username', None)
-        email = data.get('email', None)
-        password = data.get('password', None)
-        first_name = data.get('first_name', None)
-        last_name = data.get('last_name', None)
-        roles = data.get('roles', [])
-        
-        if User.query.filter_by(username=username).first():
-            return abort(409, 'Usuario ya registrado')
-        
-        if User.query.filter_by(email=email).first():
-            return abort(409, 'Correo ya registrado')
-        
-        user = User(
-            username=username,
-            email=email,
-            password=guard.hash_password(password),
-            first_name=first_name,
-            last_name=last_name,
-            roles=roles,
-            )
-        db.session.add(user)
-        db.session.commit()
-        return jsonify({'message': 'Registro exitoso', 'redirect': 'register_succes'})
-    
-# @app.route("/PostData/<username>", methods=['GET', 'POST'])
-# def post_data(username=None):
-#     if request.method == 'GET' and username:
-#         usuario = User.query.filter_by(username=username).first()
-#         posts = Post.query.filter_by(usuario_id=usuario.id).all()
-#         data = {'data': []}
-#         for post in posts:
-#             post_dict = post.to_dict()
-#             post_dict['user_id'] = usuario.username
-#             data['data'].append(post_dict)
-#         return jsonify(data)
-#     # else:
-#         # Query_result = User.query.order_by(User.id).all()
-#         # data = {'data': []}
-#         # for user in Query_result:
-#         #     user_dict = user.to_dict()
-#         #     if isinstance(user_dict['roles'],dict):
-#         #         user_dict['roles'] = [role for _,role in user_dict['roles'].items()]
-#         #     user_dict['roles'].sort()
-#         #     data['data'].append(user_dict)
-#         # return jsonify(data)
-
-api.add_resource(Data, '/api/data/') 
-api.add_resource(PostData, '/api/posts/')
-api.add_resource(Login, '/api/login/')
-api.add_resource(Register, '/api/register/')
-
+admin.add_view(admin_views.UserView(models.User, db.session, category="Usuario"))
+# admin.add_view(admin_views.PostView(models.PostModel, db.session, category="Post"))
+# admin.add_view(admin_views.ImagesView(models.ImagePostModel, db.session, category="Post"))
+# admin.add_view(admin_views.TagsView(models.TagModel, db.session, category="Post"))
+# admin.add_view(admin_views.CommentsView(models.CommentModel, db.session, category="Post"))
+admin.add_view(admin_views.AdminLoginView(endpoint="login"))

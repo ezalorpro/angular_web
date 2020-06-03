@@ -1,11 +1,15 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+from werkzeug.security import check_password_hash
+from flask_login import UserMixin
+from argon2 import PasswordHasher
 from sqlalchemy.dialects.postgresql import JSON
 from app import db
 
 import datetime
 
+ph = PasswordHasher()
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = Column(Integer, primary_key=True, nullable=False)
     username = Column(String, index=True, unique=True, nullable=False)
     first_name = Column(String, index=True)
@@ -21,6 +25,9 @@ class User(db.Model):
     
     def __repr__(self):
         return f'<User:{self.username}>'
+    
+    def check_password(self, password):
+        return ph.verify(self.password, password)
     
     @property
     def rolenames(self):

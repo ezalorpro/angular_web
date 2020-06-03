@@ -1,0 +1,32 @@
+{% extends 'admin/mybase.html' %}
+
+{% block body %}
+<div class="row">
+  {% if current_user.role in ['admin'] %}
+  <div class="col-sm-8 col-lg-3">
+    <h3 class="text-muted">Usuarios</h3>
+    <div class="list-group">
+      {% for usuario in usuarios %}
+      <a href="{{ url_for('user.details_view', id=usuario.id) }}" class="list-group-item">
+        {{ usuario.username }}<br>
+        {{ usuario.email}}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="col-sm-8 col-lg-6">
+    <h3 class="text-muted">Ultimos post</h3>
+    <div class="list-group">
+      {% for post in posts %}
+      {# <a href="{{ url_for('postmodel.details_view', id=post.id) }}" class="list-group-item">
+        {{ post.title }}<br>
+        <span class="badge"
+          style="background-color: #2196f3;">{{ post.post_date.strftime('%d/%m/%Y  %I:%M:%S %p')}}</span>
+        {{ post.user.username }}
+      </a> #}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock body %}

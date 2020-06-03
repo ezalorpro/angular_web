@@ -16,6 +16,10 @@ marshmallow-sqlalchemy = "*"
 flask-praetorian = "*"
 flask-restful = "*"
 argon2-cffi = "*"
+flask-admin = "*"
+flask-wtf = "*"
+flask-login = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,0 +1,14 @@
+{% extends 'admin/model/create.html' %}
+
+{% block tail %}
+{{ super() }}
+{{ lib.form_js() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/scriptsTag.js') }}" type="text/javascript">
+</script>
+<script>
+  $(document).ready(function () {
+    tinymceFunc("{{ url_for('post_image_handler') }}", "{{ csrf_token() }}")
+  });
+</script>
+{% endblock %}
