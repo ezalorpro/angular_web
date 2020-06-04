@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     avatar = Column(String, index=True)
     avatar_url = Column(String, index=True)
     location = Column(String, index=True)
-    gender = Column(JSON)
+    gender = Column(String, nullable=True)
     information = Column(Text, index=True)
     roles = Column(JSON)
     

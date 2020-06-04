@@ -97,8 +97,9 @@ class UserView(ModelView):
             url_relative_path="images/",
         ),
         "gender": wtforms.SelectField(
+            validate_choice=False,
             label="Genero",
-            choices=[("nulo", "--"), ("hombre", "Hombre"), ("mujer", "Mujer")],
+            choices=[(None, "--"), ("hombre", "Hombre"), ("mujer", "Mujer")],
         ),
         "roles": MultiCheckboxField(
             label="Roles",
