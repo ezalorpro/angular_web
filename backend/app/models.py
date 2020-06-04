@@ -6,9 +6,12 @@ from flask_login import UserMixin
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 from sqlalchemy.dialects.postgresql import JSON
-from app import db
+from sqlalchemy.event import listens_for
+from app import db, login_manager, file_path, op
 
 import datetime
+import os
+
 
 ph = PasswordHasher()
 Base = declarative_base()
@@ -134,3 +137,26 @@ class ImagePost(db.Model):
         backref=backref("imagepost", lazy="dynamic", passive_deletes=True),
     )
     
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
+
+@listens_for(Post, "before_delete")
+def del_post_model(mapper, connection, target):
+    images = ImagePost.query.filter_by(post=target).all()
+    if images:
+        for image in images:
+            try:
+                os.remove(op.join(file_path, image.image_name))
+            except OSError:
+                pass
+
+
+@listens_for(ImagePost, "before_delete")
+def del_image_post_model(mapper, connection, target):
+    if target.image_name:
+        try:
+            os.remove(op.join(file_path, target.image_name))
+        except OSError:
+            pass

@@ -8,10 +8,10 @@ def make_shell_context():
     return {
         "db": db,
         "User": User,
-        "PostModel": Post,
-        "ImagePostModel": ImagePost,
-        "TagModel": Tags,
-        "CommentModel": Comment,
+        "Post": Post,
+        "ImagePost": ImagePost,
+        "Tags": Tags,
+        "Comment": Comment,
     }
 
 

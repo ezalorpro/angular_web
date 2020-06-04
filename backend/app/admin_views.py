@@ -221,12 +221,12 @@ class PostView(ModelView):
         "post_modified": {"readonly": True},
     }
 
-    # @staticmethod
-    # def after_model_change(form, model, is_created):
-    #     from app.views import manage_images
+    @staticmethod
+    def after_model_change(form, model, is_created):
+        from app.utils import manage_images
 
-    #     manage_images(model)
-    #     db.session.commit()
+        manage_images(model)
+        db.session.commit()
 
     def get_query(self):
         if 'admin' in current_user.roles:
@@ -251,29 +251,29 @@ class PostView(ModelView):
         return redirect(url_for("login.admin_login"))
 
 
-# class ImagesView(ModelView):
-#     column_type_formatters = MY_DEFAULT_FORMATTERS
-#     form_args = dict(
-#         post=dict(label="Post", validators=[validators.DataRequired()]),
-#         user=dict(label="Usuario", validators=[validators.DataRequired()]),
-#     )
+class ImagesView(ModelView):
+    column_type_formatters = MY_DEFAULT_FORMATTERS
+    form_args = dict(
+        post=dict(label="Post", validators=[validators.DataRequired()]),
+        user=dict(label="Usuario", validators=[validators.DataRequired()]),
+    )
 
-#     def is_accessible(self):
-#         return current_user.is_authenticated and current_user.role == "admin"
+    def is_accessible(self):
+        return current_user.is_authenticated and 'ROLE_ADMIN' in current_user.roles
 
-#     def inaccessible_callback(self, name, **kwargs):
-#         return redirect(url_for("login.admin_login"))
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("login.admin_login"))
 
 
-# class TagsView(ModelView):
+class TagsView(ModelView):
 
-#     column_list = ["name", "posts"]
+    column_list = ["name", "posts"]
 
-#     def is_accessible(self):
-#         return current_user.is_authenticated and current_user.role == "admin"
+    def is_accessible(self):
+        return current_user.is_authenticated and 'ROLE_ADMIN' in current_user.roles
 
-#     def inaccessible_callback(self, name, **kwargs):
-#         return redirect(url_for("login.admin_login"))
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("login.admin_login"))
 
 
 # class CommentsView(ModelView):
