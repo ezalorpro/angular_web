@@ -41,7 +41,7 @@ admin = Admin(
     app,
     name="Flask Web",
     template_mode="bootstrap3",
-    index_view=admin_views.MyAdminIndexView(),
+    index_view=admin_views.MyAdminIndexView(name='Resumen'),
     base_template='admin/mybase.html'
 )
 
