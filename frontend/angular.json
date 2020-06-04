@@ -13,11 +13,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../backend/app/static",
-            "deployUrl": "/static/",
+            "outputPath": "../backend/app/static/angular",
             "index": {
               "input": "src/index.html",
-              "output": "../templates/index.html"
+              "output": "../../templates/index.html"
             },
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -44,11 +43,12 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
+              "deployUrl": "/static/angular/",
               "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",

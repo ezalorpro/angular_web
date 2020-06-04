@@ -1,6 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="space-around center">
 <mat-list fxLayout="column" fxLayoutAlign="space-around center" class="list-home">
   <div mat-subheader>Ultimos post publicados</div>
+  <mat-divider></mat-divider>
   <mat-list-item *ngFor="let post of posts">
     <mat-icon mat-list-icon>person</mat-icon>
     <div mat-line>{{post.title}}</div>

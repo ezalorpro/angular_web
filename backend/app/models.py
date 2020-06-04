@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 from werkzeug.security import check_password_hash
 from flask_login import UserMixin
 from argon2 import PasswordHasher
+from argon2.exceptions import VerifyMismatchError
 from sqlalchemy.dialects.postgresql import JSON
 from app import db
 
@@ -27,7 +28,11 @@ class User(db.Model, UserMixin):
         return f'<User:{self.username}>'
     
     def check_password(self, password):
-        return ph.verify(self.password, password)
+        try:
+            ph.verify(self.password, password)
+            return True
+        except VerifyMismatchError:
+            return False
     
     @property
     def rolenames(self):

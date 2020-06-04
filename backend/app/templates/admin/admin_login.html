@@ -1,70 +1,60 @@
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/materialicons.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/materialize.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/general.css') }}">
+{% extends 'admin/mybase.html' %}
 
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+{% block access_control %}
+{% endblock access_control %}
 
-  <div class="container">
-    <div class="row">
-      <div class="card-panel hoverable col s12 m10 l6 offset-m1 offset-l3">
-        <form action="{{ url_for('login.admin_login') }}" method="POST" class="col s12">
-          <input type="hidden" name="next" value="{{ request.args.get('next', '') }}" />
+{% block main_menu %}
+{% endblock main_menu %}
 
-          <div class="col s12 center" style="margin-bottom: 10px;">
-            <h5> Ingresar </h5>
-          </div>
 
-          {{ form.csrf_token }}
-          <div class="input-field col s12">
-            <i class="material-icons prefix">perm_identity</i>
-            {{ form.username.label(class="active") }}
-            {{ form.username }}
-            {% if form.username.errors %}
-            <ul>
-              {% for error in form.username.errors %}
-              <li><span class="red-text text-darken-1">{{ error }}</span></li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-          </div>
-          <div class="input-field col s12">
-            <i class="material-icons prefix">lock_open</i>
-            {{ form.password.label(class="active") }}
-            {{ form.password }}
-            {% if form.password.errors %}
-            <ul>
-              {% for error in form.password.errors %}
-              <li><span class="red-text text-darken-1"><i class="material-icons left">cancel</i>
-                  {{ error }}</span></li>
-              {% endfor %}
-            </ul>
-            {% endif %}
+{% block body %}
 
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul>
-              {% for error in messages %}
-              <li><span class="red-text text-darken-1"><i class="material-icons left">cancel</i>
-                  {{ error }}</span></li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
-          </div>
-
-          <div class="col s12 right-align" style="margin-bottom: 20px">
-            <label>
-              {{ form.recordar(class="filled-in checkbox-blue-grey") }}
-              <span>recordarme?</span>
-            </label>
-          </div>
-
-          <div class="col s12 right-align" style="margin-bottom: 20px">
-            <button type="submit" class="btn waves-effect waves-light light-blue accent-4">Acceder<i
-                class="material-icons right">check</i></button>
-          </div>
-
-        </form>
+<div class="container-fluid">
+  <div class="row">
+    <form action="{{ url_for('login.admin_login') }}" method="POST" class="col-md-4 col-md-offset-4">
+      
+      <div class="text-center" style="margin-bottom: 10px;">
+        <h2> Panel de administracion </h2>
       </div>
-    </div>
+
+      <input type="hidden" name="next" value="{{ request.args.get('next', '') }}" />
+      {{ form.csrf_token }}
+
+      <div class="form-group">
+        {{ form.username.label }}
+        {{ form.username(class="form-control") }}
+        {% if form.username.errors %}
+        <ul>
+          {% for error in form.username.errors %}
+          <li><span class="red-text text-darken-1">{{ error }}</span></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <i class="fas fa-key"></i>
+        {{ form.password.label }}
+        {{ form.password(class="form-control") }}
+        {% if form.password.errors %}
+        <ul style="list-style-type: none; color: red; margin-top: 20px;">
+          {% for error in form.password.errors %}
+          <li><i class="glyphicon glyphicon-remove"></i>
+              {{ error }}</span></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+
+      <div class="checkbox">
+        <label>
+          {{ form.recordar }}Remember Me
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-default">Acceder</button>
+
+    </form>
   </div>
+</div>
+{% endblock body %}

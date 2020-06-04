@@ -1,4 +1,4 @@
-from flask import make_response, redirect
+from flask import make_response, redirect, render_template
 from app import app
 
 @app.route('/')
@@ -7,7 +7,7 @@ def main():
 
 @app.route('/home')
 def home():
-    return make_response(open('app/templates/index.html').read())
+    return render_template('index.html')
 
 
 @app.route('/dashboard')

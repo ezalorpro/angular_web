@@ -5,14 +5,12 @@ import { UsersDataComponent } from './components/users-data/users-data.component
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AuthGuardService } from './auth/auth-guard.service';
-import { AppComponent } from './app.component';
 import { SuccesMessageComponent } from './auth/succes-message/succes-message.component';
 import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
-  // { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: '', redirectTo:'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
   { path: 'user-data', component: UsersDataComponent },
