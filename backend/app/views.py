@@ -1,5 +1,7 @@
-from flask import make_response, redirect, render_template
-from app import app
+from flask import make_response, redirect, render_template, request, jsonify, url_for
+from app.models import User, ImagePost, Post
+from app import app, db, photos
+
 
 @app.route('/')
 def main():
@@ -18,3 +20,16 @@ def dashboard():
 @app.route('/login')
 def login():
     return make_response(open('app/templates/index.html').read())
+
+@app.route("/post_image_handler", methods=["POST"], endpoint="post_image_handler")
+def post_image_handler():
+    image = request.files["file"]
+    image_name = request.files["file"].filename
+    image_db = ImagePostModel(user=current_user)
+    db.session.add(image_db)
+    db.session.flush()
+    image_db.path = str(image_db.id) + "-" + image_name
+    image_name = image_db.path
+    db.session.commit()
+    photos.save(image, name=image_name)
+    return jsonify({"location": url_for("static", filename="images/" + image_name)})

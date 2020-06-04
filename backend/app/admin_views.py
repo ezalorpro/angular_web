@@ -61,7 +61,6 @@ class AdminLoginView(BaseView):
         if request.method == "POST":
             if helpers.validate_form_on_submit(form):
                 user = User.query.filter(User.username == form.username.data).first()
-                print(user.roles)
                 if (set.intersection(set(user.roles), set(["ROLE_ADMIN", "ROLE_EDITOR"]))):
                     login_user(user, remember=form.recordar.data)
                     if request.form.get("next"):
@@ -186,73 +185,70 @@ class UserView(ModelView):
         return redirect(url_for("login.admin_login"))
 
 
-# class PostView(ModelView):
-#     can_view_details = True
-#     column_type_formatters = MY_DEFAULT_FORMATTERS
-#     column_type_formatters_detail = MY_DEFAULT_FORMATTERS
-#     details_template = "admin/details_post.html"
-#     edit_template = "admin/edit_post.html"
-#     create_template = "admin/create_post.html"
+class PostView(ModelView):
+    can_view_details = True
+    column_type_formatters = MY_DEFAULT_FORMATTERS
+    column_type_formatters_detail = MY_DEFAULT_FORMATTERS
+    details_template = "admin/details_post.html"
+    edit_template = "admin/edit_post.html"
+    create_template = "admin/create_post.html"
 
-#     form_args = dict(
-#         user=dict(
-#             label="Usuario",
-#             validators=[validators.DataRequired()],
-#             default=current_user,
-#         ),
-#         tags=dict(
-#             label="Tags",
-#             validators=[validators.DataRequired("Debe agregar al menos un tag")],
-#         ),
-#     )
-#     column_list = ["user", "title", "post_date", "post_modified"]
-#     column_details_list = [
-#         "user",
-#         "title",
-#         "post_text",
-#         "post_date",
-#         "post_modified",
-#         "tags",
-#         "comments",
-#     ]
-#     form_columns = ["user", "title", "post_text", "tags"]
-#     form_widget_args = {
-#         "user": {"required": True, "disabled": True},
-#         "post_date": {"readonly": True},
-#         "post_modified": {"readonly": True},
-#     }
+    form_args = dict(
+        user=dict(
+            label="Usuario",
+            validators=[validators.DataRequired()],
+            default=current_user,
+        ),
+        tags=dict(
+            label="Tags",
+            validators=[validators.DataRequired("Debe agregar al menos un tag")],
+        ),
+    )
+    column_list = ["user", "title", "post_date", "post_modified"]
+    column_details_list = [
+        "user",
+        "title",
+        "post_text",
+        "post_date",
+        "post_modified",
+        "tags",
+        "comments",
+    ]
+    form_columns = ["user", "title", "post_text", "tags"]
+    form_widget_args = {
+        "user": {"required": True, "disabled": True},
+        "post_date": {"readonly": True},
+        "post_modified": {"readonly": True},
+    }
 
-#     @staticmethod
-#     def after_model_change(form, model, is_created):
-#         from flask_web_app.views import manage_images
+    # @staticmethod
+    # def after_model_change(form, model, is_created):
+    #     from app.views import manage_images
 
-#         manage_images(model)
-#         db.session.commit()
+    #     manage_images(model)
+    #     db.session.commit()
 
-#     def get_query(self):
-#         if current_user.role in ["admin"]:
-#             return self.session.query(self.model)
-#         else:
-#             return super(PostView, self).get_query().filter_by(user=current_user)
+    def get_query(self):
+        if 'admin' in current_user.roles:
+            return self.session.query(self.model)
+        else:
+            return super(PostView, self).get_query().filter_by(user=current_user)
 
-#     def get_count_query(self):
-#         if current_user.role in ["admin"]:
-#             return self.session.query(func.count(PostModel.id)).select_from(self.model)
-#         else:
-#             return (
-#                 self.session.query(func.count(PostModel.id))
-#                 .select_from(self.model)
-#                 .filter_by(user=current_user)
-#             )
+    def get_count_query(self):
+        if 'admin' in current_user.roles:
+            return self.session.query(func.count(Post.id)).select_from(self.model)
+        else:
+            return (
+                self.session.query(func.count(Post.id))
+                .select_from(self.model)
+                .filter_by(user=current_user)
+            )
 
-#     def is_accessible(self):
-#         return current_user.is_authenticated and current_user.role in [
-#             "admin",
-#             "editor",
-#         ]
+    def is_accessible(self):
+        return current_user.is_authenticated and (set.intersection(set(current_user.roles), set(["ROLE_ADMIN", "ROLE_EDITOR"])))
 
-#     def inaccessible_callback(self, name, **kwargs):
-#         return redirect(url_for("login.admin_login"))
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("login.admin_login"))
 
 
 # class ImagesView(ModelView):

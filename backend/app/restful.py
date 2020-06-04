@@ -1,9 +1,9 @@
 from flask_praetorian.utilities import current_user_id
 from app.schemas import UserSchema, PostSchema
-from flask import request, jsonify, abort
+from flask import request, jsonify, abort, url_for
 from flask_restful import Resource
-from app.models import User, Post
-from app import db, guard, api
+from app.models import User, Post, Tags, Comment, ImagePost
+from app import db, guard, api, photos
 
 import flask_praetorian as fprae
 
@@ -15,7 +15,6 @@ class Data(Resource):
     def get(self):
         users = User.query.order_by(User.id).all()
         user_schema = UserSchema(many=True)
-        print(current_user_id())
         return user_schema.dump(users)
     
     def post(self):
@@ -89,7 +88,25 @@ class Register(Resource):
 #         #     data['data'].append(user_dict)
 #         # return jsonify(data)
 
+class PostImageHandlerApi(Resource):
+    
+    method_decorators = [fprae.auth_required]
+    
+    def post(self):
+        image = request.files["file"]
+        image_name = request.files["file"].filename
+        user = User.query.get(current_user_id())
+        image_db = ImagePost(user=user)
+        db.session.add(image_db)
+        db.session.flush()
+        image_db.path = str(image_db.id) + "-" + image_name
+        image_name = image_db.path
+        db.session.commit()
+        photos.save(image, name=image_name)
+        return jsonify({"location": url_for("static", filename="images/" + image_name)})
+
 api.add_resource(Data, '/api/data/') 
 api.add_resource(PostData, '/api/posts/')
 api.add_resource(LoginApi, '/api/login/')
 api.add_resource(Register, '/api/register/')
+api.add_resource(PostImageHandlerApi, '/api/post_image_handler/')

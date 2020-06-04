@@ -20,6 +20,10 @@ flask-admin = "*"
 flask-wtf = "*"
 flask-login = "*"
 pillow = "*"
+flask-uploads = "*"
+flask-migrate = "*"
+dotenv = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
