@@ -16,6 +16,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { ProfileModule } from './profile/profile.module';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     MaterialModule,
     FormsModule,
     AuthModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ProfileModule
   ],
   providers: [RestService],
   bootstrap: [AppComponent]
