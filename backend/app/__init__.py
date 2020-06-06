@@ -26,7 +26,9 @@ app.config.from_pyfile("../instance/config.py")
 
 
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-api = Api(app)
+csrf = CSRFProtect(app)
+csrf.init_app(app)
+api = Api(app, decorators=[csrf.exempt])
 guard = fprae.Praetorian()
 db = SQLAlchemy(app)
 migrate = Migrate(app, db, compare_type=True)
@@ -36,8 +38,7 @@ login_manager.init_app(app)
 photos = UploadSet("photos", IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app)
-csrf = CSRFProtect(app)
-csrf.init_app(app)
+
 
 
 from app import admin_views

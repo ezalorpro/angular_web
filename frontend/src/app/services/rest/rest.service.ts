@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Data } from '../../models/data.model';
+import { UserData } from '../../models/userdata.model';
 import { API_URL } from '../../env';
 import { Post } from 'src/app/models/post.model';
 
@@ -17,12 +17,8 @@ export class RestService {
     return throwError(error.message || 'Error: unable to complete request')
   }
 
-  getData(): Observable<Data[]>{
-    return this.httpclient.get<Data[]>(`${API_URL}/data/`).pipe(catchError(this._handleError))
-  }
-
-  getUserData(username: string): Observable<Data>{
-    return this.httpclient.post<Data>(`${API_URL}/data/`, username).pipe(catchError(this._handleError))
+  getUserData(): Observable<UserData>{
+    return this.httpclient.get<UserData>(`${API_URL}/userdata/`).pipe(catchError(this._handleError))
   }
 
   getPostData(username: string): Observable<Post[]> {

@@ -111,6 +111,7 @@ class UserView(ModelView):
     }
 
     column_list = [
+        "id",
         "username",
         "email",
         "first_name",

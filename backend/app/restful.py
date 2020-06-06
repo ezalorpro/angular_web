@@ -8,20 +8,15 @@ from app import db, guard, api, photos
 import flask_praetorian as fprae
 
 
-class Data(Resource):
+class UserData(Resource):
     
     method_decorators = [fprae.auth_required]
     
     def get(self):
-        users = User.query.order_by(User.id).all()
-        user_schema = UserSchema(many=True)
+        users = User.query.filter_by(id=current_user_id()).first()
+        user_schema = UserSchema(exclude=['password', 'avatar_url', 'roles'])
+        print(user_schema.dump(users))
         return user_schema.dump(users)
-    
-    def post(self):
-        username = request.get_json()['username']
-        user = User.query.filter_by(username=username).first()
-        user_schema = UserSchema()
-        return user_schema.dump(user)
 
 
 class PostData(Resource):    
@@ -33,6 +28,7 @@ class PostData(Resource):
 class LoginApi(Resource):
     def post(self):
         credentials = request.get_json(force=True)
+        print(credentials)
         user = guard.authenticate(**credentials)
         token = guard.encode_jwt_token(user)
         return jsonify({'idToken': token, 'expiresAt': 86400})
@@ -105,7 +101,7 @@ class PostImageHandlerApi(Resource):
         photos.save(image, name=image_name)
         return jsonify({"location": url_for("static", filename="images/" + image_name)})
 
-api.add_resource(Data, '/api/data/') 
+api.add_resource(UserData, '/api/userdata/') 
 api.add_resource(PostData, '/api/posts/')
 api.add_resource(LoginApi, '/api/login/')
 api.add_resource(Register, '/api/register/')

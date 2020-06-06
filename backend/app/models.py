@@ -14,7 +14,6 @@ import os
 
 
 ph = PasswordHasher()
-Base = declarative_base()
 
 class User(db.Model, UserMixin):
     id = Column(Integer, primary_key=True, nullable=False)

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
 import { RestService } from './services/rest/rest.service';
-import { UsersDataComponent } from './components/users-data/users-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -22,7 +21,6 @@ import { ProfileModule } from './profile/profile.module';
 @NgModule({
   declarations: [
     AppComponent,
-    UsersDataComponent,
     DashboardComponent,
     HomeComponent,
     ToolbarComponent,
