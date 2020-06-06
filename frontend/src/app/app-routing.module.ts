@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
   { path: '', redirectTo:'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
-  { path: 'profile', component: ProfileViewComponent },
+  { path: 'profile', component: ProfileViewComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'register_succes', component: SuccesMessageComponent}

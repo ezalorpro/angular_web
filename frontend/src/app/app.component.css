@@ -5,6 +5,8 @@
   left: 0;
   right: 0;
   background: #fff;
+  align-items: center;
+  align-content: center;
 }
 
 .sidenav-right {

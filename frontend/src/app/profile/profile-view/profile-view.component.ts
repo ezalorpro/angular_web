@@ -18,6 +18,7 @@ export class ProfileViewComponent implements OnInit {
       .subscribe(
         res => {
           this.userdata = res;
+          console.log(this.userdata)
       }
     )
   }
