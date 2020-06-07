@@ -1,1 +1,81 @@
-<p>profile-edit works!</p>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <mat-card fxLayout="column" fxLayoutAlign="space-around center">
+
+    <mat-card-header>
+      <mat-card-title>Editar perfil</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center stretch" class="form-edit_profile">
+        
+        <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="20px" fxLayout="column" fxLayoutGap="20px" fxFlex="100"
+          fxLayoutAlign="space-between space-between">
+          
+          <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start center">
+            <div mat-card-avatar class="example-header-image"></div>
+            <a mat-button mat-raised-button color="primary" [routerLink]="['/edit_profile']"
+              routerLinkActive="router-link-active">CAMBIAR</a>
+          </div>
+          
+          <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center center">
+            <!-- Nombre -->
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" placeholder="Nombre">
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+
+            <!-- Apellido -->
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido</mat-label>
+              <input matInput type="text" placeholder="Apellido">
+              <mat-icon matSuffix>person_add</mat-icon>
+            </mat-form-field>
+          </div>
+          
+        </div>
+
+        <!-- Correo -->
+        <mat-form-field appearance="outline">
+          <mat-label>Correo</mat-label>
+          <input matInput type="text" placeholder="Correo" required>
+          <mat-icon matSuffix>mail</mat-icon>
+        </mat-form-field>
+
+        <!-- Genero -->
+        <mat-form-field appearance="outline">
+          <mat-label>Genero</mat-label>
+          <mat-select name="Genero">
+            <mat-option>--</mat-option>
+            <mat-option [value]="'Hombre'">Hombre</mat-option>
+            <mat-option [value]="'Mujer'">Mujer</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>wc</mat-icon>
+        </mat-form-field>
+
+        <!-- Localizacion -->
+        <mat-form-field appearance="outline">
+          <mat-label>Localizacion</mat-label>
+          <input matInput type="text" placeholder="Localizacion">
+          <mat-icon matSuffix>location_city</mat-icon>
+        </mat-form-field>
+
+        <!-- Informacion -->
+        <mat-form-field appearance="outline">
+          <mat-label>Informacion</mat-label>
+          <textarea matInput placeholder="Informacion..."></textarea>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+          <a mat-button mat-raised-button color="warn" [routerLink]="['/profile']">
+            Cancelar
+          </a>
+          <button mat-button mat-raised-button class="button-register" color="primary">
+            <mat-icon>input</mat-icon> Enviar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+
+  </mat-card>
+</div>

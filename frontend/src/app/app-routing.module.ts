@@ -7,6 +7,7 @@ import { AuthGuardService } from './auth/auth-guard.service';
 import { SuccesMessageComponent } from './auth/succes-message/succes-message.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileViewComponent } from './profile/profile-view/profile-view.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: '', redirectTo:'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
   { path: 'profile', component: ProfileViewComponent, canActivate: [AuthGuardService] },
+  { path: 'edit_profile', component: ProfileEditComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'register_succes', component: SuccesMessageComponent}

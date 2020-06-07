@@ -1,4 +1,4 @@
-.card-register {
+.form-register {
   min-width: 300px;
 }
 
@@ -10,4 +10,8 @@
 
 .button-register {
   width: min-content;
+}
+
+mat-card-header {
+  padding: 12px;
 }

@@ -1,0 +1,25 @@
+mat-card {
+    width: 420px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.mat-card-avatar {
+  width: 120px;
+  height: 120px;
+}
+
+mat-form-field {
+  width: -webkit-fill-available;
+}
+
+.form-edit_profile {
+  width: 380px;
+}
+
+mat-card-header {
+  padding: 12px;
+}
