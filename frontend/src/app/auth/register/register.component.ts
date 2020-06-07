@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from '../login/login.component';
 import { AuthDialogService } from '../auth-dialog.service';
 
 @Component({

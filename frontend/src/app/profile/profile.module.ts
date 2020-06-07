@@ -6,6 +6,7 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RestService } from '../services/rest/rest.service';
 
 
 
@@ -18,6 +19,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     RouterModule,
     MaterialModule,
     FlexLayoutModule
+  ],
+  providers: [
+    RestService
   ]
 })
 export class ProfileModule { }

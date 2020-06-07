@@ -21,6 +21,10 @@ export class RestService {
     return this.httpclient.get<UserData>(`${API_URL}/userdata/`).pipe(catchError(this._handleError))
   }
 
+  postUserData(data: UserData) {
+    return this.httpclient.post(`${API_URL}/userdata/`, data)
+  } 
+
   getPostData(username: string): Observable<Post[]> {
     return this.httpclient.get<Post[]>(`${API_URL}/posts/${username}/`).pipe(catchError(this._handleError))
   }

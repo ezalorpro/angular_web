@@ -13,12 +13,22 @@ class UserData(Resource):
     method_decorators = [fprae.auth_required]
     
     def get(self):
-        users = User.query.filter_by(id=current_user_id()).first()
+        user = User.query.filter_by(id=current_user_id()).first()
         user_schema = UserSchema(exclude=['password', 'avatar_url', 'roles'])
-        print(user_schema.dump(users))
-        return user_schema.dump(users)
+        return user_schema.dump(user)
 
-
+    def post(self):
+        user = User.query.filter_by(id=current_user_id()).first()
+        new_data = request.get_json(force=True)
+        
+        if User.query.filter_by(email=new_data.get('email', None)).first() and user.email != new_data.get('email', None):
+            return abort(409, 'Correo ya registrado')
+        
+        for key, value in new_data.items():
+            setattr(user, key, value)
+        
+        db.session.commit()
+        return jsonify({'message': 'Perfil editado exitosamente!', 'redirect': 'profile'})
 class PostData(Resource):    
     def get(self):
         posts = Post.query.all()
@@ -28,7 +38,6 @@ class PostData(Resource):
 class LoginApi(Resource):
     def post(self):
         credentials = request.get_json(force=True)
-        print(credentials)
         user = guard.authenticate(**credentials)
         token = guard.encode_jwt_token(user)
         return jsonify({'idToken': token, 'expiresAt': 86400})

@@ -6,7 +6,9 @@
     </mat-card-header>
 
     <mat-card-content>
-      <form fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center stretch" class="form-edit_profile">
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="onUpdate(form.value)" fxLayout="column" fxLayoutGap="5px"
+        fxLayoutAlign="center stretch"
+        class="form-edit_profile">
         
         <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="20px" fxLayout="column" fxLayoutGap="20px" fxFlex="100"
           fxLayoutAlign="space-between space-between">
@@ -21,31 +23,34 @@
             <!-- Nombre -->
             <mat-form-field appearance="outline">
               <mat-label>Nombre</mat-label>
-              <input matInput type="text" placeholder="Nombre">
+              <input matInput type="text" placeholder="Nombre" formControlName="first_name">
               <mat-icon matSuffix>person</mat-icon>
             </mat-form-field>
 
             <!-- Apellido -->
             <mat-form-field appearance="outline">
               <mat-label>Apellido</mat-label>
-              <input matInput type="text" placeholder="Apellido">
+              <input matInput type="text" placeholder="Apellido" formControlName="last_name">
               <mat-icon matSuffix>person_add</mat-icon>
             </mat-form-field>
           </div>
-          
+
         </div>
 
         <!-- Correo -->
         <mat-form-field appearance="outline">
           <mat-label>Correo</mat-label>
-          <input matInput type="text" placeholder="Correo" required>
+          <input matInput type="text" placeholder="Correo" required formControlName="email">
+          <mat-error *ngIf="form.controls.email.invalid">Correo no valido.</mat-error>
           <mat-icon matSuffix>mail</mat-icon>
         </mat-form-field>
+
+        <span *ngIf="error" class="error-span">{{error}}</span>
 
         <!-- Genero -->
         <mat-form-field appearance="outline">
           <mat-label>Genero</mat-label>
-          <mat-select name="Genero">
+          <mat-select name="Genero" formControlName="gender">
             <mat-option>--</mat-option>
             <mat-option [value]="'Hombre'">Hombre</mat-option>
             <mat-option [value]="'Mujer'">Mujer</mat-option>
@@ -56,14 +61,14 @@
         <!-- Localizacion -->
         <mat-form-field appearance="outline">
           <mat-label>Localizacion</mat-label>
-          <input matInput type="text" placeholder="Localizacion">
+          <input matInput type="text" placeholder="Localizacion" formControlName="location">
           <mat-icon matSuffix>location_city</mat-icon>
         </mat-form-field>
 
         <!-- Informacion -->
         <mat-form-field appearance="outline">
           <mat-label>Informacion</mat-label>
-          <textarea matInput placeholder="Informacion..."></textarea>
+          <textarea matInput placeholder="Informacion..." formControlName="information"></textarea>
         </mat-form-field>
 
         <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
@@ -71,7 +76,7 @@
             Cancelar
           </a>
           <button mat-button mat-raised-button class="button-register" color="primary">
-            <mat-icon>input</mat-icon> Enviar
+            <mat-icon>save</mat-icon> Enviar
           </button>
         </div>
       </form>

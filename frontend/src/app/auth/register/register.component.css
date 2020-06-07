@@ -15,3 +15,7 @@
 mat-card-header {
   padding: 12px;
 }
+
+mat-card {
+  margin: 20px;
+}
