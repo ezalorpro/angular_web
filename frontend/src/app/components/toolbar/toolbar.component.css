@@ -11,3 +11,8 @@ span.main-title:focus {
 span.main-title:hover {
   cursor: pointer;
 }
+
+.app-toolbar{
+  position: fixed;
+  z-index: 2;
+}

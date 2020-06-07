@@ -1,23 +1,19 @@
-<div gdAreas="header header | sidenav content" gdRows="auto auto" gdColumns="100%">
-  
+<div>
   <!-- Navbar (Barra superior) -->
-  <div gdArea="header">
-    <app-toolbar></app-toolbar>
+  <div>
+    <app-toolbar [drawer]="drawer"></app-toolbar>
   </div>
   
-
-  <mat-drawer-container class="main-container">
-
+  <mat-sidenav-container class="main-container">
     <!-- Sidenav (Barra lateral) -->
-    <mat-drawer opened mode="side" class="sidenav-right" gdArea="sidenav">
+    <mat-sidenav #drawer [opened]="media.isActive('gt-sm')" [mode]="media.isActive('gt-sm') ? 'side' : 'over'"
+      hasBackdrop="false">
       <app-sidenav></app-sidenav>
-    </mat-drawer>
+    </mat-sidenav>
 
     <!-- Contenido -->
-    <mat-drawer-content gdArea="content">
+    <mat-sidenav-content class="main-content">
       <router-outlet></router-outlet>
-    </mat-drawer-content>
-
-  </mat-drawer-container>
-
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

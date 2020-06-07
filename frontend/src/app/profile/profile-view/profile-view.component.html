@@ -1,19 +1,72 @@
-<div fxLayout="row" fxLayoutAlign="center center">
-  <mat-card fxLayout="column" fxLayoutAlign="space-around center">
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="userdata">
+  <mat-card fxLayout="column" fxLayoutAlign="center center">
 
-    <mat-card-header>
-      <mat-card-title>Perfil</mat-card-title>
-    </mat-card-header>
+    <div class="div-avatar" fxLayout="row" fxLayoutAlign="space-around center">
+      <div mat-card-avatar class="example-header-image"></div>
+      <a mat-button mat-raised-button>EDITAR</a>
+    </div>
+          
+    <mat-card-content fxLayout="column" fxLayoutAlign="center center">
 
-    <mat-card-content>
-      <mat-list fxLayout="column" fxLayoutAlign="center center">
-        <mat-list-item>{{ userdata.username }}</mat-list-item>
-        <mat-list-item>{{ userdata.first_name }} {{ userdata.last_name }}</mat-list-item>
-        <mat-list-item>{{ userdata.email }}</mat-list-item>
-        <mat-list-item>{{ userdata.gender }}</mat-list-item>
-        <mat-list-item>{{ userdata.location }}</mat-list-item>
-        <mat-list-item>{{ userdata.information }}</mat-list-item>
+      <mat-list fxLayout="row wrap" fxLayoutAlign="space-around center">
+
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <!-- Usuario -->
+          <mat-list-item>
+            <mat-icon mat-list-icon>person_outline</mat-icon>
+            <div mat-line> Usuario </div>
+            <div mat-line> {{ userdata.username }} </div>
+          </mat-list-item>
+        </div>
+        
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <!-- Nombre y apellido -->
+          <mat-list-item>
+            <mat-icon mat-list-icon>person</mat-icon>
+            <div mat-line> Nombre </div>
+            <div mat-line> {{ userdata.first_name }} {{ userdata.last_name }} </div>
+          </mat-list-item>
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <!-- Correo -->
+          <mat-list-item>
+            <mat-icon mat-list-icon>mail</mat-icon>
+            <div mat-line> Correo </div>
+            <div mat-line> {{ userdata.email }} </div>
+          </mat-list-item>
+        </div>
+        
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <!-- Genero -->
+          <mat-list-item>
+            <mat-icon mat-list-icon>wc</mat-icon>
+            <div mat-line> Genero </div>
+            <div mat-line> {{ userdata.gender }} </div>
+          </mat-list-item>
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <!-- Localizacion -->
+          <mat-list-item>
+            <mat-icon mat-list-icon>location_city</mat-icon>
+            <div mat-line> Localizacion </div>
+            <div mat-line> {{ userdata.location }} </div>
+          </mat-list-item>
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <!-- Informacion -->
+          <mat-list-item>
+            <mat-icon mat-list-icon>info</mat-icon>
+            <div mat-line> Informacion </div>
+            <div mat-line> {{ userdata.information }} </div>
+          </mat-list-item>
+        </div>
+
       </mat-list>
+
     </mat-card-content>
+
   </mat-card>
 </div>
