@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { Post } from 'src/app/models/post.model';
 import { UserData } from 'src/app/models/userdata.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,10 @@ export class HomeComponent implements OnInit {
   posts: Post[];
   userdata: UserData;
 
-  constructor(private restService: RestService) { }
+  constructor(
+    private restService: RestService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.restService.getPosts().subscribe(
@@ -25,11 +29,13 @@ export class HomeComponent implements OnInit {
         console.log('error:', error)
       }
     )
-    this.restService.getUserData().subscribe(
-      res => {
-        this.userdata = res
-      }
-    )
+    if (this.authService.isLoggedIn()) {
+      this.restService.getUserData().subscribe(
+        res => {
+          this.userdata = res
+        }
+      )
+    }
   }
 
 }

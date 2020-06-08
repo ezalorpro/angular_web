@@ -8,15 +8,10 @@
       </div>
       <div *ngIf="!userdata.avatar_url" mat-card-avatar class="example-header-image"
         style="background-image: url('/static/images/default.png');"></div>
-      <mat-list fxLayout="column" fxLayoutAlign="start stretch">
-        <div fxFlex="100" fxFlex.gt-xs="50">
-          <!-- Usuario -->
-          <mat-list-item class="text-white">
-            <div mat-line> Usuario </div>
-            <div mat-line> {{ userdata.username }} </div>
-          </mat-list-item>
-        </div>
-      </mat-list>
+      <div fxLayout="column" fxLayoutAlign="center center">
+          <p class="first-line"> Usuario </p>
+          <p class="second-line"> {{ userdata.username }} </p>
+      </div>
       <a mat-button mat-raised-button [routerLink]="['/edit_profile']" routerLinkActive="router-link-active">EDITAR</a>
     </div>
           

@@ -13,9 +13,8 @@ import { AuthModule } from './auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './components/home/home.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ProfileModule } from './profile/profile.module';
+import { GenericModule } from './generic/generic.module';
 
 
 @NgModule({
@@ -23,8 +22,6 @@ import { ProfileModule } from './profile/profile.module';
     AppComponent,
     DashboardComponent,
     HomeComponent,
-    ToolbarComponent,
-    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +33,8 @@ import { ProfileModule } from './profile/profile.module';
     FormsModule,
     AuthModule,
     FlexLayoutModule,
-    ProfileModule
+    ProfileModule,
+    GenericModule
   ],
   providers: [RestService],
   bootstrap: [AppComponent]

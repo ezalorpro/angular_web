@@ -14,8 +14,14 @@ mat-list {
   text-align: center;
 }
 
-.text-white {
-  color: #fff
+.first-line {
+  color: #fff;
+  font-size: 20pt;
+}
+
+.second-line {
+  color: #fff;
+  font-size: 16pt;
 }
 
 .example-spacer {
