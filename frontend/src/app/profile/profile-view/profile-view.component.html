@@ -1,27 +1,28 @@
 <div fxLayout="row" fxLayoutAlign="center center" *ngIf="userdata">
-  <mat-card fxLayout="column" fxLayoutAlign="center center" fxFlex.gt-md="50" fxFlex.gt-sm="75" fxFlex="90">
+  <mat-card fxLayout.gt-xs="row" fxLayout="column" fxLayoutAlign="stretch stretch" fxFlex.gt-md="50"
+    fxFlex.gt-sm="60" fxFlex.gt-xs="80" fxFlex="90">
 
-    <div class="div-avatar" fxLayout="row" fxLayoutAlign="space-around center">
+    <div class="div-avatar" fxLayout="column" fxLayoutAlign="space-around center" fxFlex="35">
       <div *ngIf="userdata.avatar_url" mat-card-avatar class="example-header-image"
         style="background-image: url('{{ userdata.avatar_url }}');">
       </div>
       <div *ngIf="!userdata.avatar_url" mat-card-avatar class="example-header-image"
         style="background-image: url('/static/images/default.png');"></div>
+      <mat-list fxLayout="column" fxLayoutAlign="start stretch">
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <!-- Usuario -->
+          <mat-list-item class="text-white">
+            <div mat-line> Usuario </div>
+            <div mat-line> {{ userdata.username }} </div>
+          </mat-list-item>
+        </div>
+      </mat-list>
       <a mat-button mat-raised-button [routerLink]="['/edit_profile']" routerLinkActive="router-link-active">EDITAR</a>
     </div>
           
     <mat-card-content fxLayout="column" fxLayoutAlign="center center">
 
-      <mat-list fxLayout="row wrap" fxLayoutAlign="space-around center">
-
-        <div fxFlex="100" fxFlex.gt-xs="50">
-          <!-- Usuario -->
-          <mat-list-item>
-            <mat-icon mat-list-icon>person_outline</mat-icon>
-            <div mat-line> Usuario </div>
-            <div mat-line> {{ userdata.username }} </div>
-          </mat-list-item>
-        </div>
+      <mat-list fxLayout="column" fxLayoutAlign="start stretch">
         
         <div fxFlex="100" fxFlex.gt-xs="50">
           <!-- Nombre y apellido -->

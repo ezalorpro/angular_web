@@ -2,14 +2,20 @@ mat-card {
   padding: 0px;
   /* min-width: 400px; */
   max-width: 90%;
+  margin: 20px;
 }
 
 mat-card-content {
   padding: 16px;
+  width: -webkit-fill-available;
 }
 
 mat-list {
   text-align: center;
+}
+
+.text-white {
+  color: #fff
 }
 
 .example-spacer {
@@ -28,9 +34,8 @@ mat-list {
 
 .div-avatar {
   background-color: #3f51b5;
-  width: -webkit-fill-available;
   padding-top: 12px;
   padding-bottom: 12px;
   border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-bottom-left-radius: 4px
 }
