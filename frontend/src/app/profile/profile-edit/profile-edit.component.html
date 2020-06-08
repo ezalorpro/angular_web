@@ -15,7 +15,7 @@
           
           <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start center">
             <div *ngIf="avatar" mat-card-avatar class="example-header-image"
-              style="background-image: url('{{ avatar }}');"></div>
+              style="background-image: url({{ avatar }});"></div>
             <div *ngIf="!avatar" mat-card-avatar class="example-header-image"
               style="background-image: url('/static/images/default.png');"></div>
             <input id="file" type="file" hidden (change)="onFileChange($event)">

@@ -1,3 +1,7 @@
 .list-home {
-    min-width: 70%;
+    min-width: 380px;
+}
+
+.image {
+    background-size: cover;
 }
