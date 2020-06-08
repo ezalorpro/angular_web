@@ -7,5 +7,5 @@ export interface UserData {
     location: string,
     information: string,
     gender: string,
-    avatar: string
+    avatar_url: string
 }

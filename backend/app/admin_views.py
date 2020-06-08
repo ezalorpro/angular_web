@@ -135,6 +135,7 @@ class UserView(ModelView):
                 "information",
                 "roles",
                 "avatar",
+                "avatar_url"
             ]
         )
     ]
@@ -152,6 +153,7 @@ class UserView(ModelView):
                 "information",
                 "roles",
                 "avatar",
+                "avatar_url"
             ]
         )
     ]

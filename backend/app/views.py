@@ -10,18 +10,13 @@ def main():
     return redirect('home')
 
 @app.route('/home')
+@app.route('/dashboard')
+@app.route('/login')
+@app.route('/register')
+@app.route('/profile')
+@app.route('/edit_profile')
 def home():
     return render_template('index.html')
-
-
-@app.route('/dashboard')
-def dashboard():
-    return make_response(open('app/templates/index.html').read())
-
-
-@app.route('/login')
-def login():
-    return make_response(open('app/templates/index.html').read())
 
 @app.route("/post_image_handler", methods=["POST"], endpoint="post_image_handler")
 def post_image_handler():

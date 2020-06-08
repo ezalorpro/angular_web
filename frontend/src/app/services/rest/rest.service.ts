@@ -21,7 +21,10 @@ export class RestService {
     return this.httpclient.get<UserData>(`${API_URL}/userdata/`).pipe(catchError(this._handleError))
   }
 
-  postUserData(data: UserData) {
+  postUserData(data: UserData, file_data) {
+    data['avatar_file_data'] = file_data['data']
+    data['avatar'] = file_data['name']
+    data['avatar_url'] = '/static/images/'+ file_data['name']
     return this.httpclient.post(`${API_URL}/userdata/`, data)
   } 
 

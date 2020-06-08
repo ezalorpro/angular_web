@@ -1,9 +1,13 @@
 from flask_praetorian.utilities import current_user_id
 from app.schemas import UserSchema, PostSchema
+from werkzeug.datastructures import FileStorage
+from base64 import b64decode
+from io import BytesIO
 from flask import request, jsonify, abort, url_for
 from flask_restful import Resource
 from app.models import User, Post, Tags, Comment, ImagePost
 from app import db, guard, api, photos
+from app.utils import prefix_name
 
 import flask_praetorian as fprae
 
@@ -14,21 +18,36 @@ class UserData(Resource):
     
     def get(self):
         user = User.query.filter_by(id=current_user_id()).first()
-        user_schema = UserSchema(exclude=['password', 'avatar_url', 'roles'])
+        user_schema = UserSchema(exclude=['password', 'avatar', 'roles'])
         return user_schema.dump(user)
 
     def post(self):
         user = User.query.filter_by(id=current_user_id()).first()
         new_data = request.get_json(force=True)
-        
         if User.query.filter_by(email=new_data.get('email', None)).first() and user.email != new_data.get('email', None):
             return abort(409, 'Correo ya registrado')
         
         for key, value in new_data.items():
-            setattr(user, key, value)
+            if 'avatar' not in key:
+                setattr(user, key, value)
+                
+        avatar_image = new_data.get('avatar_file_data', None)
         
+        if avatar_image:
+            # if len(avatar_image) % 4:
+            #     avatar_image += '=' * (4 - len(avatar_image) % 4)
+            avatar_image = avatar_image.replace('data:image/png;base64,', '')
+            image_storage = FileStorage(BytesIO(b64decode(avatar_image)), 
+                                        filename=new_data.get('avatar'))
+            file_name = prefix_name(user, image_storage)
+            photos.save(image_storage, name=file_name)
+            user.avatar = file_name
+            user.avatar_url = url_for('static', filename='images/'+file_name)
+                        
         db.session.commit()
         return jsonify({'message': 'Perfil editado exitosamente!', 'redirect': 'profile'})
+    
+    
 class PostData(Resource):    
     def get(self):
         posts = Post.query.all()
