@@ -1,5 +1,4 @@
 mat-card {
-    width: 420px;
     margin: 20px;
 }
 
@@ -12,8 +11,8 @@ mat-card {
   height: 120px;
 }
 
-mat-form-field {
-  width: -webkit-fill-available;
+::ng-deep .mat-form-field-infix {
+  width: auto !important;
 }
 
 .error-span {
@@ -24,9 +23,9 @@ mat-form-field {
   font-size: 75%;
 }
 
-.form-edit_profile {
+/* .form-edit_profile {
   width: 380px;
-}
+} */
 
 mat-card-header {
   padding: 12px;

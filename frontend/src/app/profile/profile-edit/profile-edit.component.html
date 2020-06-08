@@ -1,17 +1,16 @@
 <div fxLayout="row" fxLayoutAlign="center center">
-  <mat-card fxLayout="column" fxLayoutAlign="space-around center">
+  <mat-card fxLayout="column" fxLayoutAlign="stretch center" fxFlex="90" fxFlex.gt-xs="70" fxFlex.gt-md="60">
 
     <mat-card-header>
       <mat-card-title>Editar perfil</mat-card-title>
     </mat-card-header>
 
-    <mat-card-content>
+    <mat-card-content fxFill>
       <form *ngIf="form" [formGroup]="form" (ngSubmit)="onUpdate(form.value)" fxLayout="column" fxLayoutGap="5px"
         fxLayoutAlign="center stretch"
         class="form-edit_profile">
         
-        <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="20px" fxLayout="column" fxLayoutGap="20px" fxFlex="100"
-          fxLayoutAlign="space-between space-between">
+        <div fxLayout.gt-xs="row" fxLayoutGap.gt-sm="20px" fxLayout="column" fxLayoutGap="20px" fxFlex fxLayoutAlign="space-between space-between">
           
           <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start center">
             <div *ngIf="avatar" mat-card-avatar class="example-header-image"
@@ -22,51 +21,55 @@
             <label class="label-buttom" color="primary" for="file">CAMBIAR</label>
           </div>
           
-          <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center center">
-            <!-- Nombre -->
-            <mat-form-field appearance="outline">
-              <mat-label>Nombre</mat-label>
-              <input matInput type="text" placeholder="Nombre" formControlName="first_name">
-              <mat-icon matSuffix>person</mat-icon>
-            </mat-form-field>
+          <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start stretch" fxFlex>
+            <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="stretch stretch">
+              <!-- Nombre -->
+              <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Nombre</mat-label>
+                <input matInput type="text" placeholder="Nombre" formControlName="first_name">
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
 
-            <!-- Apellido -->
-            <mat-form-field appearance="outline">
-              <mat-label>Apellido</mat-label>
-              <input matInput type="text" placeholder="Apellido" formControlName="last_name">
-              <mat-icon matSuffix>person_add</mat-icon>
+              <!-- Apellido -->
+              <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Apellido</mat-label>
+                <input matInput type="text" placeholder="Apellido" formControlName="last_name">
+                <mat-icon matSuffix>person_add</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <!-- Correo -->
+            <mat-form-field appearance="outline" class="formFieldFit">
+              <mat-label>Correo</mat-label>
+              <input matInput type="text" placeholder="Correo" required formControlName="email">
+              <mat-error *ngIf="form.controls.email.invalid">Correo no valido.</mat-error>
+              <mat-icon matSuffix>mail</mat-icon>
             </mat-form-field>
           </div>
 
         </div>
 
-        <!-- Correo -->
-        <mat-form-field appearance="outline">
-          <mat-label>Correo</mat-label>
-          <input matInput type="text" placeholder="Correo" required formControlName="email">
-          <mat-error *ngIf="form.controls.email.invalid">Correo no valido.</mat-error>
-          <mat-icon matSuffix>mail</mat-icon>
-        </mat-form-field>
-
         <span *ngIf="error" class="error-span">{{error}}</span>
 
-        <!-- Genero -->
-        <mat-form-field appearance="outline">
-          <mat-label>Genero</mat-label>
-          <mat-select name="Genero" formControlName="gender">
-            <mat-option>--</mat-option>
-            <mat-option [value]="'Hombre'">Hombre</mat-option>
-            <mat-option [value]="'Mujer'">Mujer</mat-option>
-          </mat-select>
-          <mat-icon matSuffix>wc</mat-icon>
-        </mat-form-field>
+        <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="stretch stretch">
+          <!-- Genero -->
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Genero</mat-label>
+            <mat-select name="Genero" formControlName="gender">
+              <mat-option>--</mat-option>
+              <mat-option [value]="'Hombre'">Hombre</mat-option>
+              <mat-option [value]="'Mujer'">Mujer</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>wc</mat-icon>
+          </mat-form-field>
 
-        <!-- Localizacion -->
-        <mat-form-field appearance="outline">
-          <mat-label>Localizacion</mat-label>
-          <input matInput type="text" placeholder="Localizacion" formControlName="location">
-          <mat-icon matSuffix>location_city</mat-icon>
-        </mat-form-field>
+          <!-- Localizacion -->
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Localizacion</mat-label>
+            <input matInput type="text" placeholder="Localizacion" formControlName="location">
+            <mat-icon matSuffix>location_city</mat-icon>
+          </mat-form-field>
+        </div>
 
         <!-- Informacion -->
         <mat-form-field appearance="outline">
