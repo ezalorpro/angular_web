@@ -6,6 +6,7 @@ import * as moment from "moment";
 import { AuthDialogService } from './auth-dialog.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -15,6 +16,7 @@ export class AuthService {
 
   API_URL: string = 'http://localhost:5000';
   redirect_url: string;
+  error_message: Subject<string> = new Subject<string>();
 
   constructor(
     private httpClient: HttpClient,
@@ -39,8 +41,7 @@ export class AuthService {
         }
       },
       error => {
-        console.log(error)
-        let error_message = 'Usuario y/o contraseña invalidos.'
+        this.error_message.next('Usuario y/o contraseña invalidos.')
       }
     );
   }

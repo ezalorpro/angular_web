@@ -39,8 +39,14 @@ export class LoginComponent implements OnInit {
   }
 
   login(credentials) {
-    this.error = this.authService.login(credentials)
-    console.log(this.error)
+    this.authService.login(credentials)
+    this.authService.error_message.subscribe(
+      error => {
+        this.error = error
+        console.log(error)
+        console.log(this.error)
+      }
+    )
   }
 
   onClose() {
