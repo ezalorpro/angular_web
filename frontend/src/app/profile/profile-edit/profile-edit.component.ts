@@ -13,7 +13,7 @@ export class ProfileEditComponent implements OnInit {
 
   form;
   error: string;
-  avatar: string;
+  avatar;
   avatar_file;
 
   constructor(
@@ -59,12 +59,12 @@ export class ProfileEditComponent implements OnInit {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
 
+      
       reader.onload = () => {
-        this.avatar = reader.result as string;
-        console.log(this.avatar)
-        this.avatar_file = { data: this.avatar, name: file.name }
+        this.avatar = reader.result
+        this.avatar_file = { data: reader.result as string, name: file.name }
       };
-
+      
     }
   }
 
