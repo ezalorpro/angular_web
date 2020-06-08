@@ -12,7 +12,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class LoginComponent implements OnInit {
 
   form;
-  error: string;
+  error;
   form_iterator = [
     {
       control: 'username', type: 'text', placeholder: 'Usuario', label: 'usuario',
@@ -39,17 +39,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(credentials) {
-    this.authService.login(credentials).subscribe(
-      res => {
-        this.authService.setSession(res)
-        this.dialogRef.close();
-        this.router.navigate(['dashboard'])
-      },
-      error => {
-        console.log(error)
-        this.error = 'Usuario y/o contraseña invalidos.'
-      }
-    );
+    this.error = this.authService.login(credentials)
+    console.log(this.error)
   }
 
   onClose() {

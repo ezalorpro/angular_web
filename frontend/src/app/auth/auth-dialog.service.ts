@@ -8,10 +8,14 @@ import { LoginComponent } from './login/login.component';
 export class AuthDialogService {
 
   constructor(
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) { }
 
-  loginDialog() {
+  loginDialogOpen() {
     this.dialog.open(LoginComponent)
+  }
+
+  loginDialogClose() {
+    this.dialog.closeAll()
   }
 }

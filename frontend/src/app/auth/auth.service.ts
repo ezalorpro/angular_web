@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../env';
 import { Router } from '@angular/router';
 import * as moment from "moment";
+import { AuthDialogService } from './auth-dialog.service';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from './login/login.component';
 
 
 @Injectable({
@@ -11,11 +14,12 @@ import * as moment from "moment";
 export class AuthService {
 
   API_URL: string = 'http://localhost:5000';
-
+  redirect_url: string;
 
   constructor(
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
   
 
@@ -25,7 +29,20 @@ export class AuthService {
 
 
   login(credentials: Object) {
-    return this.httpClient.post(`${API_URL}/login/`, credentials)
+    return this.httpClient.post(`${API_URL}/login/`, credentials).subscribe(
+      res => {
+        this.setSession(res)
+        this.dialog.closeAll();
+        if (this.redirect_url) {
+          this.router.navigate([this.redirect_url])
+          this.redirect_url = null
+        }
+      },
+      error => {
+        console.log(error)
+        let error_message = 'Usuario y/o contraseña invalidos.'
+      }
+    );
   }
 
 

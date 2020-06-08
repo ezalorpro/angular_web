@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
       res => {
         this.router.navigate([res['redirect']])
         setTimeout(() => {
-          this.authDialog.loginDialog();
+          this.authDialog.loginDialogOpen();
         }, 3500);
     },
       error => {

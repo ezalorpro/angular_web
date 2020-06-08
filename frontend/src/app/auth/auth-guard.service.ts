@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { CanActivate, Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from './login/login.component';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthDialogService } from './auth-dialog.service';
 
 @Injectable({
@@ -16,12 +14,13 @@ export class AuthGuardService implements CanActivate {
     private authDialog: AuthDialogService
   ) { }
 
-  canActivate() {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.authService.isLoggedIn()) {
       return true
     } else {
-      // this.router.navigate(['/login'])
-      this.authDialog.loginDialog();
+      this.authService.redirect_url = state.url
+      this.authDialog.loginDialogOpen();
+      this.router.navigate(['/home'])
       return false
     }
   }

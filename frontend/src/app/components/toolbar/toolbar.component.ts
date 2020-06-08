@@ -26,4 +26,8 @@ export class ToolbarComponent implements OnInit {
     this.drawer.toggle()
   }
 
+  login() {
+    this.authDialog.loginDialogOpen()
+  }
+
 }
