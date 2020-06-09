@@ -5,17 +5,20 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ButtonLabelComponent } from './buttom-label/button-label.component';
 
 
 
 @NgModule({
   declarations: [
     SidenavComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    ButtonLabelComponent
   ],
   exports: [
     SidenavComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    ButtonLabelComponent
   ],
   imports: [
     CommonModule,

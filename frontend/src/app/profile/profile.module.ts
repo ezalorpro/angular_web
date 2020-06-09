@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RestService } from '../services/rest/rest.service';
+import { GenericModule } from '../generic/generic.module';
 
 
 
@@ -18,7 +19,8 @@ import { RestService } from '../services/rest/rest.service';
     ReactiveFormsModule,
     RouterModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    GenericModule
   ],
   providers: [
     RestService

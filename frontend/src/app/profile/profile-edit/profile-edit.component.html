@@ -7,20 +7,21 @@
 
     <mat-card-content fxFill>
       <form *ngIf="form" [formGroup]="form" (ngSubmit)="onUpdate(form.value)" fxLayout="column" fxLayoutGap="5px"
-        fxLayoutAlign="center stretch"
-        class="form-edit_profile">
-        
-        <div fxLayout.gt-xs="row" fxLayoutGap.gt-sm="20px" fxLayout="column" fxLayoutGap="20px" fxFlex fxLayoutAlign="space-between space-between">
-          
+        fxLayoutAlign="center stretch" class="form-edit_profile">
+
+        <div fxLayout.gt-xs="row" fxLayoutGap.gt-sm="20px" fxLayout="column" fxLayoutGap="20px" fxFlex
+          fxLayoutAlign="space-between space-between">
+
           <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start center">
             <div *ngIf="avatar" mat-card-avatar class="example-header-image"
               style="background-image: url({{ avatar }});"></div>
             <div *ngIf="!avatar" mat-card-avatar class="example-header-image"
               style="background-image: url('/static/images/default.png');"></div>
             <input id="file" type="file" hidden (change)="onFileChange($event)">
-            <label class="label-buttom" color="primary" for="file">CAMBIAR</label>
+            <!-- <label class="label-buttom" color="primary" for="file">CAMBIAR</label> -->
+            <app-button-label [labelcolor]="'primary'" [labelfor]="'file'" [labeltext]="'CAMBIAR'" ></app-button-label>
           </div>
-          
+
           <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start stretch" fxFlex>
             <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="stretch stretch">
               <!-- Nombre -->
