@@ -1,0 +1,5 @@
+.div-container {
+    overflow-y: scroll;
+    height: 300px;
+    scroll-behavior: smooth;
+}

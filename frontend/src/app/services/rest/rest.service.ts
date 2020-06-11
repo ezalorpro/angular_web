@@ -17,6 +17,10 @@ export class RestService {
     return throwError(error.message || 'Error: unable to complete request')
   }
 
+  getGeneral(url: string): Observable<any> {
+    return this.httpclient.get<any>(url)
+  }
+
   getUserData(): Observable<UserData>{
     return this.httpclient.get<UserData>(`${API_URL}/userdata/`).pipe(catchError(this._handleError))
   }
