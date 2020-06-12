@@ -1,11 +1,5 @@
-.div-container {
-    overflow-y: scroll;
-    height: 520px;
-    scroll-behavior: smooth;
-}
-
 mat-spinner {
-    position: absolute;
-    top: 50%;
-    right: 50%;
+    position: fixed;
+    top: 49%;
+    right: 44%;
 }

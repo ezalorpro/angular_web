@@ -1,7 +1,8 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { switchMap } from 'rxjs/operators';
+import { ScrollService } from './scroll.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,14 +17,14 @@ export class DashboardComponent implements OnInit {
   range: Array<number> = [0, 30];
   loading: boolean = false;
 
-  @ViewChild('MyContainer') container;
-
   constructor(
-    private restService: RestService
+    private restService: RestService,
+    private scrollService: ScrollService
   ) { }
 
   ngOnInit(): void {
-    this.pokemon_ob = this.pokemon_function()
+    // this.pokemon_ob = this.pokemon_function()
+    this.morePokemons()
   }
 
   pokemon_function() {
@@ -39,24 +40,18 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  @HostListener('scroll', ['$event'])
-  morePokemons($event: Event) {
-    
-    const height = $event.target['clientHeight']
-    const containerHeight = $event.srcElement['scrollHeight']
-    const current_scroll = $event.srcElement['scrollTop']
-    if ((containerHeight - height) == current_scroll) {
-      this.loading = true
-      this.pokemon_function().subscribe(
-        data => {
-          this.pokemon_ob = of(data)
-          this.loading = false
-        }
-      )
-    }
+  morePokemons() {
+    this.scrollService.getScrollEvent().subscribe(
+      () => {
+        this.loading = true
+        this.pokemon_function().subscribe(
+          data => {
+            this.pokemon_ob = of(data)
+            this.loading = false
+          }
+        )
+      }
+    )
   }
 
-  palCielo() {
-    this.container['nativeElement']['scrollTop'] = 0
-  }
 }

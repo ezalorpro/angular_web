@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,10 @@ export class ScrollService {
 
   constructor() { }
 
-  scroll_event;
+  scroll_event: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  setScrollEvent($event) {
-    this.scroll_event = $event;
+  setScrollEvent(scroll_bottom) {
+    this.scroll_event.next(scroll_bottom);
   }
 
   getScrollEvent() {

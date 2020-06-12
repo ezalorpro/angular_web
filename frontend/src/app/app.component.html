@@ -12,8 +12,11 @@
     </mat-sidenav>
 
     <!-- Contenido -->
-    <mat-sidenav-content class="main-content">
+    <mat-sidenav-content #MyContainer class="main-content" (scroll)="morePokemons($event)">
       <router-outlet></router-outlet>
+      <button mat-fab color="primary" (click)="palCielo()" class="button-sky" *ngIf="show_button">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
