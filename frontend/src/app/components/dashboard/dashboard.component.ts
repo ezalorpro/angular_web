@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  @HostListener("scroll", ['$event'])
+  @HostListener('scroll', ['$event'])
   morePokemons($event: Event) {
     
     const height = $event.target['clientHeight']

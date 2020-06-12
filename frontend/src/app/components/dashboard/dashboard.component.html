@@ -1,13 +1,15 @@
-<div fxLayout="column" fxLayoutAlign="center center" fxFlex="60" fxFlexOffset="20">
-  <h2>Lista de pokemons</h2>
+<div fxLayout="column" fxLayoutAlign="center center" fxFlex="80" fxFlexOffset="10">
   <div *ngIf="pokemon_ob" fxLayout="row wrap" (scroll)="morePokemons($event)" class="div-container" #MyContainer>
     <mat-card fxLayout="column" fxLayoutAlign="center center" *ngFor="let pokemon of (pokemon_ob | async)">
-      <img src="{{pokemon.sprites.front_default}}">
+      <img loading="lazy" src="{{pokemon.sprites.front_default}}" height="100px">
       <mat-card-content>
         {{pokemon.name}}
       </mat-card-content>
     </mat-card>
   </div>
-  <mat-spinner *ngIf="loading" [diameter]="70"></mat-spinner>
-  <button (click)="palCielo()">Subirla</button>
+  <div>
+    <button (click)="palCielo()">Subirla</button>
+  </div>
 </div>
+
+<mat-spinner *ngIf="loading" [diameter]="40"></mat-spinner>

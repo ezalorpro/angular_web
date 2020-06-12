@@ -15,6 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileModule } from './profile/profile.module';
 import { GenericModule } from './generic/generic.module';
+import { ScrollService } from './components/dashboard/scroll.service';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import { GenericModule } from './generic/generic.module';
     ProfileModule,
     GenericModule
   ],
-  providers: [RestService],
+  providers: [RestService, ScrollService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
