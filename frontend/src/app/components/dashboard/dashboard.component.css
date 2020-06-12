@@ -3,3 +3,8 @@ mat-spinner {
     top: 49%;
     right: 44%;
 }
+
+.pokemon-span {
+    width: 120px;
+    text-align: center;
+}

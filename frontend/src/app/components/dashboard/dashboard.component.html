@@ -3,8 +3,8 @@
   <div *ngIf="pokemon_ob" fxLayout="row wrap" fxLayoutAlign="center center" #MyContainer>
     <mat-card fxLayout="column" fxLayoutAlign="center center" *ngFor="let pokemon of (pokemon_ob | async)">
       <img loading="lazy" src="{{pokemon.sprites.front_default}}" height="95px">
-      <mat-card-content>
-        {{pokemon.name}}
+      <mat-card-content class="pokemon-span">
+        <span>#{{pokemon.id}} - {{pokemon.name}}</span>
       </mat-card-content>
     </mat-card>
   </div>
