@@ -4,8 +4,7 @@ import { API_URL } from '../env';
 import { Router } from '@angular/router';
 import * as moment from "moment";
 import { AuthDialogService } from './auth-dialog.service';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from './login/login.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 
 
@@ -21,7 +20,7 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) { }
   
 
@@ -49,10 +48,8 @@ export class AuthService {
 
   setSession(authResult) {
     const expiresAt = moment().add(authResult.expiresAt, 'second');
-    console.log(expiresAt)
     localStorage.setItem('token', authResult.idToken);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
-    console.log(authResult)
   }
 
 

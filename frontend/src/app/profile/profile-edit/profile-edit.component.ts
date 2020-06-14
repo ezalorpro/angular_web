@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { RestService } from 'src/app/services/rest.service';
 import { UserData } from 'src/app/models/userdata.model';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile-edit',
@@ -15,6 +16,8 @@ export class ProfileEditComponent implements OnInit {
   error: string;
   avatar;
   avatar_file;
+  userdata_subscription: Subscription;
+  onUpdate_subscription: Subscription;
 
   constructor(
     private rest: RestService,
@@ -23,7 +26,7 @@ export class ProfileEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.rest.getUserData().subscribe(
+    this.userdata_subscription = this.rest.getUserData().subscribe(
       res => {
         this.form = this.formBuilder.group({
           avatar: '',
@@ -41,13 +44,11 @@ export class ProfileEditComponent implements OnInit {
   
 
   onUpdate(data: UserData) {
-    console.log(data)
-    return this.rest.postUserData(data, this.avatar_file).subscribe(
+    this.onUpdate_subscription = this.rest.postUserData(data, this.avatar_file).subscribe(
       res => {
         this.router.navigate([res['redirect']])
       },
       error => {
-        console.log(error)
         this.error = error.error.message;
       });
   }
@@ -65,6 +66,13 @@ export class ProfileEditComponent implements OnInit {
         this.avatar_file = { data: reader.result as string, name: file.name }
       };
       
+    }
+  }
+
+  ngOnDestroy() {
+    this.userdata_subscription.unsubscribe()
+    if (this.onUpdate_subscription) {
+      this.onUpdate_subscription.unsubscribe()
     }
   }
 

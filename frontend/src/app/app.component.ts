@@ -24,11 +24,6 @@ export class AppComponent {
     const containerHeight = $event.srcElement['scrollHeight']
     const current_scroll = $event.srcElement['scrollTop']
 
-    console.log($event.target['clientHeight'])
-    console.log($event.target['scrollHeight'])
-    console.log($event.target['scrollTop'])
-    console.log(this.show_button = true)
-
     if (current_scroll >= 300) {
       this.show_button = true
     } else {

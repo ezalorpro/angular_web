@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { RestService } from 'src/app/services/rest.service';
 import { Post } from 'src/app/models/post.model';
 import { UserData } from 'src/app/models/userdata.model';
 import { AuthService } from 'src/app/auth/auth.service';

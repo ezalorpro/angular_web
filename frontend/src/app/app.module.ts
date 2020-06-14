@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
-import { RestService } from './services/rest/rest.service';
+import { RestService } from './services/rest.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -16,6 +16,9 @@ import { HomeComponent } from './components/home/home.component';
 import { ProfileModule } from './profile/profile.module';
 import { GenericModule } from './generic/generic.module';
 import { ScrollService } from './components/dashboard/scroll.service';
+import { ModalDialogService } from './services/modal-dialog.service';
+import { PokemonDialogComponent } from './components/pokemon-dialog/pokemon-dialog.component';
+import { HighlightCardDirective } from './directives/highlight-card.directive';
 
 
 @NgModule({
@@ -23,6 +26,8 @@ import { ScrollService } from './components/dashboard/scroll.service';
     AppComponent,
     DashboardComponent,
     HomeComponent,
+    PokemonDialogComponent,
+    HighlightCardDirective
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,7 @@ import { ScrollService } from './components/dashboard/scroll.service';
     ProfileModule,
     GenericModule
   ],
-  providers: [RestService, ScrollService],
+  providers: [RestService, ScrollService, ModalDialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

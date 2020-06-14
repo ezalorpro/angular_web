@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from 'src/app/services/rest/rest.service';
+import { RestService } from 'src/app/services/rest.service';
 import { UserData } from 'src/app/models/userdata.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile-view',
@@ -10,17 +11,21 @@ import { UserData } from 'src/app/models/userdata.model';
 export class ProfileViewComponent implements OnInit {
 
   userdata: UserData;
+  userdata_subscription: Subscription;
 
   constructor(private restService: RestService) { }
 
   ngOnInit(): void {
-    this.restService.getUserData()
+    this.userdata_subscription = this.restService.getUserData()
       .subscribe(
         res => {
           this.userdata = res;
-          console.log(this.userdata)
       }
     )
+  }
+
+  ngOnDestroy() {
+    this.userdata_subscription.unsubscribe()
   }
 
 }

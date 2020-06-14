@@ -6,7 +6,7 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { RestService } from '../services/rest/rest.service';
+import { RestService } from '../services/rest.service';
 import { GenericModule } from '../generic/generic.module';
 
 

@@ -1,0 +1,24 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  
+  <h2 mat-dialog-title>Detalles</h2>
+  
+  <div mat-dialog-content fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="fetched_data">
+    
+    <img src="https://pokeres.bastionbot.org/images/pokemon/{{fetched_data.id}}.png" height="300px">
+
+    <div fxLayout="column">
+      <p>Nombre: {{fetched_data.name}}</p>
+      <ul>
+        Tipo(s):
+        <li *ngFor="let types of fetched_data.types">
+          {{types.type.name}}
+        </li>
+      </ul>
+    </div>  
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button mat-raised-button color="primary" (click)="onClose()">cerrar</button>
+  </div>
+
+</div>

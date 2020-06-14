@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { UserData } from '../../models/userdata.model';
-import { API_URL } from '../../env';
+import { UserData } from '../models/userdata.model';
+import { API_URL } from '../env';
 import { Post } from 'src/app/models/post.model';
 
 @Injectable({

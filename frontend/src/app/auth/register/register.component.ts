@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthDialogService } from '../auth-dialog.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ export class RegisterComponent implements OnInit {
 
   form;
   error: string;
+  register_subscription: Subscription;
   errors_messages = {
     username: 'Ingrese un nombre de usuario de almenos 4 caracteres',
     email: 'Correo no valido',
@@ -42,7 +44,7 @@ export class RegisterComponent implements OnInit {
   equalPassword(formGroup: AbstractControl) {
     let pass = formGroup.get('password').value;
     let pass2 = formGroup.get('password2').value;
-    console.log(formGroup)
+
     if (pass !== pass2) {
       formGroup.get('password2').setErrors({ nomatch: true })
     } else {
@@ -53,7 +55,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(data) {
-    return this.authService.register(data).subscribe(
+    this.register_subscription = this.authService.register(data).subscribe(
       res => {
         this.router.navigate([res['redirect']])
         setTimeout(() => {
@@ -61,9 +63,14 @@ export class RegisterComponent implements OnInit {
         }, 3500);
     },
       error => {
-        console.log(error)
         this.error = error.error.message;
     });
+  }
+
+  ngOnDestroy() {
+    if (this.register_subscription) {
+      this.register_subscription.unsubscribe()
+    }
   }
 
 }

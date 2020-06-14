@@ -1,10 +1,12 @@
 <div fxLayout="column" fxLayoutAlign="center center" fxFlex="80" fxFlexOffset="10">
   <h1>Lista de pokemons</h1>
   <div *ngIf="pokemon_ob" fxLayout="row wrap" fxLayoutAlign="center center" #MyContainer>
-    <mat-card fxLayout="column" fxLayoutAlign="center center" *ngFor="let pokemon of (pokemon_ob | async)">
-      <img loading="lazy" src="{{pokemon.sprites.front_default}}" height="95px">
+    <mat-card fxLayout="column" fxLayoutAlign="center center" *ngFor="let pokemon of (pokemon_ob | async); index as i"
+      appHighlightCard (click)="pokemons_details(pokemon)">
+      <img loading="lazy" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{i+1}}.png"
+        height="95px">
       <mat-card-content class="pokemon-span">
-        <span>#{{pokemon.id}} - {{pokemon.name}}</span>
+        <span>#{{i+1}} - {{pokemon.name}}</span>
       </mat-card-content>
     </mat-card>
   </div>

@@ -17,7 +17,6 @@ export class ButtonLabelComponent implements OnInit {
 
   ngOnInit(): void {
     this.buttonstyle = this.flatflag ? 'button-flat' : 'button-rised';
-    console.log(this.buttonstyle)
   }
 
 }

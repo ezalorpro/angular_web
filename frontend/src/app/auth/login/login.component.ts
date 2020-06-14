@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ export class LoginComponent implements OnInit {
 
   form;
   error;
+  login_subscription: Subscription;
+  error_subscription: Subscription;
   form_iterator = [
     {
       control: 'username', type: 'text', placeholder: 'Usuario', label: 'usuario',
@@ -39,18 +42,26 @@ export class LoginComponent implements OnInit {
   }
 
   login(credentials) {
-    this.authService.login(credentials)
-    this.authService.error_message.subscribe(
+    this.login_subscription = this.authService.login(credentials)
+    this.error_subscription = this.authService.error_message.subscribe(
       error => {
         this.error = error
-        console.log(error)
-        console.log(this.error)
       }
     )
   }
 
   onClose() {
     this.dialogRef.close();
+  }
+
+  ngOnDestroy() {
+    if (this.login_subscription) {
+      this.login_subscription.unsubscribe();
+    }
+
+    if (this.error_subscription) {
+      this.error_subscription.unsubscribe();
+    }
   }
   
 }
