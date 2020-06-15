@@ -2,13 +2,20 @@
   
   <label class="pokemon-name">{{ fetched_data.name | titlecase }}</label>
   
-  <div mat-dialog-content fxLayout.gt-xs="row wrap" fxLayout="column" fxLayoutAlign="center center"
-    fxLayoutGap="30px" class="pokemon-content">
+  <div mat-dialog-content fxLayout.gt-xs="row wrap" fxLayout="column"  class="pokemon-content" fxLayoutGap.gt-xs="24px">
     
-    <img src="https://pokeres.bastionbot.org/images/pokemon/{{fetched_data.id}}.png" class="pokemon-img">
+    <div fxLayout="column">
+      <img src="https://pokeres.bastionbot.org/images/pokemon/{{fetched_data.id}}.png" class="pokemon-img">
+    </div>
 
-    <div fxLayout="column" fxLayoutGap="30px">
-      <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="5px">
+    <div fxLayout="column">
+      <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="5px" class="hw-div">
+        <span class="hw-name">Height:</span>
+        <span class="hw-number">{{fetched_data.height/10 | number: '1.1-2'}} m</span>
+        <span class="hw-name">Weight:</span>
+        <span class="hw-number">{{fetched_data.weight/10 | number: '1.1-2'}} kg</span>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="5px" class="types-div">
         <label *ngFor="let types of fetched_data.types" class="pokemon-type" appPokemonTypes
           [pokemon_type]="types.type.name">
           {{types.type.name | uppercase}}

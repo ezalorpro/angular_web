@@ -34,19 +34,41 @@
 }
 
 .pokemon-content {
-    overflow: unset;
+    max-height: 65vh;
+    align-items: center;
 }
 
 .pokemon-img {
-    width: 100%;
-    max-width: 300px;
+    max-width: 290px;
     height: auto;
-    max-height: 100%;
 }
 
 ::ng-deep .mat-dialog-container {
     border-style: solid;
     border-color: #3f51b5;
-    border-width: thick;
-    border-radius: 40px;
+    border-width: 5px;
+    border-radius: 30px;
+}
+
+.types-div {
+    width: 120px;
+}
+
+.hw-div {
+    color: #eee;
+    font-size: 16pt;
+    text-shadow: 1px 1px 0px #000,
+    -1px -1px 0px #000,
+    1px -1px 0px #000,
+    -1px 1px 0px #000;
+}
+
+.hw-number {
+    text-align: right;
+    padding-bottom: 20px;
+}
+
+.hw-name {
+    text-align: left;
+    margin-top: -10px;
 }

@@ -10,7 +10,7 @@ def main():
     return redirect('home')
 
 @app.route('/home')
-@app.route('/dashboard')
+@app.route('/pokedex')
 @app.route('/register')
 @app.route('/register/succes')
 @app.route('/profile')
