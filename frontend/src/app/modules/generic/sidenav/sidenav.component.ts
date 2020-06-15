@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
-import { AuthDialogService } from 'src/app/auth/auth-dialog.service';
+import { AuthService } from 'src/app/modules/auth/auth.service';
+import { AuthDialogService } from 'src/app/modules/auth/auth-dialog.service';
 
 @Component({
   selector: 'app-sidenav',

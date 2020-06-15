@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
-import { AuthDialogService } from 'src/app/auth/auth-dialog.service';
+import { AuthService } from 'src/app/modules/auth/auth.service';
+import { AuthDialogService } from 'src/app/modules/auth/auth-dialog.service';
 import { MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material/sidenav';
 

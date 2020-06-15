@@ -17,6 +17,8 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     let request = req;
 
+    console.log(request)
+
     if (token) {
       request = req.clone({
         setHeaders: {

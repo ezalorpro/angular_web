@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { API_URL } from '../env';
+import { API_URL } from '../../env';
 import { Router } from '@angular/router';
 import * as moment from "moment";
 import { AuthDialogService } from './auth-dialog.service';
