@@ -11,10 +11,10 @@ def main():
 
 @app.route('/home')
 @app.route('/dashboard')
-@app.route('/login')
 @app.route('/register')
+@app.route('/register/succes')
 @app.route('/profile')
-@app.route('/edit_profile')
+@app.route('/profile/edit')
 def home():
     return render_template('index.html')
 
