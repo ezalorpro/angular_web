@@ -1,24 +1,24 @@
-<div fxLayout="column" fxLayoutAlign="center center">
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="fetched_data" class="main-div">
   
-  <h2 mat-dialog-title>Detalles</h2>
+  <label class="pokemon-name">{{ fetched_data.name | titlecase }}</label>
   
-  <div mat-dialog-content fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="fetched_data">
+  <div mat-dialog-content fxLayout.gt-xs="row wrap" fxLayout="column" fxLayoutAlign="center center"
+    fxLayoutGap="30px" class="pokemon-content">
     
-    <img src="https://pokeres.bastionbot.org/images/pokemon/{{fetched_data.id}}.png" height="300px">
+    <img src="https://pokeres.bastionbot.org/images/pokemon/{{fetched_data.id}}.png" class="pokemon-img">
 
-    <div fxLayout="column">
-      <p>Nombre: {{fetched_data.name}}</p>
-      <ul>
-        Tipo(s):
-        <li *ngFor="let types of fetched_data.types">
-          {{types.type.name}}
-        </li>
-      </ul>
-    </div>  
+    <div fxLayout="column" fxLayoutGap="30px">
+      <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="5px">
+        <label *ngFor="let types of fetched_data.types" class="pokemon-type" appPokemonTypes
+          [pokemon_type]="types.type.name">
+          {{types.type.name | uppercase}}
+        </label>
+      </div>
+    </div>
   </div>
-
-  <div mat-dialog-actions>
-    <button mat-button mat-raised-button color="primary" (click)="onClose()">cerrar</button>
-  </div>
+  
+  <button mat-mini-fab (click)="onClose()" class="close-modal">
+    <mat-icon>close</mat-icon>
+  </button>
 
 </div>

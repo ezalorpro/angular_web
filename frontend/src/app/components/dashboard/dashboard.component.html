@@ -6,7 +6,7 @@
       <img loading="lazy" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{i+1}}.png"
         height="95px">
       <mat-card-content class="pokemon-span">
-        <span>#{{i+1}} - {{pokemon.name}}</span>
+        <span>#{{ i+1 }} - {{ pokemon.name | titlecase }}</span>
       </mat-card-content>
     </mat-card>
   </div>

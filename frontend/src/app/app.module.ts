@@ -19,6 +19,7 @@ import { ScrollService } from './components/dashboard/scroll.service';
 import { ModalDialogService } from './services/modal-dialog.service';
 import { PokemonDialogComponent } from './components/pokemon-dialog/pokemon-dialog.component';
 import { HighlightCardDirective } from './directives/highlight-card.directive';
+import { PokemonTypesDirective } from './components/pokemon-dialog/pokemon-types.directive';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { HighlightCardDirective } from './directives/highlight-card.directive';
     DashboardComponent,
     HomeComponent,
     PokemonDialogComponent,
-    HighlightCardDirective
+    HighlightCardDirective,
+    PokemonTypesDirective
   ],
   imports: [
     BrowserModule,

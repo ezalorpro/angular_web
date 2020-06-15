@@ -6,7 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
+  { path: 'pokedex', component: DashboardComponent, canActivate: [AuthGuardService] },
   { path: '', redirectTo:'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
   {
