@@ -12,6 +12,7 @@ import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SuccesMessageComponent } from './succes-message/succes-message.component';
 import { AuthDialogService } from './auth-dialog.service';
+import { AuthRoutingModule } from './auth-routing.module';
 
 
 
@@ -22,6 +23,7 @@ import { AuthDialogService } from './auth-dialog.service';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    AuthRoutingModule,
     MaterialModule,
     FlexLayoutModule
   ],

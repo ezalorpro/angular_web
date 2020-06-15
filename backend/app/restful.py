@@ -94,7 +94,7 @@ class Register(Resource):
             )
         db.session.add(user)
         db.session.commit()
-        return jsonify({'message': 'Registro exitoso', 'redirect': 'register_succes'})
+        return jsonify({'message': 'Registro exitoso', 'redirect': 'register/succes'})
     
 # @app.route("/PostData/<username>", methods=['GET', 'POST'])
 # def post_data(username=None):

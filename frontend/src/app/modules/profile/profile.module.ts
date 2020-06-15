@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RestService } from '../../services/rest.service';
 import { GenericModule } from '../generic/generic.module';
+import { ProfileRoutingModule } from './profile-routing.module';
 
 
 
@@ -18,6 +19,7 @@ import { GenericModule } from '../generic/generic.module';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    ProfileRoutingModule,
     MaterialModule,
     FlexLayoutModule,
     GenericModule

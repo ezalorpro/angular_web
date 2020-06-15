@@ -6,10 +6,10 @@
   <mat-list-item *ngFor="let post of posts">
     <img *ngIf="post.avatar_url" matListAvatar src="{{ post.avatar_url }}">
     <img *ngIf="!post.avatar_url" matListAvatar src="/static/images/default.png">
-    <a [routerLink]="['/profile']" routerLinkActive="router-link-active" >
+    <a [routerLink]="['/profile/view']" routerLinkActive="router-link-active" >
       <mat-icon color="warn">delete</mat-icon>
     </a>
-    <a [routerLink]="['/edit_profile']" routerLinkActive="router-link-active" >
+    <a [routerLink]="['/profile/edit']" routerLinkActive="router-link-active" >
       <mat-icon color="primary">edit</mat-icon>
     </a>
     <a [routerLink]="['/register']" routerLinkActive="router-link-active" >

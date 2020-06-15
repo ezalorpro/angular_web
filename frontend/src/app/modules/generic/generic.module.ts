@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ButtonLabelComponent } from './buttom-label/button-label.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { GenericRoutingModule } from './generic-routing.module';
 
 
 
@@ -13,7 +15,8 @@ import { ButtonLabelComponent } from './buttom-label/button-label.component';
   declarations: [
     SidenavComponent,
     ToolbarComponent,
-    ButtonLabelComponent
+    ButtonLabelComponent,
+    PageNotFoundComponent
   ],
   exports: [
     SidenavComponent,
@@ -23,6 +26,7 @@ import { ButtonLabelComponent } from './buttom-label/button-label.component';
   imports: [
     CommonModule,
     RouterModule,
+    GenericRoutingModule,
     MaterialModule,
     FlexLayoutModule
   ]
