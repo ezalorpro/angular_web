@@ -9,13 +9,8 @@ from app import app, db, photos
 def main():
     return redirect('home')
 
-@app.route('/home')
-@app.route('/pokedex')
-@app.route('/register')
-@app.route('/register/succes')
-@app.route('/profile')
-@app.route('/profile/edit')
-def home():
+@app.route('/<path:path>')
+def frontend(path):
     return render_template('index.html')
 
 @app.route("/post_image_handler", methods=["POST"], endpoint="post_image_handler")

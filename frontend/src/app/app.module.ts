@@ -8,7 +8,7 @@ import { RestService } from './services/rest.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material/material.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './modules/auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -20,6 +20,7 @@ import { ModalDialogService } from './services/modal-dialog.service';
 import { PokemonDialogComponent } from './components/pokemon-dialog/pokemon-dialog.component';
 import { HighlightCardDirective } from './directives/highlight-card.directive';
 import { PokemonTypesDirective } from './components/pokemon-dialog/pokemon-types.directive';
+import { AuthServicesModule } from './modules/auth/auth-services.module';
 
 
 @NgModule({
@@ -39,9 +40,9 @@ import { PokemonTypesDirective } from './components/pokemon-dialog/pokemon-types
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    AuthModule,
+    ReactiveFormsModule,
+    AuthServicesModule.forRoot(),
     FlexLayoutModule,
-    ProfileModule,
     GenericModule
   ],
   providers: [RestService, ScrollService, ModalDialogService],
