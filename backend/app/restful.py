@@ -59,11 +59,7 @@ class PostData(Resource):
             posts = Post.query.all()
             post_schema = PostSchema(many=True)
             posts_dump = post_schema.dump(posts)
-            
-            for post in posts_dump:
-                temp_user = User.query.get(post['user'])
-                post['avatar_url'] = temp_user.avatar_url
-            
+                        
             return posts_dump 
         
 class LoginApi(Resource):

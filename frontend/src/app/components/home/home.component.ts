@@ -3,6 +3,7 @@ import { RestService } from 'src/app/services/rest.service';
 import { Post } from 'src/app/models/post.model';
 import { UserData } from 'src/app/models/userdata.model';
 import { AuthService } from 'src/app/modules/auth/auth.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',

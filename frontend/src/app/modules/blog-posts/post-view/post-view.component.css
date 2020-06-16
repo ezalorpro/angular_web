@@ -24,3 +24,8 @@
     margin-top: 10px;
     text-align: center;
 }
+
+.tags-div {
+  width: 100%;
+  display: inline-block;
+}

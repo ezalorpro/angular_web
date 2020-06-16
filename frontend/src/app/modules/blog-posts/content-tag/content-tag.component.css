@@ -1,0 +1,17 @@
+.main-container {
+    border-radius: 50px;
+    background-color:#bbbbbb;
+    color: rgb(71, 71, 71);
+    text-align: center;
+    width: min-content;
+    box-sizing: border-box;
+    padding: 8px 15px;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+}
+
+.main-container:hover {
+    cursor: pointer;
+}

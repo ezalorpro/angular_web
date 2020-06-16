@@ -9,6 +9,7 @@ import { PostEditComponent } from './post-edit/post-edit.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { SafePipe } from 'src/app/pipes/safe.pipe';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ContentTagComponent } from './content-tag/content-tag.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     PostEditComponent,
     PostListComponent,
     SafePipe,
+    ContentTagComponent,
   ],
   imports: [
     CommonModule,

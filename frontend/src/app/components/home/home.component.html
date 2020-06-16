@@ -4,8 +4,8 @@
   <div mat-subheader>Ultimos post publicados</div>
   <mat-divider></mat-divider>
   <mat-list-item *ngFor="let post of posts">
-    <img *ngIf="post.avatar_url" matListAvatar src="{{ post.avatar_url }}">
-    <img *ngIf="!post.avatar_url" matListAvatar src="/static/images/default.png">
+    <img *ngIf="post.user.avatar_url" matListAvatar src="{{ post.user.avatar_url }}">
+    <img *ngIf="!post.user.avatar_url" matListAvatar src="/static/images/default.png">
     <a [routerLink]="['/profile/view']" routerLinkActive="router-link-active" >
       <mat-icon color="warn">delete</mat-icon>
     </a>
