@@ -1,10 +1,23 @@
 
 <div *ngIf="post_data" class="main-container">
+  
   <h1 class="post-title">{{ post_data.title }}</h1>
+  
   <app-post-content [post_content]="post_data.post_text"></app-post-content>
+  
   <div class="tags-div">
     <app-content-tag *ngFor="let tag of post_data.tags" [tagName]="tag.name">
     </app-content-tag>
   </div>
-  <app-comment></app-comment>
+  
+  <div class="comments-div" *ngIf="post_data.comments.length ;else noComments">
+    <app-comment></app-comment>
+  </div>
+
+  <ng-template #noComments>
+    <div class="comments-div">
+      <span> Sin comentarios </span>
+    </div>
+  </ng-template>
+
 </div>

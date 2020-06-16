@@ -29,3 +29,8 @@
   width: 100%;
   display: inline-block;
 }
+
+.comments-div {
+  width: 100%;
+  text-align: center;
+}
