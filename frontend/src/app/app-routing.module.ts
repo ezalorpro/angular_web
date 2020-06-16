@@ -11,11 +11,11 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   {
     path: 'profile',
-    loadChildren: './modules/profile/profile.module#ProfileModule'
+    loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
   },
   {
     path: 'register',
-    loadChildren: './modules/auth/auth.module#AuthModule'
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: '**',

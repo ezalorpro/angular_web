@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
   }
 
   pokemons_details(data) {
-    this.modalDialog.generalDialogOpen(PokemonDialogComponent, data)
+    this.modalDialog.generalDialogOpen(PokemonDialogComponent, data, 'pokemon-dialog')
   }
 
   ngOnDestroy() {

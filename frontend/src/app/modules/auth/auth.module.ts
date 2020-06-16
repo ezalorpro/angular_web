@@ -12,7 +12,11 @@ import { AuthRoutingModule } from './auth-routing.module';
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, SuccesMessageComponent],
+  declarations: [
+    LoginComponent,
+    RegisterComponent,
+    SuccesMessageComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -21,7 +25,6 @@ import { AuthRoutingModule } from './auth-routing.module';
     AuthRoutingModule,
     MaterialModule,
     FlexLayoutModule,
-  ],
-  providers: []
+  ]
 })
 export class AuthModule { }

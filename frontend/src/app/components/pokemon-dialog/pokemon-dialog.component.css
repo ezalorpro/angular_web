@@ -43,7 +43,7 @@
     height: auto;
 }
 
-::ng-deep .mat-dialog-container {
+::ng-deep .pokemon-dialog .mat-dialog-container {
     border-style: solid;
     border-color: #3f51b5;
     border-width: 5px;

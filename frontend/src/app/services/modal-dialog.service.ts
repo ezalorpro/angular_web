@@ -11,8 +11,8 @@ export class ModalDialogService {
     private dialog: MatDialog
   ) { }
 
-  generalDialogOpen(component: ComponentType<any>, data) {
-    this.dialog.open(component, {data: data})
+  generalDialogOpen(component: ComponentType<any>, data, panel?: string) {
+    this.dialog.open(component, { data: data, panelClass: panel})
   }
 
   generalDialogClose() {
