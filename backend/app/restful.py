@@ -49,16 +49,22 @@ class UserData(Resource):
     
     
 class PostData(Resource):    
-    def get(self):
-        posts = Post.query.all()
-        post_schema = PostSchema(many=True)
-        posts_dump = post_schema.dump(posts)
-        
-        for post in posts_dump:
-            temp_user = User.query.get(post['user'])
-            post['avatar_url'] = temp_user.avatar_url
-        
-        return posts_dump 
+    def get(self, id=None):
+        if (id):
+            post = Post.query.get(id)
+            post_schema = PostSchema()
+            post_dump = post_schema.dump(post)
+            return post_dump
+        else:
+            posts = Post.query.all()
+            post_schema = PostSchema(many=True)
+            posts_dump = post_schema.dump(posts)
+            
+            for post in posts_dump:
+                temp_user = User.query.get(post['user'])
+                post['avatar_url'] = temp_user.avatar_url
+            
+            return posts_dump 
         
 class LoginApi(Resource):
     def post(self):
@@ -136,7 +142,7 @@ class PostImageHandlerApi(Resource):
         return jsonify({"location": url_for("static", filename="images/" + image_name)})
 
 api.add_resource(UserData, '/api/userdata/') 
-api.add_resource(PostData, '/api/posts/')
+api.add_resource(PostData, '/api/posts/', '/api/posts/<id>/')
 api.add_resource(LoginApi, '/api/login/')
 api.add_resource(Register, '/api/register/')
 api.add_resource(PostImageHandlerApi, '/api/post_image_handler/')

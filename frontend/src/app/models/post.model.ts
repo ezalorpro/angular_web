@@ -1,8 +1,11 @@
 export interface Post {
-    id: string,
+    id: number,
     title: string,
     post_text: string,
     post_date: string,
     post_modified: string,
-    user_id: string
+    user: number,
+    comments: Array<any>,
+    tags: Array<any>,
+    imagepost: Array<any>
 }

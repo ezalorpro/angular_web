@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
     this.restService.getPosts().subscribe(
       res => {
         this.posts = res
-        console.log(res)
       },
       error => {
         console.log('error:', error)

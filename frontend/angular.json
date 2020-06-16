@@ -30,6 +30,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/prismjs/plugins/toolbar/prism-toolbar.css",
+              "./node_modules/prismjs/themes/prism-okaidia.css",
               "src/styles.css"
             ],
             "scripts": []

@@ -209,6 +209,7 @@ class PostView(ModelView):
     )
     column_list = ["user", "title", "post_date", "post_modified"]
     column_details_list = [
+        "id",
         "user",
         "title",
         "post_text",

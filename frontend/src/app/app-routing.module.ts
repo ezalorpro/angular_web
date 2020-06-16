@@ -18,6 +18,11 @@ const routes: Routes = [
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
   {
+    path: 'posts',
+    loadChildren: () => import('./modules/blog-posts/blog-posts.module')
+                              .then(m => m.BlogPostsModule)
+  },
+  {
     path: '**',
     loadChildren: './modules/generic/generic.module#GenericModule'
   },
