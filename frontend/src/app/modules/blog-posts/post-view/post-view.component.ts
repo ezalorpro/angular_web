@@ -11,7 +11,6 @@ import { Post } from 'src/app/models/post.model';
 })
 export class PostViewComponent implements OnInit {
 
-  post_id: number;
   post_data: Post;
 
   constructor(

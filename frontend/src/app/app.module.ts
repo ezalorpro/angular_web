@@ -37,7 +37,7 @@ import { AuthInterceptorService } from './modules/auth/auth-interceptor.service'
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    GenericModule
+    GenericModule,
   ],
   providers: [
     {

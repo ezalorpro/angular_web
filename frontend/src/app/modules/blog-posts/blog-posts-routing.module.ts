@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PostViewComponent } from './post-view/post-view.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { AuthGuardService } from '../auth/auth-guard.service';
+import { PostEditComponent } from './post-edit/post-edit.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,11 @@ const routes: Routes = [
   {
     path: 'view/:id',
     component: PostViewComponent,
+  },
+  {
+    path: 'edit/:id',
+    component: PostEditComponent,
+    canActivate: [AuthGuardService]
   }
 ];
 

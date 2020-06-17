@@ -16,3 +16,10 @@ span.main-title:hover {
   position: fixed;
   z-index: 2;
 }
+
+@media (max-width: 599px) {
+  ::ng-deep mat-toolbar-row {
+    height: 64px !important;
+  }
+}
+

@@ -10,6 +10,7 @@ import { PostListComponent } from './post-list/post-list.component';
 import { SafePipe } from 'src/app/pipes/safe.pipe';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ContentTagComponent } from './content-tag/content-tag.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ContentTagComponent } from './content-tag/content-tag.component';
   imports: [
     CommonModule,
     BlogPostsRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    EditorModule
   ]
 })
 export class BlogPostsModule { }
