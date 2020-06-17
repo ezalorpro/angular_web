@@ -1,5 +1,5 @@
 from flask_praetorian.utilities import current_user_id
-from app.schemas import UserSchema, PostSchema
+from app.schemas import UserSchema, PostSchema, TagsSchema
 from werkzeug.datastructures import FileStorage
 from base64 import b64decode
 from io import BytesIO
@@ -61,7 +61,17 @@ class PostData(Resource):
             posts_dump = post_schema.dump(posts)
                         
             return posts_dump 
-        
+
+
+class TagsData(Resource):    
+    def get(self):
+        tags = Tags.query.all()
+        tags_schema = TagsSchema(many=True, exclude=['posts'])
+        tags_dump = tags_schema.dump(tags)
+                    
+        return tags_dump 
+ 
+              
 class LoginApi(Resource):
     def post(self):
         credentials = request.get_json(force=True)
@@ -139,6 +149,7 @@ class PostImageHandlerApi(Resource):
 
 api.add_resource(UserData, '/api/userdata/') 
 api.add_resource(PostData, '/api/posts/', '/api/posts/<id>/')
+api.add_resource(TagsData, '/api/tags/')
 api.add_resource(LoginApi, '/api/login/')
 api.add_resource(Register, '/api/register/')
 api.add_resource(PostImageHandlerApi, '/api/post_image_handler/')

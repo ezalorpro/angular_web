@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { RestService } from 'src/app/services/rest.service';
 import { Post } from 'src/app/models/post.model';
@@ -14,6 +14,8 @@ export class PostEditComponent implements OnInit {
 
   post_data: Post;
   form: FormGroup;
+  allTags: Array<string>;
+  current_tags: Array<string> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -29,13 +31,27 @@ export class PostEditComponent implements OnInit {
     ).subscribe(
       data => {
         this.post_data = data
+        this.post_data.tags.forEach(element => {
+          this.current_tags.push(element.name)
+        });
+
         this.form = this.formBuilder.group({
           title: [this.post_data.title, [Validators.required, Validators.minLength(4)]],
-          post_text: '',
-          tags: this.post_data.tags,
+          post_text: [this.post_data.post_text],
+          tags: [this.current_tags, [Validators.required]],
         })
       }
     )
+
+    this.restService.getTags().pipe(
+      map((tags) => tags.map(tag => tag.name))
+    ).subscribe(
+      tags => this.allTags = tags
+    )
+  }
+
+  editar(data) {
+    console.log(data)
   }
 
 }

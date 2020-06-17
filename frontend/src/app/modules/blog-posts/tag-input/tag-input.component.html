@@ -1,0 +1,22 @@
+<div class="main-container">
+  <mat-form-field appearance="outline">
+    <mat-chip-list #chipList >
+      <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+        {{tag}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Agregar tag..." #tagInput [matAutocomplete]="auto"
+        [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="add($event)" ngDefaultControl [formControl]="dummy_tagCtrl" required>
+      <input type="hidden" [formControl]="tagCtrl" required>
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+        {{tag}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="chipList.errorState">Debe agregar al menos un (1) tag.</mat-error>
+  </mat-form-field>
+  <span *ngIf="chipList.errorState" class="empty-span"><br></span>
+</div>

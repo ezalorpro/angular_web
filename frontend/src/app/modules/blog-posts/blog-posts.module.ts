@@ -11,6 +11,9 @@ import { SafePipe } from 'src/app/pipes/safe.pipe';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ContentTagComponent } from './content-tag/content-tag.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { TagInputComponent } from './tag-input/tag-input.component';
+import { MaterialModule } from '../material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,12 +25,16 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     PostListComponent,
     SafePipe,
     ContentTagComponent,
+    TagInputComponent,
   ],
   imports: [
     CommonModule,
     BlogPostsRoutingModule,
     FlexLayoutModule,
-    EditorModule
+    EditorModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class BlogPostsModule { }
