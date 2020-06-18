@@ -6,16 +6,23 @@
       <mat-list-item *ngFor="let post of posts">
         <img *ngIf="post.user.avatar_url" matListAvatar src="{{ post.user.avatar_url }}">
         <img *ngIf="!post.user.avatar_url" matListAvatar src="/static/images/default.png">
-        <a *ngIf="post.user.username == userdata.username" [routerLink]="['/profile/view']" routerLinkActive="router-link-active">
-          <mat-icon color="warn">delete</mat-icon>
-        </a>
-        <a *ngIf="post.user.username == userdata.username" [routerLink]="['/posts/edit/'+ post.id]"
-          routerLinkActive="router-link-active">
-          <mat-icon color="primary">edit</mat-icon>
-        </a>
+        
+        <ng-container *ngIf="userdata">
+          <a *ngIf="post.user.username == userdata.username" [routerLink]="['/profile/view']"
+            routerLinkActive="router-link-active">
+            <mat-icon color="warn">delete</mat-icon>
+          </a>
+
+          <a *ngIf="post.user.username == userdata.username" [routerLink]="['/posts/edit/'+ post.id]"
+            routerLinkActive="router-link-active">
+            <mat-icon color="primary">edit</mat-icon>
+          </a>
+        </ng-container>
+
         <a [routerLink]="['/posts/view/'+ post.id]" routerLinkActive="router-link-active">
           <mat-icon color="primary">remove_red_eye</mat-icon>
         </a>
+        
         <div mat-line>{{post.title}}</div>
         <div mat-line> {{post.post_date | date}} </div>
         <mat-divider></mat-divider>

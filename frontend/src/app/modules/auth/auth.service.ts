@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../../env';
 import { Router } from '@angular/router';
 import * as moment from "moment";
-import { AuthDialogService } from './auth-dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 
@@ -20,7 +19,7 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) { }
   
 
@@ -37,6 +36,8 @@ export class AuthService {
         if (this.redirect_url) {
           this.router.navigate([this.redirect_url])
           this.redirect_url = null
+        } else {
+          this.router.navigate([this.router.url])
         }
       },
       error => {

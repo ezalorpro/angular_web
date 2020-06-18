@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
 
   onClose() {
     this.dialogRef.close();
+    this.authService.redirect_url = null
   }
 
   ngOnDestroy() {
