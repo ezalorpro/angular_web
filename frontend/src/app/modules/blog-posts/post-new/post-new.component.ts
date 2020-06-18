@@ -37,7 +37,7 @@ export class PostNewComponent implements OnInit {
   }
 
   crear(data) {
-    this.restService.PostPosts(data, 'new').subscribe(
+    this.restService.apiPostData(null, data, 'post').subscribe(
       res => {
         this.router.navigate([res['redirect']])
         console.log(res)

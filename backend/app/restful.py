@@ -49,10 +49,17 @@ class UserData(Resource):
         return jsonify({'message': 'Perfil editado exitosamente!', 'redirect': 'profile'})
     
     
-class PostData(Resource):    
-    def get(self, id=None):
-        if (id):
-            post = Post.query.get(id)
+class PostData(Resource):
+    
+    method_decorators = {
+        'post': [fprae.auth_required], 
+        'put': [fprae.auth_required], 
+        'delete': [fprae.auth_required]
+        }
+      
+    def get(self, param=None):
+        if (param):
+            post = Post.query.get(param)
             post_schema = PostSchema()
             post_dump = post_schema.dump(post)
             return post_dump
@@ -62,72 +69,66 @@ class PostData(Resource):
             posts_dump = post_schema.dump(posts)
                         
             return posts_dump 
-
-
-class PostInput(Resource):
-    
-    method_decorators = [fprae.auth_required]
     
     def post(self, tipo=None):
         data = request.get_json(force=True)
+        post = Post()
+        user = User.query.get(current_user_id())
         
-        if tipo == 'edit':
-            post = Post.query.get(data['id'])
-            title_check = Post.query.filter_by(title=data['title']).first()
+        if Post.query.filter_by(title=data['title']).first():
+            return abort(409, 'Ya existe un post con ese titulo.')
             
-            if title_check:
-                if title_check.id != post.id:
-                    return abort(409, 'Ya existe un post con ese titulo.')
-            
-            if post.user.id != current_user_id():
-                return abort(401, 'Solo el autor del post o un admin pueden editar el post.')
-
-            post.title = data['title']
-            post.post_text = data['post_text']
-            post.post_modified = datetime.datetime.now()
-            
-            tag_acum = []
-            for tag in data['tags']:
-                if tag:
-                    tag_acum.append(add_tags(tag))
-                    
-            post.tags = tag_acum
-            db.session.flush()
-            manage_images(post)
-            db.session.commit()
-            
-            return jsonify({
-                'message': 'Post editado exitosamente', 
-                'redirect': f'posts/view/{post.id}'
-                })
-            
-        if tipo == 'new':
-            post = Post()
-            user = User.query.get(current_user_id())
-            
-            if Post.query.filter_by(title=data['title']).first():
-                return abort(409, 'Ya existe un post con ese titulo.')
+        post.user = user
+        post.title = data['title']
+        post.post_text = data['post_text']
+        post.post_date = datetime.datetime.now()
+        post.post_modified = datetime.datetime.now()
+        
+        tag_acum = []
+        for tag in data['tags']:
+            if tag:
+                tag_acum.append(add_tags(tag))
                 
-            post.user = user
-            post.title = data['title']
-            post.post_text = data['post_text']
-            post.post_date = datetime.datetime.now()
-            post.post_modified = datetime.datetime.now()
-            
-            tag_acum = []
-            for tag in data['tags']:
-                if tag:
-                    tag_acum.append(add_tags(tag))
-                    
-            post.tags = tag_acum
-            db.session.flush()
-            manage_images(post)
-            db.session.commit()
-            
-            return jsonify({
-                'message': 'Post creado exitosamente', 
-                'redirect': f'posts/view/{post.id}'
-                })
+        post.tags = tag_acum
+        db.session.flush()
+        manage_images(post)
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'Post creado exitosamente', 
+            'redirect': f'posts/view/{post.id}'
+            })
+
+    def put(self, tipo=None):
+        data = request.get_json(force=True)
+        post = Post.query.get(data['id'])
+        title_check = Post.query.filter_by(title=data['title']).first()
+        
+        if title_check:
+            if title_check.id != post.id:
+                return abort(409, 'Ya existe un post con ese titulo.')
+        
+        if post.user.id != current_user_id():
+            return abort(401, 'Solo el autor del post o un admin pueden editar el post.')
+
+        post.title = data['title']
+        post.post_text = data['post_text']
+        post.post_modified = datetime.datetime.now()
+        
+        tag_acum = []
+        for tag in data['tags']:
+            if tag:
+                tag_acum.append(add_tags(tag))
+                
+        post.tags = tag_acum
+        db.session.flush()
+        manage_images(post)
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'Post editado exitosamente', 
+            'redirect': f'posts/view/{post.id}'
+            })
     
 
 class TagsData(Resource):    
@@ -195,8 +196,7 @@ class PostImageHandlerApi(Resource):
 
 
 api.add_resource(UserData, '/api/userdata/') 
-api.add_resource(PostData, '/api/posts/', '/api/posts/<id>/')
-api.add_resource(PostInput, '/api/postinput/<tipo>/')
+api.add_resource(PostData, '/api/posts/', '/api/posts/<param>/')
 api.add_resource(TagsData, '/api/tags/')
 api.add_resource(LoginApi, '/api/login/')
 api.add_resource(Register, '/api/register/')

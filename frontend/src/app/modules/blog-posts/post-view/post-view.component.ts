@@ -21,7 +21,7 @@ export class PostViewComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.pipe(
       switchMap(param => {
-        return this.restService.getPostData(param['id'])
+        return this.restService.apiPostData(param['id'], null, 'get')
       })
     ).subscribe(
       data => {

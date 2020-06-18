@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.restService.getPosts().subscribe(
+    this.restService.apiPostData(null, null, 'get').subscribe(
       res => {
         this.posts = res
         console.log(this.posts)

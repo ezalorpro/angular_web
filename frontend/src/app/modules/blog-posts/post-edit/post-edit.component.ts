@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from 'src/app/services/rest.service';
 import { Post } from 'src/app/models/post.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { API_URL } from 'src/app/env'
 
 @Component({
   selector: 'app-post-edit',
@@ -17,6 +18,7 @@ export class PostEditComponent implements OnInit {
   allTags: Array<string>;
   current_tags: Array<string> = [];
   title_uniq_error: string;
+  api_url = API_URL
 
   constructor(
     private route: ActivatedRoute,
@@ -28,7 +30,7 @@ export class PostEditComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.pipe(
       switchMap(param => {
-        return this.restService.getPostData(param['id'])
+        return this.restService.apiPostData(param['id'], null, 'get')
       })
     ).subscribe(
       data => {
@@ -54,7 +56,7 @@ export class PostEditComponent implements OnInit {
 
   editar(data) {
     data['id'] = this.post_data.id
-    this.restService.PostPosts(data, 'edit').subscribe(
+    this.restService.apiPostData(null, data, 'put').subscribe(
       res => {
         this.router.navigate([res['redirect']])
       },
@@ -77,7 +79,7 @@ export class PostEditComponent implements OnInit {
       convert_urls: false,
       height: '400',
       automatic_uploads: true,
-      images_upload_url: 'http://localhost:5000/api/post_image_handler/',
+      images_upload_url:`${this.api_url}/post_image_handler/`,
       media_live_embeds: true,
       codesample_global_prismjs: true,
       table_responsive_width: true,
@@ -86,7 +88,7 @@ export class PostEditComponent implements OnInit {
         xhr = new XMLHttpRequest();
         xhr.withCredentials = false;
         const token: string = localStorage.getItem('token')
-        xhr.open('POST', 'http://localhost:5000/api/post_image_handler/');
+        xhr.open('POST', `${this.api_url}/post_image_handler/`);
         xhr.setRequestHeader("authorization", `Bearer ${token}`);
         xhr.onload = function () {
           var json;

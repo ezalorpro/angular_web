@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 })
 export class AuthService {
 
-  API_URL: string = 'http://localhost:5000';
+  API_URL: string = API_URL;
   redirect_url: string;
   error_message: Subject<string> = new Subject<string>();
 

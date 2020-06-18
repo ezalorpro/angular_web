@@ -1,0 +1,8 @@
+.side-nav {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+a {
+    font-size: 18px !important;
+}
