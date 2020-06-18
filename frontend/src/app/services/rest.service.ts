@@ -34,10 +34,11 @@ export class RestService {
     return this.httpclient.post(`${API_URL}/userdata/`, data)
   } 
 
-  apiPostData(id?: number, data?: Object, tipo?: string): Observable<any> {
+  apiPostData(param?: number | string, data?: Object, tipo?: string): Observable<any> {
     if (tipo == 'get') {
-      if (id) {
-        return this.httpclient.get<Post>(`${API_URL}/posts/${id}/`).pipe(catchError(this._handleError))
+      if (param) {
+        console.log(typeof(param))
+        return this.httpclient.get<Post>(`${API_URL}/posts/${param}/`).pipe(catchError(this._handleError))
       }
       return this.httpclient.get<Post[]>(`${API_URL}/posts/`).pipe(catchError(this._handleError))
     }

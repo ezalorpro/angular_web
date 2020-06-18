@@ -28,16 +28,13 @@ class TagsSchema(SQLAlchemyAutoSchema):
 class PostSchema(SQLAlchemyAutoSchema):
     
     user = Nested(UserSchema, 
-        exclude=[
-            'password', 
-            'avatar', 
-            'roles', 
-            'information', 
-            'location',
-            'comment',
-            'imagepost',
-            'post',
-            'gender'
+        only=[
+            'id', 
+            'username', 
+            'first_name', 
+            'last_name', 
+            'email',
+            'avatar_url',
             ]
         )
     

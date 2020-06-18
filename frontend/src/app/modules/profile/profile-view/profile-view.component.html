@@ -1,6 +1,6 @@
-<div fxLayout="row" fxLayoutAlign="center center" *ngIf="userdata">
-  <mat-card fxLayout.gt-xs="row" fxLayout="column" fxLayoutAlign="stretch stretch" fxFlex.gt-md="50"
-    fxFlex.gt-sm="60" fxFlex.gt-xs="80" fxFlex="90">
+<div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="center start" fxLayoutAlign="center center" fxFlex="100">
+  <mat-card fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="stretch stretch" fxFlex.gt-md="40"
+    fxFlex.gt-sm="50" fxFlex.gt-xs="70" fxFlex="100" *ngIf="userdata">
 
     <div class="div-avatar" fxLayout="column" fxLayoutAlign="space-around center" fxFlex="35">
       <div *ngIf="userdata.avatar_url" mat-card-avatar class="example-header-image"
@@ -69,4 +69,21 @@
     </mat-card-content>
 
   </mat-card>
+
+  <div fxLayout="column" fxLayoutAlign="space-between end">
+    <mat-list *ngIf="posts.length > 0" fxLayout="column" fxLayoutAlign="start start" fxFlex="50" class="list-posts">
+      <mat-list-item *ngFor="let post of posts">
+        <a [routerLink]="['/profile/view']"><mat-icon color="warn">delete</mat-icon></a>
+        <a [routerLink]="['/posts/edit/'+ post.id]"><mat-icon color="primary">edit</mat-icon></a>
+        <a [routerLink]="['/posts/view/'+ post.id]"><mat-icon color="primary">remove_red_eye</mat-icon></a>
+        
+        <div mat-line>{{post.title}}</div>
+        <div mat-line> {{post.post_date | date}} </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+    <a [routerLink]="['/posts/new']" mat-fab color="primary">
+      <mat-icon>add</mat-icon>
+    </a>
+  </div>
 </div>

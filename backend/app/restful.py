@@ -58,17 +58,29 @@ class PostData(Resource):
         }
       
     def get(self, param=None):
-        if (param):
-            post = Post.query.get(param)
-            post_schema = PostSchema()
-            post_dump = post_schema.dump(post)
-            return post_dump
-        else:
-            posts = Post.query.order_by(Post.post_date).all()[::-1]
+        
+        if not param:
+            posts = Post.query.order_by('post_date').all()[::-1]
             post_schema = PostSchema(many=True)
             posts_dump = post_schema.dump(posts)
                         
             return posts_dump 
+        
+        elif param.isdigit():
+            post = Post.query.get(param)
+            post_schema = PostSchema()
+            post_dump = post_schema.dump(post)
+            return post_dump
+       
+        else:
+            user = User.query.filter_by(username=param).first()
+            if user:
+                post = Post.query.filter_by(usuario_id=user.id).order_by('post_date').all()[::-1]
+                post_schema = PostSchema(many=True, only=['title', 'post_date', 'id'])
+                post_dump = post_schema.dump(post)
+                return post_dump
+            else:
+                return abort(404)
     
     def post(self, tipo=None):
         data = request.get_json(force=True)
