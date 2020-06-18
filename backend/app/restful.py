@@ -3,6 +3,7 @@ import datetime
 from flask_praetorian.utilities import current_user_id
 from app.schemas import UserSchema, PostSchema, TagsSchema
 from werkzeug.datastructures import FileStorage
+from werkzeug.utils import secure_filename
 from base64 import b64decode
 from io import BytesIO
 from flask import request, jsonify, abort, url_for
@@ -36,8 +37,6 @@ class UserData(Resource):
         avatar_image = new_data.get('avatar_file_data', None)
         
         if avatar_image:
-            # if len(avatar_image) % 4:
-            #     avatar_image += '=' * (4 - len(avatar_image) % 4)
             avatar_image = avatar_image.replace('data:image/png;base64,', '')
             image_storage = FileStorage(BytesIO(b64decode(avatar_image)), 
                                         filename=new_data.get('avatar'))
@@ -72,11 +71,13 @@ class PostInput(Resource):
     def post(self, tipo=None):
         data = request.get_json(force=True)
         
-        if Post.query.filter_by(title=data['title']).first():
-            return abort(409, 'Ya existe un post con ese titulo.')
-        
         if tipo == 'edit':
             post = Post.query.get(data['id'])
+            title_check = Post.query.filter_by(title=data['title']).first()
+            
+            if title_check:
+                if title_check.id != post.id:
+                    return abort(409, 'Ya existe un post con ese titulo.')
             
             if post.user.id != current_user_id():
                 return abort(401, 'Solo el autor del post o un admin pueden editar el post.')
@@ -104,6 +105,9 @@ class PostInput(Resource):
             post = Post()
             user = User.query.get(current_user_id())
             
+            if Post.query.filter_by(title=data['title']).first():
+                return abort(409, 'Ya existe un post con ese titulo.')
+                
             post.user = user
             post.title = data['title']
             post.post_text = data['post_text']
@@ -183,11 +187,12 @@ class PostImageHandlerApi(Resource):
         image_db = ImagePost(user=user)
         db.session.add(image_db)
         db.session.flush()
-        image_db.path = str(image_db.id) + "-" + image_name
-        image_name = image_db.path
+        image_db.image_name = secure_filename(str(image_db.id) + "-" + image_name)
+        image_name = image_db.image_name
         db.session.commit()
         photos.save(image, name=image_name)
         return jsonify({"location": url_for("static", filename="images/" + image_name)})
+
 
 api.add_resource(UserData, '/api/userdata/') 
 api.add_resource(PostData, '/api/posts/', '/api/posts/<id>/')

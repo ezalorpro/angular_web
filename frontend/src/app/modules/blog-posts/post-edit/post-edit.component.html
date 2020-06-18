@@ -13,17 +13,7 @@
       [tagCtrl]="form.controls.tags">
     </app-tag-input>
 
-    <editor formControlName="post_text" [init]="{
-      plugins: 'codesample image code table anchor charmap directionality emoticons hr imagetools insertdatetime media autoresize
-      importcss nonbreaking pagebreak paste preview print quickbars save searchreplace toc visualblocks wordcount
-      visualchars',
-      image_title: true,
-      image_advtab: true,
-      convert_urls: false,
-      height: '400',
-      media_live_embeds: true,
-      codesample_global_prismjs: true
-    }"></editor>
+    <editor formControlName="post_text" [init]="tinymceInit()"></editor>
 
     <div class="action-buttons-container">
       <button mat-button mat-raised-button class="edit-buttons" color="primary" [disabled]="form.invalid">

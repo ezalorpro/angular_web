@@ -35,9 +35,6 @@ def manage_images(post):
     images1 = ImagePost.query.filter_by(post=None).all()
     if images1:
         for image in images1:
-            print(image.image_name)
-            print(post.post_text)
-            print(image.image_name in post.post_text)
             if image.image_name in post.post_text:
                 image.post = post
             elif image.user == post.user:

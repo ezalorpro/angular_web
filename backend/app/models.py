@@ -125,8 +125,8 @@ class Comment(db.Model):
 class ImagePost(db.Model):
     id = Column(Integer, primary_key=True, nullable=False)
     image_name = Column(String, index=True, unique=True)
-    post_id = db.Column(Integer, ForeignKey("post.id", ondelete="CASCADE"))
-    post = db.relationship(
+    post_id = Column(Integer, ForeignKey("post.id", ondelete="CASCADE"))
+    post = relationship(
         "Post",
         backref=backref("imagepost", lazy="dynamic", passive_deletes=True),
     )
