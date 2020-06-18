@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, AfterViewInit } from '@angular/core';
 import { ENTER, COMMA } from "@angular/cdk/keycodes";
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { startWith, map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
   templateUrl: './tag-input.component.html',
   styleUrls: ['./tag-input.component.css']
 })
-export class TagInputComponent implements OnInit {
+export class TagInputComponent implements OnInit, AfterViewInit {
 
   visible = true;
   selectable = true;
@@ -32,13 +32,16 @@ export class TagInputComponent implements OnInit {
 
   ngOnInit() {
     this.tagCtrl.setValue(this.tags);
-    if (this.tags.length < 1) {
-      this.chipList.errorState = true
-    }
     this.dummy_tagCtrl.setValidators([Validators.required])
     this.filteredTags = this.dummy_tagCtrl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
+  }
+
+  ngAfterViewInit() {
+    if (this.tags.length < 1) {
+      this.chipList.errorState = true
+    }
   }
 
   add(event: MatChipInputEvent): void {

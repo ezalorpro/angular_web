@@ -14,6 +14,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { TagInputComponent } from './tag-input/tag-input.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PostNewComponent } from './post-new/post-new.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SafePipe,
     ContentTagComponent,
     TagInputComponent,
+    PostNewComponent,
   ],
   imports: [
     CommonModule,

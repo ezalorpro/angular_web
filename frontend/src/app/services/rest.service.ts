@@ -42,6 +42,10 @@ export class RestService {
     return this.httpclient.get<Post[]>(`${API_URL}/posts/`).pipe(catchError(this._handleError))
   }
 
+  PostPosts(data: Object, tipo: string) {
+    return this.httpclient.post(`${API_URL}/postinput/${tipo}/`, data)
+  }
+
   getTags(): Observable<any> {
     return this.httpclient.get(`${API_URL}/tags/`).pipe(catchError(this._handleError))
   }

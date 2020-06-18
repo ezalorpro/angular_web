@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap, map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from 'src/app/services/rest.service';
 import { Post } from 'src/app/models/post.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,11 +16,13 @@ export class PostEditComponent implements OnInit {
   form: FormGroup;
   allTags: Array<string>;
   current_tags: Array<string> = [];
+  title_uniq_error: string;
 
   constructor(
     private route: ActivatedRoute,
     private restService: RestService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +53,20 @@ export class PostEditComponent implements OnInit {
   }
 
   editar(data) {
-    console.log(data)
+    data['id'] = this.post_data.id
+    this.restService.PostPosts(data, 'edit').subscribe(
+      res => {
+        this.router.navigate([res['redirect']])
+      },
+      error => {
+        console.log(error)
+        if (error.status == 409) {
+          this.title_uniq_error = error.error.message
+        } else {
+          alert(error.error.message)
+        }
+      }
+    )
   }
 
 }

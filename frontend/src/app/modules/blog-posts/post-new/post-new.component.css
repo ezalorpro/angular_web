@@ -24,7 +24,7 @@ mat-form-field {
   overflow: hidden;
 }
 
-.edit-buttons {
+.new-buttons {
   float: right;
   margin-left: 10px;
 }

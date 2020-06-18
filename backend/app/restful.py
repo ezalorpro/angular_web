@@ -1,3 +1,5 @@
+import datetime
+
 from flask_praetorian.utilities import current_user_id
 from app.schemas import UserSchema, PostSchema, TagsSchema
 from werkzeug.datastructures import FileStorage
@@ -7,7 +9,7 @@ from flask import request, jsonify, abort, url_for
 from flask_restful import Resource
 from app.models import User, Post, Tags, Comment, ImagePost
 from app import db, guard, api, photos
-from app.utils import prefix_name
+from app.utils import prefix_name, add_tags, manage_images
 
 import flask_praetorian as fprae
 
@@ -56,12 +58,73 @@ class PostData(Resource):
             post_dump = post_schema.dump(post)
             return post_dump
         else:
-            posts = Post.query.all()
+            posts = Post.query.order_by(Post.post_date).all()[::-1]
             post_schema = PostSchema(many=True)
             posts_dump = post_schema.dump(posts)
                         
             return posts_dump 
 
+
+class PostInput(Resource):
+    
+    method_decorators = [fprae.auth_required]
+    
+    def post(self, tipo=None):
+        data = request.get_json(force=True)
+        
+        if Post.query.filter_by(title=data['title']).first():
+            return abort(409, 'Ya existe un post con ese titulo.')
+        
+        if tipo == 'edit':
+            post = Post.query.get(data['id'])
+            
+            if post.user.id != current_user_id():
+                return abort(401, 'Solo el autor del post o un admin pueden editar el post.')
+
+            post.title = data['title']
+            post.post_text = data['post_text']
+            post.post_modified = datetime.datetime.now()
+            
+            tag_acum = []
+            for tag in data['tags']:
+                if tag:
+                    tag_acum.append(add_tags(tag))
+                    
+            post.tags = tag_acum
+            db.session.flush()
+            manage_images(post)
+            db.session.commit()
+            
+            return jsonify({
+                'message': 'Post editado exitosamente', 
+                'redirect': f'posts/view/{post.id}'
+                })
+            
+        if tipo == 'new':
+            post = Post()
+            user = User.query.get(current_user_id())
+            
+            post.user = user
+            post.title = data['title']
+            post.post_text = data['post_text']
+            post.post_date = datetime.datetime.now()
+            post.post_modified = datetime.datetime.now()
+            
+            tag_acum = []
+            for tag in data['tags']:
+                if tag:
+                    tag_acum.append(add_tags(tag))
+                    
+            post.tags = tag_acum
+            db.session.flush()
+            manage_images(post)
+            db.session.commit()
+            
+            return jsonify({
+                'message': 'Post creado exitosamente', 
+                'redirect': f'posts/view/{post.id}'
+                })
+    
 
 class TagsData(Resource):    
     def get(self):
@@ -108,27 +171,6 @@ class Register(Resource):
         db.session.commit()
         return jsonify({'message': 'Registro exitoso', 'redirect': 'register/succes'})
     
-# @app.route("/PostData/<username>", methods=['GET', 'POST'])
-# def post_data(username=None):
-#     if request.method == 'GET' and username:
-#         usuario = User.query.filter_by(username=username).first()
-#         posts = Post.query.filter_by(usuario_id=usuario.id).all()
-#         data = {'data': []}
-#         for post in posts:
-#             post_dict = post.to_dict()
-#             post_dict['user_id'] = usuario.username
-#             data['data'].append(post_dict)
-#         return jsonify(data)
-#     # else:
-#         # Query_result = User.query.order_by(User.id).all()
-#         # data = {'data': []}
-#         # for user in Query_result:
-#         #     user_dict = user.to_dict()
-#         #     if isinstance(user_dict['roles'],dict):
-#         #         user_dict['roles'] = [role for _,role in user_dict['roles'].items()]
-#         #     user_dict['roles'].sort()
-#         #     data['data'].append(user_dict)
-#         # return jsonify(data)
 
 class PostImageHandlerApi(Resource):
     
@@ -149,6 +191,7 @@ class PostImageHandlerApi(Resource):
 
 api.add_resource(UserData, '/api/userdata/') 
 api.add_resource(PostData, '/api/posts/', '/api/posts/<id>/')
+api.add_resource(PostInput, '/api/postinput/<tipo>/')
 api.add_resource(TagsData, '/api/tags/')
 api.add_resource(LoginApi, '/api/login/')
 api.add_resource(Register, '/api/register/')

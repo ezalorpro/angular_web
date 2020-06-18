@@ -9,7 +9,7 @@ from flask import current_app
 
 from app import login_manager, db
 from flask_login import current_user
-from app.models import User, Post, ph, ImagePost
+from app.models import User, Post, ph, ImagePost, Tags
 
 
 class CustomPasswordField(wtforms.PasswordField):
@@ -48,3 +48,13 @@ def manage_images(post):
         for image in images2:
             if image.image_name not in post.post_text:
                 db.session.delete(image)
+                
+
+def add_tags(tag):
+    existing_tag = Tags.query.filter(Tags.name == tag.lower()).first()
+    if existing_tag is not None:
+        return existing_tag
+    else:
+       new_tag = Tags()
+       new_tag.name = tag.lower()
+       return new_tag

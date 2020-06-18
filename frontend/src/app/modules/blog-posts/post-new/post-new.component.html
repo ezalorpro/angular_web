@@ -1,6 +1,6 @@
 <div *ngIf="form" class="main-container">
-  <form [formGroup]="form" (ngSubmit)="editar(form.value)" id="form_edit">
-    
+  <form [formGroup]="form" (ngSubmit)="crear(form.value)" id="form_edit">
+
     <mat-form-field appearance="outline">
       <mat-label>Titulo</mat-label>
       <input matInput type="text" placeholder="Titulo" formControlName="title" required>
@@ -8,7 +8,7 @@
       <mat-icon matSuffix>title</mat-icon>
     </mat-form-field>
     <span *ngIf="title_uniq_error" class="error-title">{{ title_uniq_error }}</span>
-    
+
     <app-tag-input *ngIf="allTags && current_tags" [tags]="current_tags" [allTags]="allTags"
       [tagCtrl]="form.controls.tags">
     </app-tag-input>
@@ -26,10 +26,10 @@
     }"></editor>
 
     <div class="action-buttons-container">
-      <button mat-button mat-raised-button class="edit-buttons" color="primary" [disabled]="form.invalid">
+      <button mat-button mat-raised-button class="new-buttons" color="primary" [disabled]="form.invalid">
         <mat-icon>save</mat-icon> Enviar
       </button>
-      <a mat-button mat-raised-button class="edit-buttons" color="warn" [routerLink]="['/posts/view/'+ post_data.id]">
+      <a mat-button mat-raised-button class="new-buttons" color="warn" [routerLink]="['/profile/view']">
         Cancelar
       </a>
     </div>

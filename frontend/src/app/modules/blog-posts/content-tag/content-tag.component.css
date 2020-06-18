@@ -1,8 +1,9 @@
 .main-container {
-    border-radius: 50px;
-    background-color:#bbbbbb;
-    color: rgb(71, 71, 71);
+    border-radius: 16px;
+    background-color: #e0e0e0;
+    color: rgba(0, 0, 0, .87);
     text-align: center;
+    align-items: center;
     width: min-content;
     box-sizing: border-box;
     padding: 8px 15px;
@@ -10,6 +11,8 @@
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 5px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .main-container:hover {

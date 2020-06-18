@@ -7,7 +7,6 @@
       </mat-chip>
       <input placeholder="Agregar tag..." #tagInput [matAutocomplete]="auto"
         [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        [matChipInputAddOnBlur]="true"
         (matChipInputTokenEnd)="add($event)" ngDefaultControl [formControl]="dummy_tagCtrl" required>
       <input type="hidden" [formControl]="tagCtrl" required>
     </mat-chip-list>
