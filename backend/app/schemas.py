@@ -12,6 +12,18 @@ class UserSchema(SQLAlchemyAutoSchema):
        
         
 class CommentSchema(SQLAlchemyAutoSchema):
+    
+    user = Nested(UserSchema, 
+        only=[
+            'id', 
+            'username', 
+            'first_name', 
+            'last_name', 
+            'email',
+            'avatar_url',
+            ]
+        )
+    
     class Meta:
         model = Comment
         include_relationships = True

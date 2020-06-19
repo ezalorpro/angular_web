@@ -280,16 +280,16 @@ class TagsView(ModelView):
         return redirect(url_for("login.admin_login"))
 
 
-# class CommentsView(ModelView):
-#     column_type_formatters = MY_DEFAULT_FORMATTERS
-#     column_type_formatters_detail = MY_DEFAULT_FORMATTERS
-#     form_columns = ["comment_text", "postmodel", "user"]
+class CommentsView(ModelView):
+    column_type_formatters = MY_DEFAULT_FORMATTERS
+    column_type_formatters_detail = MY_DEFAULT_FORMATTERS
+    form_columns = ["content", "post", "user"]
     
-#     def is_accessible(self):
-#         return current_user.is_authenticated and current_user.role == "admin"
+    def is_accessible(self):
+        return current_user.is_authenticated and (set.intersection(set(current_user.roles), set(["ROLE_ADMIN", "ROLE_EDITOR"])))
 
-#     def inaccessible_callback(self, name, **kwargs):
-#         return redirect(url_for("login.admin_login"))
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for("login.admin_login"))
 
 
 @login_manager.user_loader

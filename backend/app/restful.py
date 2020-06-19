@@ -1,7 +1,7 @@
 import datetime
 
 from flask_praetorian.utilities import current_user_id
-from app.schemas import UserSchema, PostSchema, TagsSchema
+from app.schemas import UserSchema, PostSchema, TagsSchema, CommentSchema
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 from base64 import b64decode
@@ -147,11 +147,25 @@ class TagsData(Resource):
     def get(self):
         tags = Tags.query.all()
         tags_schema = TagsSchema(many=True, exclude=['posts'])
-        tags_dump = tags_schema.dump(tags)
-                    
+        tags_dump = tags_schema.dump(tags)  
         return tags_dump 
- 
+
+
+class CommentsData(Resource):
+    
+    method_decorators = {
+        'post': [fprae.auth_required], 
+        'put': [fprae.auth_required], 
+        'delete': [fprae.auth_required]
+        }
+    
+    def get(self, param=None):
+        comments = Comment.query.filter_by(post_id=param).order_by('date').all()
+        comments_schema = CommentSchema(many=True)
+        comments_dump = comments_schema.dump(comments)
+        return comments_dump
               
+
 class LoginApi(Resource):
     def post(self):
         credentials = request.get_json(force=True)
@@ -207,7 +221,8 @@ class PostImageHandlerApi(Resource):
         return jsonify({"location": url_for("static", filename="images/" + image_name)})
 
 
-api.add_resource(UserData, '/api/userdata/') 
+api.add_resource(UserData, '/api/userdata/')
+api.add_resource(CommentsData, '/api/posts/comments/<param>/')
 api.add_resource(PostData, '/api/posts/', '/api/posts/<param>/')
 api.add_resource(TagsData, '/api/tags/')
 api.add_resource(LoginApi, '/api/login/')

@@ -1,1 +1,22 @@
-<p>comment works!</p>
+<div class="main-container">
+  <div class="comment-userdata">
+    <div *ngIf="userdata.avatar_url">
+      <img src="{{ userdata.avatar_url }}" alt="avatar" class="avatar-image">
+    </div>
+    <div *ngIf="!userdata.avatar_url" class="avatar-image">
+      <img src="/static/images/default.png" alt="avatar" class="avatar-image">
+    </div>
+    <div>
+      <p class="second-line"> {{ userdata.username }} </p>
+    </div>
+  </div>
+  <div class="comment-content">
+    <form *ngIf="alternate" [formGroup]="form" (ngSubmit)="editar(form.value)">
+      <editor formControlName="content" [init]="tinymceInit()"></editor>
+    </form>
+    <div class="static-comment" *ngIf="!alternate">
+      {{comment_data['content']}}
+    </div>
+  </div>
+  <button (click)="alternar()">Comentar</button>
+</div>
