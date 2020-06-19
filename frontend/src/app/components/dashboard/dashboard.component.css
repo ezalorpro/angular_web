@@ -1,7 +1,71 @@
-mat-spinner {
+@media only screen and (max-width: 959px) {
+  .div-spinner {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
     position: fixed;
-    top: 49%;
-    right: 44%;
+    width: 100%;
+    margin-left: -1%;
+    bottom: 45%;
+    height: 40px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .error-div {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 0px;
+    margin-left: 0%;
+    bottom: 48%;
+    box-sizing: border-box;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  .div-spinner {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    margin-left: -6.9%;
+    bottom: 45%;
+    height: 40px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .error-div {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 0px;
+    margin-left: -6%;
+    bottom: 48%;
+    box-sizing: border-box;
+  }
+}
+
+.main-container {
+    display: flex;
+    flex-flow: column;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 10px 1px;
+}
+
+.error-connection{
+    color: rgba(255, 0, 0, 0.384);
 }
 
 .pokemon-span {

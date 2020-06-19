@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   next_url: string = 'https://pokeapi.co/api/v2/pokemon?limit=50';
   loading: boolean = false;
   scroll_subscription: Subscription;
+  error_connection: boolean;
 
   constructor(
     private restService: RestService,
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.morePokemons()
+    this.initSubscribe()
   }
 
   pokemon_function() {
@@ -33,17 +34,29 @@ export class DashboardComponent implements OnInit {
   }
 
   morePokemons() {
+    if (!this.loading) {
+      this.error_connection = null
+      this.loading = true
+      this.pokemon_function().subscribe(
+        data => {
+          this.pokemons_images = this.pokemons_images.concat(data['results'])
+          this.pokemon_ob = of(this.pokemons_images)
+          this.next_url = data['next']
+          this.loading = false
+        },
+        error => {
+          console.log(error)
+          this.loading = false
+          this.error_connection = true
+        }
+      )
+    }
+  }
+  
+  initSubscribe() {
     this.scroll_subscription = this.scrollService.getScrollEvent().subscribe(
       () => {
-        this.loading = true
-        this.pokemon_function().subscribe(
-          data => {
-            this.pokemons_images = this.pokemons_images.concat(data['results'])
-            this.pokemon_ob = of(this.pokemons_images)
-            this.next_url = data['next']
-            this.loading = false
-          }
-        )
+        this.morePokemons()
       }
     )
   }

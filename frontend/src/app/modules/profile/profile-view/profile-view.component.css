@@ -1,17 +1,106 @@
-mat-card {
-  padding: 0px;
-  /* min-width: 400px; */
-  max-width: 90%;
-  margin: 20px 5px;
+@media only screen and (max-width: 360px) {
+  .main-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
+
+  .div-profile {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: stretch;
+    padding: unset;
+    margin: 10px 10px;
+  }
+
+  .div-list-posts {
+    margin: 10px 10px;
+  }
 }
 
-mat-card-content {
-  padding: 16px;
-  width: -webkit-fill-available;
+@media only screen and (min-width: 361px) {
+  .main-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
+
+  .div-profile {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    padding: unset;
+    margin: 10px 10px;
+  }
+
+  .div-list-posts {
+    margin: 10px 10px;
+  }
+
+  .button-newpost {
+    margin: 10px;
+    float: left;
+  }
+
 }
 
-mat-list {
-  text-align: center;
+@media only screen and (min-width: 600px) {
+  .main-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+  }
+
+  .div-profile {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: column;
+    align-items: stretch;
+    width: 50%;
+    padding: unset;
+    margin: 10px 10px;
+  }
+
+  .div-list-posts {
+    width: 90%;
+    margin: 10px 10px;
+  }
+
+  .button-newpost {
+    margin: 10px;
+    float: right;
+  }
+
+}
+
+@media only screen and (min-width: 992px) {
+  .main-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+  }
+
+  .div-profile {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row;
+    align-items: stretch;
+    width: 90%;
+    padding: unset;
+    margin: 10px 10px;
+  }
+
+  .div-list-posts {
+    width: 90%;
+    margin: 10px 10px;
+  }
+
+  .button-newpost {
+    margin: 10px;
+    float: right;
+  }
+
 }
 
 .first-line {
@@ -28,24 +117,35 @@ mat-list {
   flex: 1 1 auto;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
-
-.mat-card-avatar {
-  width: 120px;
-  height: 120px;
+.avatar-image {
+  border-radius: 100%;
+  width: 100%;
+  max-width: 200px;
+  height: auto;  
 }
 
 .div-avatar {
+  display: flex;
+  flex-flow: column;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
   background-color: #3f51b5;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px
+  padding: 10px;
+  border-radius: 4px;
+  width: 100%;
+  text-align: center;
 }
 
-.list-posts{
-  margin: 20px 5px
+.profile-list {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-posts {
+  text-align: center;
+  margin-bottom: 0;
 }

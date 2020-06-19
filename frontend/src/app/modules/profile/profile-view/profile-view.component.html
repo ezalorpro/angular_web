@@ -1,25 +1,24 @@
-<div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="center start" fxLayoutAlign="center center" fxFlex="100">
-  <mat-card fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="stretch stretch" fxFlex.gt-md="40"
-    fxFlex.gt-sm="50" fxFlex.gt-xs="70" fxFlex="100" *ngIf="userdata">
+<div class="main-container">
+  <div *ngIf="userdata" class="div-profile">
 
-    <div class="div-avatar" fxLayout="column" fxLayoutAlign="space-around center" fxFlex="35">
-      <div *ngIf="userdata.avatar_url" mat-card-avatar class="example-header-image"
-        style="background-image: url('{{ userdata.avatar_url }}');">
+    <div class="div-avatar">
+      <div *ngIf="userdata.avatar_url">
+        <img src="{{ userdata.avatar_url }}" alt="avatar" class="avatar-image">
       </div>
-      <div *ngIf="!userdata.avatar_url" mat-card-avatar class="example-header-image"
-        style="background-image: url('/static/images/default.png');"></div>
-      <div fxLayout="column" fxLayoutAlign="center center">
+      <div *ngIf="!userdata.avatar_url" class="avatar-image">
+        <img src="/static/images/default.png" alt="avatar" class="avatar-image">
+      </div>
+      <div>
           <p class="first-line"> Usuario </p>
           <p class="second-line"> {{ userdata.username }} </p>
       </div>
       <a mat-button mat-raised-button [routerLink]="['/profile/edit']" routerLinkActive="router-link-active">EDITAR</a>
     </div>
           
-    <mat-card-content fxLayout="column" fxLayoutAlign="center center">
-
-      <mat-list fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="profile-list">
+      <mat-list>
         
-        <div fxFlex="100" fxFlex.gt-xs="50">
+        <div>
           <!-- Nombre y apellido -->
           <mat-list-item>
             <mat-icon mat-list-icon>person</mat-icon>
@@ -28,7 +27,7 @@
           </mat-list-item>
         </div>
 
-        <div fxFlex="100" fxFlex.gt-xs="50">
+        <div>
           <!-- Correo -->
           <mat-list-item>
             <mat-icon mat-list-icon>mail</mat-icon>
@@ -37,7 +36,7 @@
           </mat-list-item>
         </div>
         
-        <div fxFlex="100" fxFlex.gt-xs="50">
+        <div>
           <!-- Genero -->
           <mat-list-item>
             <mat-icon mat-list-icon>wc</mat-icon>
@@ -46,7 +45,7 @@
           </mat-list-item>
         </div>
 
-        <div fxFlex="100" fxFlex.gt-xs="50">
+        <div>
           <!-- Localizacion -->
           <mat-list-item>
             <mat-icon mat-list-icon>location_city</mat-icon>
@@ -55,7 +54,7 @@
           </mat-list-item>
         </div>
 
-        <div fxFlex="100" fxFlex.gt-xs="50">
+        <div>
           <!-- Informacion -->
           <mat-list-item>
             <mat-icon mat-list-icon>info</mat-icon>
@@ -66,12 +65,13 @@
 
       </mat-list>
 
-    </mat-card-content>
+    </div>
 
-  </mat-card>
+  </div>
 
-  <div fxLayout="column" fxLayoutAlign="space-between end">
-    <mat-list *ngIf="posts.length > 0" fxLayout="column" fxLayoutAlign="start start" fxFlex="50" class="list-posts">
+  <div class="div-list-posts" *ngIf="posts">
+    <h2 class="title-posts">Posts publicados</h2>
+    <mat-list *ngIf="posts.length > 0">
       <mat-list-item *ngFor="let post of posts">
         <a [routerLink]="['/profile/view']"><mat-icon color="warn">delete</mat-icon></a>
         <a [routerLink]="['/posts/edit/'+ post.id]"><mat-icon color="primary">edit</mat-icon></a>
@@ -82,7 +82,7 @@
         <mat-divider></mat-divider>
       </mat-list-item>
     </mat-list>
-    <a [routerLink]="['/posts/new']" mat-fab color="primary">
+    <a [routerLink]="['/posts/new']" mat-fab color="primary" class="button-newpost">
       <mat-icon>add</mat-icon>
     </a>
   </div>
