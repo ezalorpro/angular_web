@@ -37,7 +37,6 @@ export class RestService {
   apiPostData(param?: number | string, data?: Object, tipo?: string): Observable<any> {
     if (tipo == 'get') {
       if (param) {
-        console.log(typeof(param))
         return this.httpclient.get<Post>(`${API_URL}/posts/${param}/`).pipe(catchError(this._handleError))
       }
       return this.httpclient.get<Post[]>(`${API_URL}/posts/`).pipe(catchError(this._handleError))
@@ -51,6 +50,28 @@ export class RestService {
       return this.httpclient.put(`${API_URL}/posts/`, data)
     }
     
+    if (tipo == 'delete') {
+      return this.httpclient.delete(`${API_URL}/posts/${param}`)
+    }
+  }
+
+  apiCommentsData(param?: number | string, data?: Object, tipo?: string) {
+    if (tipo == 'get') {
+      return this.httpclient.get(`${API_URL}/posts/comments/${param}/`)
+    }
+
+    if (tipo == 'post') {
+      return this.httpclient.post(`${API_URL}/posts/comments/${param}/`, data)
+    }
+
+    if (tipo == 'put') {
+      return this.httpclient.put(`${API_URL}/posts/comments/${param}/`, data)
+    }
+
+    if (tipo == 'delete') {
+      return this.httpclient.delete(`${API_URL}/posts/comments/${param}`)
+    }
+
   }
 
   getTags(): Observable<any> {

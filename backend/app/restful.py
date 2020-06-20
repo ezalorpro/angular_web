@@ -68,9 +68,12 @@ class PostData(Resource):
         
         elif param.isdigit():
             post = Post.query.get(param)
-            post_schema = PostSchema()
-            post_dump = post_schema.dump(post)
-            return post_dump
+            if post:
+                post_schema = PostSchema()
+                post_dump = post_schema.dump(post)
+                return post_dump
+            else:
+                return abort(404)
        
         else:
             user = User.query.filter_by(username=param).first()
@@ -142,6 +145,16 @@ class PostData(Resource):
             'redirect': f'posts/view/{post.id}'
             })
     
+    def delete(self, param):
+        post = Post.query.get(param)
+        db.session.delete(post)
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'Post borrado exitosamente', 
+            'redirect': f'profile/view'
+            })
+
 
 class TagsData(Resource):    
     def get(self):
@@ -164,7 +177,49 @@ class CommentsData(Resource):
         comments_schema = CommentSchema(many=True)
         comments_dump = comments_schema.dump(comments)
         return comments_dump
-              
+    
+    def post(self, param=None):
+        data = request.get_json(force=True)
+        comment = Comment()
+        user = User.query.get(2)
+        comment.user = user
+        comment.content = data.get('content', None)
+        comment.date = datetime.datetime.now()
+        post = Post.query.get(param)
+        post.comments.append(comment)
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'Comentario creado exitosamente', 
+            'redirect': f'posts/view/{post.id}'
+            })
+    
+    def put(self, param):
+        data = request.get_json(force=True)
+        comment = Comment.query.get(param)
+        if comment:
+            comment.content = data.get('content', None)
+            db.session.commit()
+            
+            return jsonify({
+                'message': 'Comentario editado exitosamente', 
+                'redirect': f'posts/view/{comment.post_id}'
+                })
+        else:
+            return abort(404)
+    
+    def delete(self, param):
+        comment = Comment.query.get(param)
+        if comment:
+            db.session.delete(comment)
+            db.session.commit()
+            
+            return jsonify({
+                'message': 'Comentario borrado exitosamente'
+                })
+        else:
+            return abort(404)
+        
 
 class LoginApi(Resource):
     def post(self):
@@ -222,7 +277,7 @@ class PostImageHandlerApi(Resource):
 
 
 api.add_resource(UserData, '/api/userdata/')
-api.add_resource(CommentsData, '/api/posts/comments/<param>/')
+api.add_resource(CommentsData, '/api/posts/comments/', '/api/posts/comments/<param>/')
 api.add_resource(PostData, '/api/posts/', '/api/posts/<param>/')
 api.add_resource(TagsData, '/api/tags/')
 api.add_resource(LoginApi, '/api/login/')
