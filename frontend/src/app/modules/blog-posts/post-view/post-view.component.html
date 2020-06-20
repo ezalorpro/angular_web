@@ -16,8 +16,12 @@
     </form>
   </div>
   
-  <div class="comments-div" *ngIf="post_data.comments.length ;else noComments">
-    <app-comment *ngFor="let comment_data of post_data.comments" [comment_data]="comment_data"  (alternate_emmiter)="alternar($event)"></app-comment>
+  <div class="comments-div" *ngIf="!loading">
+    <app-comment *ngFor="let comment_data of comments | async" [comment_data]="comment_data"  (alternate_emmiter)="alternar($event)"></app-comment>
+  </div>
+
+  <div class="div-spinner" *ngIf="loading">
+    <mat-spinner [diameter]="40"></mat-spinner>
   </div>
 
   <ng-template #noComments>

@@ -16,6 +16,7 @@ import { PokemonDialogComponent } from './components/pokemon-dialog/pokemon-dial
 import { HighlightCardDirective } from './directives/highlight-card.directive';
 import { PokemonTypesDirective } from './components/pokemon-dialog/pokemon-types.directive';
 import { AuthInterceptorService } from './modules/auth/auth-interceptor.service';
+import { ScrollTrackerDirective } from './directives/scroll-tracker.directive';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AuthInterceptorService } from './modules/auth/auth-interceptor.service'
     HomeComponent,
     PokemonDialogComponent,
     HighlightCardDirective,
-    PokemonTypesDirective
+    PokemonTypesDirective,
+    ScrollTrackerDirective
   ],
   imports: [
     BrowserModule,

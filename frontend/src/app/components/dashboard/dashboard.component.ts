@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { of, Subscription, Observable } from 'rxjs';
 import { RestService } from 'src/app/services/rest.service';
-import { ScrollService } from './scroll.service';
+import { ScrollService } from '../../services/scroll.service';
 import { ModalDialogService } from 'src/app/services/modal-dialog.service';
 import { PokemonDialogComponent } from '../pokemon-dialog/pokemon-dialog.component';
 
@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
   }
   
   initSubscribe() {
-    this.scroll_subscription = this.scrollService.getScrollEvent().subscribe(
+    this.scroll_subscription = this.scrollService.getScrollEventInit().subscribe(
       () => {
         this.morePokemons()
       }

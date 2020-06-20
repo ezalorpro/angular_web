@@ -10,7 +10,7 @@
     </mat-sidenav>
 
     <!-- Contenido -->
-    <mat-sidenav-content #MyContainer class="main-content" (scroll)="morePokemons($event)">
+    <mat-sidenav-content #MyContainer class="main-content" appScrollTracker>
       <router-outlet></router-outlet>
       <button mat-fab color="primary" (click)="palCielo()" class="button-sky" *ngIf="show_button">
         <mat-icon>keyboard_arrow_up</mat-icon>

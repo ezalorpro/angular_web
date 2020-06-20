@@ -1,6 +1,6 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
-import { ScrollService } from './components/dashboard/scroll.service';
+import { ScrollService } from './services/scroll.service';
 
 @Component({
   selector: 'app-root',
@@ -11,28 +11,19 @@ export class AppComponent {
   title = 'Probando backend';
   @ViewChild('MyContainer') container;
   show_button: boolean = false;
+  
 
   constructor(
     public media: MediaObserver,
     private scrollService: ScrollService
   ) { }
 
-  @HostListener('scroll', ['$event'])
-  morePokemons($event: Event) {
-    
-    const height = $event.target['clientHeight']
-    const containerHeight = $event.srcElement['scrollHeight']
-    const current_scroll = $event.srcElement['scrollTop']
-
-    if (current_scroll >= 300) {
-      this.show_button = true
-    } else {
-      this.show_button = false
-    }
-
-    if (((containerHeight - height) == current_scroll) && containerHeight != 0 && current_scroll != 0) {
-      this.scrollService.setScrollEvent(true)
-    }
+  ngAfterViewInit() {
+    this.scrollService.getCurrentScrollTop().subscribe(
+      (flag) => {
+        this.show_button = flag
+      }
+    )
   }
 
   palCielo() {

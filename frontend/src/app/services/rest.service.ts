@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { UserData } from '../models/userdata.model';
 import { API_URL } from '../env';
 import { Post } from 'src/app/models/post.model';
+import { Comment } from '../models/comment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,9 +56,9 @@ export class RestService {
     }
   }
 
-  apiCommentsData(param?: number | string, data?: Object, tipo?: string) {
+  apiCommentsData(param?: number | string, data?: Object, tipo?: string): Observable<any> {
     if (tipo == 'get') {
-      return this.httpclient.get(`${API_URL}/posts/comments/${param}/`)
+      return this.httpclient.get<Comment[]>(`${API_URL}/posts/comments/${param}/`)
     }
 
     if (tipo == 'post') {

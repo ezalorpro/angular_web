@@ -61,7 +61,7 @@ class PostData(Resource):
         
         if not param:
             posts = Post.query.order_by('post_date').all()[::-1]
-            post_schema = PostSchema(many=True)
+            post_schema = PostSchema(many=True, only=['user', 'post_date', 'title', 'id'])
             posts_dump = post_schema.dump(posts)
                         
             return posts_dump 
@@ -69,7 +69,7 @@ class PostData(Resource):
         elif param.isdigit():
             post = Post.query.get(param)
             if post:
-                post_schema = PostSchema()
+                post_schema = PostSchema(exclude=['comments', 'imagepost'])
                 post_dump = post_schema.dump(post)
                 return post_dump
             else:
