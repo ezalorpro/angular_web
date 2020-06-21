@@ -3,10 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { RestService } from 'src/app/services/rest.service';
 import { Post } from 'src/app/models/post.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { Observable, Subscription, of } from 'rxjs';
 import { Comment } from 'src/app/models/comment.model';
+import { UserData } from 'src/app/models/userdata.model';
+import { AuthService } from '../../auth/auth.service';
+import { ModalDialogService } from 'src/app/services/modal-dialog.service';
 
 @Component({
   selector: 'app-post-view',
@@ -20,18 +23,27 @@ export class PostViewComponent implements OnInit {
   alternate: boolean;
   comments: Observable<any>;
   comments_subscription: Subscription;
+  update_comments_subscription: Subscription;
   no_comments: boolean;
   commets_error: boolean;
   loading: boolean = false;
+  userdata: UserData;
 
   constructor(
     private route: ActivatedRoute,
     private restService: RestService,
     private formBuilder: FormBuilder,
-    private scrollService: ScrollService
+    private scrollService: ScrollService,
+    private authService: AuthService,
+    private modalDialogService: ModalDialogService
   ) { }
 
   ngOnInit(): void {
+    if(this.authService.isLoggedIn())
+    this.restService.getUserData().subscribe(
+      data => this.userdata = data
+    )
+
     this.route.params.pipe(
       switchMap(param => {
         this.subscribeScroll(param['id'])
@@ -39,17 +51,26 @@ export class PostViewComponent implements OnInit {
       })
     ).subscribe(
       data => {
-        console.log(data)
         this.post_data = data
         this.form = this.formBuilder.group({
-          content: ''
+          content: ['', Validators.required]
         })
       }
     )
+    
+
   }
 
   nuevoComentario(data) {
-    console.log(data)
+    this.restService.apiCommentsData(this.post_data.id, data, 'post').subscribe(
+      data => {
+        this.form.controls['content'].setValue('')
+        this.getComments(this.post_data.id)
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   tinymceInit() {
@@ -67,10 +88,9 @@ export class PostViewComponent implements OnInit {
 
   getComments(post_id) {
     if (!this.loading) {
+      this.loading = true
       this.restService.apiCommentsData(post_id, null, 'get').subscribe(
         data => {
-          console.log(data)
-          console.log(data.length)
           if (data.length) {
             this.comments = of(data)
             this.no_comments = false
@@ -81,6 +101,9 @@ export class PostViewComponent implements OnInit {
           } else {
             this.no_comments = true
             this.loading = false
+            if (this.comments_subscription) {
+              this.comments_subscription.unsubscribe()
+            }
           }
         },
         error => {
@@ -95,6 +118,10 @@ export class PostViewComponent implements OnInit {
   subscribeScroll(post_id) {
     this.comments_subscription = this.scrollService.getScrollEventLater().subscribe(
       () => {
+        this.update_comments_subscription = this.modalDialogService.getGenericSubject()
+          .subscribe(
+            () => this.getComments(post_id)
+          )
         this.getComments(post_id)
       },
       () => {
@@ -106,6 +133,10 @@ export class PostViewComponent implements OnInit {
   ngOnDestroy() {
     if (this.comments_subscription) {
       this.comments_subscription.unsubscribe()
+    }
+
+    if (this.update_comments_subscription) {
+      this.update_comments_subscription.unsubscribe()
     }
   }
 }

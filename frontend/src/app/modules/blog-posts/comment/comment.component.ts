@@ -1,7 +1,10 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Comment } from 'src/app/models/comment.model';
 import { UserData } from 'src/app/models/userdata.model';
+import { ModalDialogService } from 'src/app/services/modal-dialog.service';
+import { DeleteCommentComponent } from '../delete-comment/delete-comment.component';
+import { RestService } from 'src/app/services/rest.service';
 
 @Component({
   selector: 'app-comment',
@@ -13,20 +16,23 @@ export class CommentComponent implements OnInit {
   alternate: boolean = false;
   @Output() alternate_emmiter: EventEmitter<any> = new EventEmitter();
   @Input() comment_data: Comment;
-  userdata: UserData;
+  @Input() userdata?: UserData
+  userdata_comment: UserData;
 
   form: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalDialogService: ModalDialogService,
+    private restService: RestService
   ) { }
 
   ngOnInit(): void {
     this.alternate_emmiter.emit(this.alternate)
     this.form = this.formBuilder.group({
-      content: this.comment_data['content']
+      content: [this.comment_data['content'], Validators.required]
     })
-    this.userdata = this.comment_data.user
+    this.userdata_comment = this.comment_data.user
   }
 
   tinymceInit() {
@@ -44,7 +50,18 @@ export class CommentComponent implements OnInit {
   }
 
   editar(data) {
-    console.log(data)
+    this.restService.apiCommentsData(this.comment_data.id, data, 'put').subscribe(
+      data => {
+        this.modalDialogService.setGenericSubject(true)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  delete() {
+    this.modalDialogService.generalDialogOpen(DeleteCommentComponent, this.comment_data)
   }
 
 }

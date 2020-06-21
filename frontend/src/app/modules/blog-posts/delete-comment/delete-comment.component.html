@@ -1,1 +1,20 @@
-<p>delete-comment works!</p>
+<div class="main-container">
+  <div class="content-container">
+    <h1 class="title">Eliminar comentario</h1>
+    <div class="data-container">
+      <span>Comentario: {{ data.content | slice: 0:50  }}</span>
+      <span>Fecha: {{ data.date | date }}</span>
+      <span class="question">¿Estas seguro que deseas eliminar este comentario?</span>
+    </div>
+  </div>
+
+  <div class="buttons-container">
+    <a mat-button mat-raised-button color="warn" (click)="onClose()">
+      Cancelar
+    </a>
+    <a mat-button mat-raised-button color="primary" (click)="delete()">
+      Borrar
+    </a>
+
+  </div>
+</div>

@@ -33,6 +33,10 @@
   margin-bottom: 10px;
 }
 
+.new-comment-button {
+  margin-top: 5px;
+}
+
 .div-spinner {
   display: flex;
   flex-flow: column;

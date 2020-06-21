@@ -1,22 +1,36 @@
 <div class="main-container">
   <div class="comment-userdata">
-    <div *ngIf="userdata.avatar_url">
-      <img src="{{ userdata.avatar_url }}" alt="avatar" class="avatar-image">
+    <div *ngIf="userdata_comment.avatar_url">
+      <img src="{{ userdata_comment.avatar_url }}" alt="avatar" class="avatar-image">
     </div>
-    <div *ngIf="!userdata.avatar_url" class="avatar-image">
+    <div *ngIf="!userdata_comment.avatar_url" class="avatar-image">
       <img src="/static/images/default.png" alt="avatar" class="avatar-image">
     </div>
     <div>
-      <p class="second-line"> {{ userdata.username }} </p>
+      <p class="second-line"> {{ userdata_comment.username }} </p>
     </div>
   </div>
   <div class="comment-content">
-    <form *ngIf="alternate" [formGroup]="form" (ngSubmit)="editar(form.value)">
+    <form *ngIf="alternate" [formGroup]="form" (ngSubmit)="editar(form.value)" class="form-tinymce">
       <editor formControlName="content" [init]="tinymceInit()"></editor>
+      <div class="comment-button2-div">
+        <button mat-button mat-raised-button color="primary">
+          Guardar
+        </button>
+        <button mat-button mat-raised-button color="warn" (click)="alternar()">
+          Cancelar
+        </button>
+      </div>
     </form>
-    <div class="static-comment" *ngIf="!alternate">
-      {{comment_data['content']}}
+    <div class="static-comment" *ngIf="!alternate" [innerHTML]="comment_data['content'] | safe">
     </div>
   </div>
-  <button (click)="alternar()">Comentar</button>
+  <div class="buttons-container" *ngIf="!alternate && userdata.id == userdata_comment.id">
+    <button mat-button (click)="alternar()" class="comment-button1">
+      <mat-icon color="primary">edit</mat-icon>
+    </button>
+    <button mat-button (click)="delete()" class="comment-button1">
+      <mat-icon color="warn">delete</mat-icon>
+    </button>
+  </div>
 </div>
