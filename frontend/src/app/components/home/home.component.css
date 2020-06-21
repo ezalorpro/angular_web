@@ -5,3 +5,7 @@
 .image {
     background-size: cover;
 }
+
+.link-icon-button:hover {
+  cursor: pointer;
+}

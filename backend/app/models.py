@@ -91,7 +91,9 @@ class Post(db.Model):
     tags = relationship("Tags", secondary=blog_tag, back_populates="posts")
     comments = relationship(
         "Comment",
-        backref=backref("post", order_by="desc(Comment.date)"),
+        back_populates='post', 
+        order_by="desc(Comment.date)", 
+        passive_deletes=True
     )
 
     def __repr__(self):
@@ -118,9 +120,10 @@ class Comment(db.Model):
         "User", backref=backref("comment", lazy="dynamic", passive_deletes=True)
     )
     post_id = Column(Integer, ForeignKey("post.id", ondelete="CASCADE"))
+    post = relationship('Post')
 
     def __repr__(self):
-        return f"{self.user.username} - {self.post_id}: {self.content[:12]}"
+        return f"{self.user.username} - {self.post_id}: {self.id}"
     
 class ImagePost(db.Model):
     id = Column(Integer, primary_key=True, nullable=False)

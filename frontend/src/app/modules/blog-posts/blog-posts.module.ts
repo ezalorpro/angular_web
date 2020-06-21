@@ -15,6 +15,8 @@ import { TagInputComponent } from './tag-input/tag-input.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostNewComponent } from './post-new/post-new.component';
+import { DeletePostComponent } from './delete-post/delete-post.component';
+import { DeleteCommentComponent } from './delete-comment/delete-comment.component';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { PostNewComponent } from './post-new/post-new.component';
     ContentTagComponent,
     TagInputComponent,
     PostNewComponent,
+    DeletePostComponent,
+    DeleteCommentComponent,
   ],
   imports: [
     CommonModule,

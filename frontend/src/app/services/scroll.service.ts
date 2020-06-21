@@ -5,12 +5,21 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ScrollService {
-
-  constructor() { }
-
+  
   scroll_event_init: BehaviorSubject<boolean> = new BehaviorSubject(false);
   scroll_event_later: Subject<boolean> = new Subject();
   scrollTopFlag: Subject<boolean> = new Subject();
+  containerRef;
+  
+  constructor() { }
+
+  setElementRef(element) {
+    this.containerRef = element
+  }
+
+  getElementRef() {
+    return this.containerRef
+  }
 
   setCurrentScrollTop(scrollTopFlag) {
     this.scrollTopFlag.next(scrollTopFlag)

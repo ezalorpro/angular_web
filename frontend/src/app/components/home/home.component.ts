@@ -5,6 +5,8 @@ import { UserData } from 'src/app/models/userdata.model';
 import { AuthService } from 'src/app/modules/auth/auth.service';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ModalDialogService } from 'src/app/services/modal-dialog.service';
+import { DeletePostComponent } from 'src/app/modules/blog-posts/delete-post/delete-post.component';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private restService: RestService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private modalDialogService: ModalDialogService
   ) { 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload'
@@ -46,6 +49,10 @@ export class HomeComponent implements OnInit {
         }
       )
     }
+  }
+
+  deletePost(data) {
+    this.modalDialogService.generalDialogOpen(DeletePostComponent, data)
   }
 
 }

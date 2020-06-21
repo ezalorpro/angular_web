@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
 
   pokemons_images = [];
   pokemon_ob: Observable<any>;
-  next_url: string = 'https://pokeapi.co/api/v2/pokemon?limit=50';
+  next_url: string;
   loading: boolean = false;
   scroll_subscription: Subscription;
   error_connection: boolean;
@@ -26,7 +26,12 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    let clientHeight = this.scrollService.getElementRef()['nativeElement']['clientHeight']
+    let clientWidth = this.scrollService.getElementRef()['nativeElement']['clientWidth']
+    let number = (((clientHeight * clientWidth) / 31635) + 20).toFixed(0)
+    this.next_url = `https://pokeapi.co/api/v2/pokemon?limit=${number}`
     this.initSubscribe()
+    
   }
 
   pokemon_function() {

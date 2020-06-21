@@ -4,6 +4,9 @@ import { UserData } from 'src/app/models/userdata.model';
 import { Subscription } from 'rxjs';
 import { Post } from 'src/app/models/post.model';
 import { switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { ModalDialogService } from 'src/app/services/modal-dialog.service';
+import { DeletePostComponent } from '../../blog-posts/delete-post/delete-post.component';
 
 @Component({
   selector: 'app-profile-view',
@@ -16,7 +19,14 @@ export class ProfileViewComponent implements OnInit {
   userdata_subscription: Subscription;
   posts: Post[];
 
-  constructor(private restService: RestService) { }
+  constructor(
+    private restService: RestService,
+    private router: Router,
+    private modalDialogService: ModalDialogService
+  ) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload'
+  }
 
   ngOnInit(): void {
     this.userdata_subscription = this.restService.getUserData().pipe(
@@ -33,6 +43,10 @@ export class ProfileViewComponent implements OnInit {
         console.log('error:', error)
       }
     )    
+  }
+
+  deletePost(data) {
+    this.modalDialogService.generalDialogOpen(DeletePostComponent, data)
   }
 
   ngOnDestroy() {

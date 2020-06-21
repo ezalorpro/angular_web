@@ -1,4 +1,4 @@
-import { Directive, HostListener } from '@angular/core';
+import { Directive, HostListener, ElementRef } from '@angular/core';
 import { ScrollService } from "src/app/services/scroll.service";
 
 @Directive({
@@ -7,8 +7,11 @@ import { ScrollService } from "src/app/services/scroll.service";
 export class ScrollTrackerDirective {
 
   constructor(
-    private scrollService: ScrollService
-  ) { }
+    private scrollService: ScrollService,
+    private ref: ElementRef
+  ) {
+    scrollService.setElementRef(ref)
+   }
 
   @HostListener('scroll', ['$event'])
   scrollEvent($event: Event) {

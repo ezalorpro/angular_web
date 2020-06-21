@@ -8,8 +8,8 @@
         <img *ngIf="!post.user.avatar_url" matListAvatar src="/static/images/default.png">
         
         <ng-container *ngIf="userdata">
-          <a *ngIf="post.user.username == userdata.username" [routerLink]="['/profile/view']"
-            routerLinkActive="router-link-active">
+          <a *ngIf="post.user.username == userdata.username" (click)="deletePost(post)"
+            routerLinkActive="router-link-active" class="link-icon-button">
             <mat-icon color="warn">delete</mat-icon>
           </a>
 

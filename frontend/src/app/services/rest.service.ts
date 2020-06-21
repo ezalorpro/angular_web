@@ -52,7 +52,7 @@ export class RestService {
     }
     
     if (tipo == 'delete') {
-      return this.httpclient.delete(`${API_URL}/posts/${param}`)
+      return this.httpclient.delete(`${API_URL}/posts/${param}/`)
     }
   }
 
@@ -70,7 +70,7 @@ export class RestService {
     }
 
     if (tipo == 'delete') {
-      return this.httpclient.delete(`${API_URL}/posts/comments/${param}`)
+      return this.httpclient.delete(`${API_URL}/posts/comments/${param}/`)
     }
 
   }
