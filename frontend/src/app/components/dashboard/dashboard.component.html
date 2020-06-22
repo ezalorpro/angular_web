@@ -3,7 +3,7 @@
     <h1>Lista de pokemons</h1>
     <div *ngIf="pokemon_ob" fxLayout="row wrap" fxLayoutAlign="center center" #MyContainer>
       <mat-card fxLayout="column" fxLayoutAlign="center center" *ngFor="let pokemon of (pokemon_ob | async); index as i"
-        appHighlightCard (click)="pokemons_details(pokemon)">
+        (click)="pokemons_details(pokemon)">
         <img loading="lazy" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{i+1}}.png"
           height="95px">
         <mat-card-content class="pokemon-span">

@@ -17,7 +17,7 @@ export class ProfileViewComponent implements OnInit {
 
   userdata: UserData;
   userdata_subscription: Subscription;
-  posts: Post[];
+  posts: Post[] = [];
 
   constructor(
     private restService: RestService,

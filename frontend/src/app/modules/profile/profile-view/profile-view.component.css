@@ -5,13 +5,24 @@
     justify-content: center;
   }
 
-  .div-profile {
+  .divprofile {
     display: flex;
     flex-flow: column;
     justify-content: space-around;
     align-items: stretch;
     padding: unset;
     margin: 10px 10px;
+    box-shadow: 0.1px 0.1px 0px 0px #000000cc;
+  }
+
+  .divavatarnoposts {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: stretch;
+    padding: unset;
+    margin: 10px 10px;
+    box-shadow: 0.1px 0.1px 0px 0px #000000cc;
   }
 
   .div-list-posts {
@@ -26,12 +37,23 @@
     justify-content: center;
   }
 
-  .div-profile {
+  .divprofile {
     display: flex;
     justify-content: space-around;
     align-items: stretch;
     padding: unset;
     margin: 10px 10px;
+    box-shadow: 0.1px 0.1px 0px 0px #000000cc;
+  }
+
+  .divavatarnoposts {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: stretch;
+    padding: unset;
+    margin: 10px 10px;
+    box-shadow: 0.1px 0.1px 0px 0px #000000cc;
   }
 
   .div-list-posts {
@@ -52,7 +74,7 @@
     justify-content: center;
   }
 
-  .div-profile {
+  .divprofile {
     display: flex;
     justify-content: space-around;
     flex-flow: column;
@@ -60,6 +82,18 @@
     width: 50%;
     padding: unset;
     margin: 10px 10px;
+    box-shadow: 0.1px 0.1px 0px 0px #000000cc;
+  }
+
+  .divavatarnoposts {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    align-items: stretch;
+    width: 90%;
+    padding: unset;
+    margin: 10px 10px;
+    box-shadow: 0.1px 0.1px 0px 0px #000000cc;
   }
 
   .div-list-posts {
@@ -81,7 +115,7 @@
     justify-content: center;
   }
 
-  .div-profile {
+  .divprofile {
     display: flex;
     justify-content: space-around;
     flex-flow: row;
@@ -89,6 +123,18 @@
     width: 90%;
     padding: unset;
     margin: 10px 10px;
+    box-shadow: 0.1px 0.1px 0px 0px #000000cc;
+  }
+
+  .divavatarnoposts {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    align-items: stretch;
+    width: 90%;
+    padding: unset;
+    margin: 10px 10px;
+    box-shadow: 0.1px 0.1px 0px 0px #000000cc;
   }
 
   .div-list-posts {
