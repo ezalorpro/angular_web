@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { ElementRef, Input, Directive } from '@angular/core';
 
 @Directive({
   selector: '[appPokemonTypes]'

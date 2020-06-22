@@ -31,7 +31,7 @@ import { DeleteCommentComponent } from './delete-comment/delete-comment.componen
     TagInputComponent,
     PostNewComponent,
     DeletePostComponent,
-    DeleteCommentComponent,
+    DeleteCommentComponent
   ],
   imports: [
     CommonModule,

@@ -7,11 +7,13 @@ import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ModalDialogService } from 'src/app/services/modal-dialog.service';
 import { DeletePostComponent } from '../../blog-posts/delete-post/delete-post.component';
+import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
 
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
-  styleUrls: ['./profile-view.component.css']
+  styleUrls: ['./profile-view.component.css'],
+  animations: [FadeInOutAnimation()]
 })
 export class ProfileViewComponent implements OnInit {
 

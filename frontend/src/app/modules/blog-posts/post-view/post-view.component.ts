@@ -10,11 +10,13 @@ import { Comment } from 'src/app/models/comment.model';
 import { UserData } from 'src/app/models/userdata.model';
 import { AuthService } from '../../auth/auth.service';
 import { ModalDialogService } from 'src/app/services/modal-dialog.service';
+import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
 
 @Component({
   selector: 'app-post-view',
   templateUrl: './post-view.component.html',
-  styleUrls: ['./post-view.component.css']
+  styleUrls: ['./post-view.component.css'],
+  animations: [FadeInOutAnimation()]
 })
 export class PostViewComponent implements OnInit {
 

@@ -1,12 +1,12 @@
 
 <div *ngIf="post_data" class="main-container">
   
-  <h1 class="post-title">{{ post_data.title }}</h1>
+  <h1 class="post-title" [@fadeInOutAnimation]>{{ post_data.title }}</h1>
   
-  <app-post-content [post_content]="post_data.post_text"></app-post-content>
+  <app-post-content [post_content]="post_data.post_text" [@fadeInOutAnimation]></app-post-content>
   
-  <div class="tags-div">
-    <app-content-tag *ngFor="let tag of post_data.tags" [tagName]="tag.name">
+  <div class="tags-div" [@fadeInOutAnimation]>
+    <app-content-tag *ngFor="let tag of post_data.tags" [tagName]="tag.name" [@fadeInOutAnimation]>
     </app-content-tag>
   </div>
   

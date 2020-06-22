@@ -4,11 +4,14 @@ import { RestService } from 'src/app/services/rest.service';
 import { ScrollService } from '../../services/scroll.service';
 import { ModalDialogService } from 'src/app/services/modal-dialog.service';
 import { PokemonDialogComponent } from '../pokemon-dialog/pokemon-dialog.component';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  animations: [FadeInOutAnimation('300ms', '300ms')]
 })
 export class DashboardComponent implements OnInit {
 

@@ -7,7 +7,7 @@
 
     <mat-card-content fxFill>
       <form *ngIf="form" [formGroup]="form" (ngSubmit)="onUpdate(form.value)" fxLayout="column" fxLayoutGap="4px"
-        fxLayoutAlign="center stretch" class="form-edit_profile">
+        fxLayoutAlign="center stretch" class="form-edit_profile" [@fadeInOutAnimation]>
 
         <div fxLayout.gt-xs="row" fxLayoutGap.gt-sm="20px" fxLayout="column" fxLayoutGap="20px" fxFlex
           fxLayoutAlign="space-between space-between">

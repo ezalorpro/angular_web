@@ -5,11 +5,14 @@ import { UserData } from 'src/app/models/userdata.model';
 import { ModalDialogService } from 'src/app/services/modal-dialog.service';
 import { DeleteCommentComponent } from '../delete-comment/delete-comment.component';
 import { RestService } from 'src/app/services/rest.service';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.css']
+  styleUrls: ['./comment.component.css'],
+  animations: [FadeInOutAnimation()]
 })
 export class CommentComponent implements OnInit {
 

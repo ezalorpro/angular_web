@@ -1,5 +1,6 @@
 <div class="main-container">
-  <div *ngIf="userdata" [ngClass]="{divprofile: posts.length > 0, divavatarnoposts: posts.length == 0}">
+  <div *ngIf="userdata" [ngClass]="{divprofile: posts.length > 0, divavatarnoposts: posts.length == 0}"
+    [@fadeInOutAnimation]>
 
     <div class="div-avatar">
       <div *ngIf="userdata.avatar_url">
@@ -69,7 +70,7 @@
 
   </div>
 
-  <div class="div-list-posts" *ngIf="posts.length">
+  <div class="div-list-posts" *ngIf="posts.length" [@fadeInOutAnimation]>
     <h2 class="title-posts">Posts publicados</h2>
     <mat-list *ngIf="posts.length > 0">
       <mat-list-item *ngFor="let post of posts">

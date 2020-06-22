@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container" [@fadeInOutAnimation]>
   <div class="comment-userdata">
     <div *ngIf="userdata_comment.avatar_url">
       <img src="{{ userdata_comment.avatar_url }}" alt="avatar" class="avatar-image">
@@ -11,18 +11,18 @@
     </div>
   </div>
   <div class="comment-content">
-    <form *ngIf="alternate" [formGroup]="form" (ngSubmit)="editar(form.value)" class="form-tinymce">
+    <form *ngIf="alternate" [formGroup]="form" (ngSubmit)="editar(form.value)" class="form-tinymce" required>
       <editor formControlName="content" [init]="tinymceInit()"></editor>
       <div class="comment-button2-div">
         <button mat-button mat-raised-button color="primary">
           Guardar
         </button>
-        <button mat-button mat-raised-button color="warn" (click)="alternar()">
+        <button type="button" mat-button mat-raised-button color="warn" (click)="alternar()">
           Cancelar
         </button>
       </div>
     </form>
-    <div class="static-comment" *ngIf="!alternate" [innerHTML]="comment_data['content'] | safe">
+    <div class="static-comment" *ngIf="!alternate" [innerHTML]="comment_data['content'] | Safe">
     </div>
   </div>
   <div class="buttons-container" *ngIf="!alternate && userdata.id == userdata_comment.id">
