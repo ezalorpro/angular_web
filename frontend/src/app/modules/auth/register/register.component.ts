@@ -4,11 +4,26 @@ import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthDialogService } from '../auth-dialog.service';
 import { Subscription } from 'rxjs';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  animations: [
+    trigger(
+      'registerAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('200ms', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1 }),
+        animate('200ms', style({ opacity: 0 }))
+      ])
+    ]
+    )
+  ]
 })
 export class RegisterComponent implements OnInit {
 

@@ -2,11 +2,13 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RestService } from 'src/app/services/rest.service';
 import { Subscription } from 'rxjs';
+import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
 
 @Component({
   selector: 'app-pokemon-dialog',
   templateUrl: './pokemon-dialog.component.html',
-  styleUrls: ['./pokemon-dialog.component.css']
+  styleUrls: ['./pokemon-dialog.component.css'],
+  animations: [FadeInOutAnimation()]
 })
 export class PokemonDialogComponent implements OnInit {
 

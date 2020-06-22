@@ -12,7 +12,7 @@
   </div>
   <div class="comment-content">
     <form *ngIf="alternate" [formGroup]="form" (ngSubmit)="editar(form.value)" class="form-tinymce" required>
-      <editor formControlName="content" [init]="tinymceInit()"></editor>
+      <editor formControlName="content" [init]="tinymceInit()" initialValue=""></editor>
       <div class="comment-button2-div">
         <button mat-button mat-raised-button color="primary">
           Guardar
@@ -25,7 +25,7 @@
     <div class="static-comment" *ngIf="!alternate" [innerHTML]="comment_data['content'] | Safe">
     </div>
   </div>
-  <div class="buttons-container" *ngIf="!alternate && userdata.id == userdata_comment.id">
+  <div class="buttons-container" *ngIf="!alternate && userdata && userdata.id == userdata_comment.id">
     <button mat-button (click)="alternar()" class="comment-button1">
       <mat-icon color="primary">edit</mat-icon>
     </button>

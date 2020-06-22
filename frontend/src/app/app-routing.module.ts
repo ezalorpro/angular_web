@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AuthGuardService } from './modules/auth/auth-guard.service';
 import { HomeComponent } from './components/home/home.component';
 
 
 const routes: Routes = [
-  { path: 'pokedex', component: DashboardComponent, canActivate: [AuthGuardService] },
+  { path: 'pokedex', component: DashboardComponent },
   { path: '', redirectTo:'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
   {

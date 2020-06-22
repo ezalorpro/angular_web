@@ -6,7 +6,6 @@ import { CommentComponent } from './comment/comment.component';
 import { PostContentComponent } from './post-content/post-content.component';
 import { PostViewComponent } from './post-view/post-view.component';
 import { PostEditComponent } from './post-edit/post-edit.component';
-import { PostListComponent } from './post-list/post-list.component';
 import { SafePipe } from 'src/app/pipes/safe.pipe';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ContentTagComponent } from './content-tag/content-tag.component';
@@ -25,7 +24,6 @@ import { DeleteCommentComponent } from './delete-comment/delete-comment.componen
     PostContentComponent,
     PostViewComponent,
     PostEditComponent,
-    PostListComponent,
     SafePipe,
     ContentTagComponent,
     TagInputComponent,

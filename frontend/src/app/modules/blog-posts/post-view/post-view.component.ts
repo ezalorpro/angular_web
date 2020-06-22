@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { RestService } from 'src/app/services/rest.service';
 import { Post } from 'src/app/models/post.model';
@@ -37,8 +37,12 @@ export class PostViewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private scrollService: ScrollService,
     private authService: AuthService,
-    private modalDialogService: ModalDialogService
-  ) { }
+    private modalDialogService: ModalDialogService,
+    private router: Router
+  ) { 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload'
+  }
 
   ngOnInit(): void {
     if(this.authService.isLoggedIn())

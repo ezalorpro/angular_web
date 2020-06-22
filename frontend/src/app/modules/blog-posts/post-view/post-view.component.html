@@ -23,7 +23,7 @@
     <span> Sin comentarios </span>
   </div>
   
-  <div class="new-comment" *ngIf="!alternate">
+  <div class="new-comment" *ngIf="!alternate && userdata">
     <form [formGroup]="form" (ngSubmit)="nuevoComentario(form.value)">
       <editor formControlName="content" [init]="tinymceInit()"></editor>
       <button mat-button mat-raised-button color="primary" class="new-comment-button">

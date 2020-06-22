@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PostViewComponent } from './post-view/post-view.component';
-import { PostListComponent } from './post-list/post-list.component';
 import { AuthGuardService } from '../auth/auth-guard.service';
 import { PostEditComponent } from './post-edit/post-edit.component';
 import { PostNewComponent } from './post-new/post-new.component';
@@ -10,7 +9,8 @@ import { PostNewComponent } from './post-new/post-new.component';
 const routes: Routes = [
   {
     path: '',
-    component: PostListComponent,
+    redirectTo: 'new',
+    pathMatch: 'full',
     canActivate: [AuthGuardService]
   },
   {
