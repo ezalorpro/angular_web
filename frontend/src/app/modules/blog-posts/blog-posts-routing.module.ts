@@ -4,6 +4,7 @@ import { PostViewComponent } from './post-view/post-view.component';
 import { AuthGuardService } from '../auth/auth-guard.service';
 import { PostEditComponent } from './post-edit/post-edit.component';
 import { PostNewComponent } from './post-new/post-new.component';
+import { AuthorizationGuardService } from '../auth/authorization-guard.service';
 
 
 const routes: Routes = [
@@ -25,7 +26,10 @@ const routes: Routes = [
   {
     path: 'new',
     component: PostNewComponent,
-    canActivate: [AuthGuardService]
+    data: {
+    allowedRoles: ['ROLE_ADMIN', 'ROLE_EDITOR']
+    },
+    canActivate: [AuthGuardService, AuthorizationGuardService]
   }
 ];
 

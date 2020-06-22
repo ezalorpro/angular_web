@@ -23,6 +23,7 @@
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
+    "@auth0/angular-jwt": "^4.2.0",
     "@tinymce/tinymce-angular": "^3.6.0",
     "moment": "^2.26.0",
     "patch-package": "^6.2.2",

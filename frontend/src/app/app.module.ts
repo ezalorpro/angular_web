@@ -17,6 +17,7 @@ import { HighlightCardDirective } from './directives/highlight-card.directive';
 import { PokemonTypesDirective } from './components/pokemon-dialog/pokemon-types.directive';
 import { AuthInterceptorService } from './modules/auth/auth-interceptor.service';
 import { ScrollTrackerDirective } from './directives/scroll-tracker.directive';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { ScrollTrackerDirective } from './directives/scroll-tracker.directive';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    GenericModule,
+    GenericModule
   ],
   providers: [
     {

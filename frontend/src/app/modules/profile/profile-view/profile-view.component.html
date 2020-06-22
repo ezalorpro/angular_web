@@ -70,7 +70,7 @@
 
   </div>
 
-  <div class="div-list-posts" *ngIf="posts.length" [@fadeInOutAnimation]>
+  <div class="div-list-posts" *ngIf="checkRoles()" [@fadeInOutAnimation]>
     <h2 class="title-posts">Posts publicados</h2>
     <mat-list *ngIf="posts.length > 0">
       <mat-list-item *ngFor="let post of posts">

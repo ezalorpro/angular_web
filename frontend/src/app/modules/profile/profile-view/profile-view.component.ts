@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ModalDialogService } from 'src/app/services/modal-dialog.service';
 import { DeletePostComponent } from '../../blog-posts/delete-post/delete-post.component';
 import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
+import { AuthorizationService } from '../../auth/authorization.service';
 
 @Component({
   selector: 'app-profile-view',
@@ -24,7 +25,8 @@ export class ProfileViewComponent implements OnInit {
   constructor(
     private restService: RestService,
     private router: Router,
-    private modalDialogService: ModalDialogService
+    private modalDialogService: ModalDialogService,
+    private authorizationService: AuthorizationService
   ) { 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload'
@@ -39,7 +41,6 @@ export class ProfileViewComponent implements OnInit {
     ).subscribe(
       res => {
         this.posts = res
-        console.log(this.posts)
       },
       error => {
         console.log('error:', error)
@@ -49,6 +50,10 @@ export class ProfileViewComponent implements OnInit {
 
   deletePost(data) {
     this.modalDialogService.generalDialogOpen(DeletePostComponent, data)
+  }
+
+  checkRoles() {
+    return this.authorizationService.isAuthorized(['ROLE_ADMIN', 'ROLE_EDITOR'])
   }
 
   ngOnDestroy() {

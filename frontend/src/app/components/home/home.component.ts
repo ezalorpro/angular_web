@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
     this.restService.apiPostData(null, null, 'get').subscribe(
       res => {
         this.posts = res
-        console.log(this.posts)
       },
       error => {
         console.log('error:', error)
@@ -44,7 +43,6 @@ export class HomeComponent implements OnInit {
       this.restService.getUserData().subscribe(
         res => {
           this.userdata = res
-          console.log(this.userdata)
         },
         error => {
           console.log(error)

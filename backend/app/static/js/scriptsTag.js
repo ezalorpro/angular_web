@@ -11,7 +11,6 @@ $(document).ready(function () {
                 'y_points': $("#y_points").val()
             },
             success: function (data) {
-                console.log(data);
                 $('#plot-content').html(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -160,11 +159,6 @@ $(document).ready(function () {
 
             difflib['SequenceMatcher'](valor, $('#last_name').val());
             var comp_last = difflib.ratio()
-
-            console.log('comparacion 1: ' + comp_username);
-            console.log('comparacion 1: ' + comp_email);
-            console.log('comparacion 1: ' + comp_first);
-            console.log('comparacion 1: ' + comp_last);
 
             max_comp = Math.max(comp_username, comp_email, comp_first, comp_last)
 
