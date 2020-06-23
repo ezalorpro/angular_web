@@ -181,7 +181,7 @@ class CommentsData(Resource):
     def post(self, param=None):
         data = request.get_json(force=True)
         comment = Comment()
-        user = User.query.get(2)
+        user = User.query.get(current_user_id())
         comment.user = user
         comment.content = data.get('content', None)
         comment.date = datetime.datetime.now()
