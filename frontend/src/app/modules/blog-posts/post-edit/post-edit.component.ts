@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from 'src/app/services/rest.service';
 import { Post } from 'src/app/models/post.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { API_URL } from 'src/app/env'
+import { API_URL } from "../../../env";
 
 @Component({
   selector: 'app-post-edit',
@@ -73,7 +73,7 @@ export class PostEditComponent implements OnInit {
 
   tinymceInit() {
     return {
-      plugins: 'codesample image code table anchor charmap directionality emoticons hr imagetools insertdatetime media autoresize importcss nonbreaking pagebreak paste preview print quickbars save searchreplace toc visualblocks wordcount visualchars',
+      plugins: 'codesample image code table anchor charmap directionality emoticons hr imagetools insertdatetime media importcss nonbreaking pagebreak paste preview print quickbars save searchreplace toc visualblocks wordcount visualchars',
       image_title: true,
       image_advtab: true,
       convert_urls: false,
