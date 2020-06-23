@@ -72,14 +72,14 @@ export class PostEditComponent implements OnInit {
   }
 
   tinymceInit() {
-    return {
-      plugins: 'codesample image code table anchor charmap directionality emoticons hr imagetools insertdatetime media importcss nonbreaking pagebreak paste preview print quickbars save searchreplace toc visualblocks wordcount visualchars',
+    const api_url = this.api_url
+    return { plugins: 'codesample image code table anchor charmap directionality emoticons hr imagetools insertdatetime media importcss nonbreaking pagebreak paste preview print quickbars save searchreplace toc visualblocks wordcount visualchars',
       image_title: true,
       image_advtab: true,
       convert_urls: false,
       height: '400',
       automatic_uploads: true,
-      images_upload_url:`${this.api_url}/post_image_handler/`,
+      images_upload_url: `${api_url}/post_image_handler/`,
       media_live_embeds: true,
       codesample_global_prismjs: true,
       table_responsive_width: true,
@@ -88,7 +88,7 @@ export class PostEditComponent implements OnInit {
         xhr = new XMLHttpRequest();
         xhr.withCredentials = false;
         const token: string = localStorage.getItem('token')
-        xhr.open('POST', `${this.api_url}/post_image_handler/`);
+        xhr.open('POST', `${api_url}/post_image_handler/`);
         xhr.setRequestHeader("authorization", `Bearer ${token}`);
         xhr.onload = function () {
           var json;
