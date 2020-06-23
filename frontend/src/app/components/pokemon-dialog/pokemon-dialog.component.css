@@ -41,6 +41,8 @@
 .pokemon-img {
     max-width: 290px;
     height: auto;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 ::ng-deep .pokemon-dialog .mat-dialog-container {
