@@ -20,8 +20,12 @@ export class RestService {
     return throwError(error.message || 'Error: unable to complete request')
   }
 
-  getGeneral(url: string, data_type: string, forceRefresh: boolean = false): Observable<any> {
-    return this.cacheGetService.get(url, data_type, 8, forceRefresh, 60000*60)
+  getGeneral(url: string, data_type: string, isLocal: boolean = false, forceRefresh: boolean = false): Observable<any> {
+    if (isLocal) {
+      return this.cacheGetService.getLocal(url, data_type, 8, forceRefresh, 60000 * 60)
+    } else {
+      return this.cacheGetService.get(url, data_type, 8, forceRefresh, 60000*60)
+    }
   }
 
   getUserData(): Observable<UserData>{

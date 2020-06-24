@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   }
 
   pokemon_function() {
-    return this.restService.getGeneral(this.next_url, this.next_url)
+    return this.restService.getGeneral(this.next_url, this.next_url, true)
   }
 
   morePokemons() {

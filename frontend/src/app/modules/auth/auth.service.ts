@@ -59,7 +59,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem("expires_at");
-    this.cachedGetService.removeCachedItem('userData')
+    this.cachedGetService.cache = []
     this.router.navigate(['/'])
   }
 

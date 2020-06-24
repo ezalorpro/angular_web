@@ -22,7 +22,7 @@ export class PokemonDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.pokemon_subscription = this.restService.getGeneral(this.data['url'], this.data['name']).subscribe(
+    this.pokemon_subscription = this.restService.getGeneral(this.data['url'], this.data['name'], true).subscribe(
       data => {
         this.fetched_data = data;
       }
