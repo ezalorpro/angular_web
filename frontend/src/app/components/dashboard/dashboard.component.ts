@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   loading: boolean = false;
   scroll_subscription: Subscription;
   error_connection: boolean;
+  pokemons_number: string;
 
   constructor(
     private restService: RestService,
@@ -31,14 +32,14 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     let clientHeight = this.scrollService.getElementRef()['nativeElement']['clientHeight']
     let clientWidth = this.scrollService.getElementRef()['nativeElement']['clientWidth']
-    let number = (((clientHeight * clientWidth) / 31635) + 20).toFixed(0)
-    this.next_url = `https://pokeapi.co/api/v2/pokemon?limit=${number}`
+    this.pokemons_number = (((clientHeight * clientWidth) / 31635) + 20).toFixed(0)
+    this.next_url = `https://pokeapi.co/api/v2/pokemon?limit=${this.pokemons_number}`
     this.initSubscribe()
     
   }
 
   pokemon_function() {
-    return this.restService.getGeneral(this.next_url)
+    return this.restService.getGeneral(this.next_url, this.next_url)
   }
 
   morePokemons() {

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import * as moment from "moment";
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
+import { CacheGetService } from 'src/app/services/cache-get.service';
 
 
 @Injectable({
@@ -19,7 +20,8 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cachedGetService: CacheGetService
   ) { }
   
 
@@ -57,6 +59,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem("expires_at");
+    this.cachedGetService.removeCachedItem('userData')
     this.router.navigate(['/'])
   }
 

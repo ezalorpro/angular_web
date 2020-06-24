@@ -71,7 +71,7 @@ export class PostViewComponent implements OnInit {
     this.restService.apiCommentsData(this.post_data.id, data, 'post').subscribe(
       data => {
         this.form.controls['content'].setValue('')
-        this.getComments(this.post_data.id)
+        this.getComments(this.post_data.id, true)
       },
       error => {
         console.log(error)
@@ -92,10 +92,10 @@ export class PostViewComponent implements OnInit {
     this.alternate = event
   }
 
-  getComments(post_id) {
+  getComments(post_id, forceRefresh: boolean = false) {
     if (!this.loading) {
       this.loading = true
-      this.restService.apiCommentsData(post_id, null, 'get').subscribe(
+      this.restService.apiCommentsData(post_id, null, 'get', forceRefresh).subscribe(
         data => {
           if (data.length) {
             this.comments = of(data)
@@ -126,7 +126,7 @@ export class PostViewComponent implements OnInit {
       () => {
         this.update_comments_subscription = this.modalDialogService.getGenericSubject()
           .subscribe(
-            () => this.getComments(post_id)
+            () => this.getComments(post_id, true)
           )
         this.getComments(post_id)
       },

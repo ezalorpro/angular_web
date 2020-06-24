@@ -4,26 +4,28 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { UserData } from '../models/userdata.model';
 import { API_URL } from '../env';
-import { Post } from 'src/app/models/post.model';
-import { Comment } from '../models/comment.model';
+import { CacheGetService } from './cache-get.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
   
-  constructor(private httpclient: HttpClient) { }
+  constructor(
+    private httpclient: HttpClient,
+    private cacheGetService: CacheGetService
+  ) { }
 
   private _handleError(error: HttpErrorResponse | any) {
     return throwError(error.message || 'Error: unable to complete request')
   }
 
-  getGeneral(url: string): Observable<any> {
-    return this.httpclient.get<any>(url)
+  getGeneral(url: string, data_type: string, forceRefresh: boolean = false): Observable<any> {
+    return this.cacheGetService.get(url, data_type, 8, forceRefresh, 60000*60)
   }
 
   getUserData(): Observable<UserData>{
-    return this.httpclient.get<UserData>(`${API_URL}/userdata/`).pipe(catchError(this._handleError))
+    return this.cacheGetService.get(`${API_URL}/userdata/`, 'userData', 10).pipe(catchError(this._handleError))
   }
 
   postUserData(data: UserData, file_data) {
@@ -32,33 +34,43 @@ export class RestService {
       data['avatar'] = file_data['name']
       data['avatar_url'] = '/static/images/'+ file_data['name']
     }
+
+    this.cacheGetService.removeCachedItem(`${API_URL}/userdata/`)
+
     return this.httpclient.post(`${API_URL}/userdata/`, data)
   } 
 
   apiPostData(param?: number | string, data?: Object, tipo?: string): Observable<any> {
     if (tipo == 'get') {
       if (param) {
-        return this.httpclient.get<Post>(`${API_URL}/posts/${param}/`).pipe(catchError(this._handleError))
+        return this.cacheGetService.get(`${API_URL}/posts/${param}/`, `postID${param}`, 10).pipe(catchError(this._handleError))
       }
-      return this.httpclient.get<Post[]>(`${API_URL}/posts/`).pipe(catchError(this._handleError))
+      return this.cacheGetService.get(`${API_URL}/posts/`,'postsData', 10).pipe(catchError(this._handleError))
     }
 
     if (tipo == 'post') {
+      this.cacheGetService.removeCachedItem('postsData')
+      this.cacheGetService.removeCachedItem('tagsData')
       return this.httpclient.post(`${API_URL}/posts/`, data)
     }
 
     if (tipo == 'put') {
+      this.cacheGetService.removeCachedItem('postsData')
+      this.cacheGetService.removeCachedItem('tagsData')
+      this.cacheGetService.removeCachedItem(`postID${data['id']}`)
       return this.httpclient.put(`${API_URL}/posts/`, data)
     }
     
     if (tipo == 'delete') {
+      this.cacheGetService.removeCachedItem('postsData')
+      this.cacheGetService.removeCachedItem(`postID${param}`)
       return this.httpclient.delete(`${API_URL}/posts/${param}/`)
     }
   }
 
-  apiCommentsData(param?: number | string, data?: Object, tipo?: string): Observable<any> {
+  apiCommentsData(param?: number | string, data?: Object, tipo?: string, forceRefresh: boolean = false): Observable<any> {
     if (tipo == 'get') {
-      return this.httpclient.get<Comment[]>(`${API_URL}/posts/comments/${param}/`)
+      return this.cacheGetService.get(`${API_URL}/posts/comments/${param}/`, `commentsID${param}`, 10, forceRefresh).pipe(catchError(this._handleError))
     }
 
     if (tipo == 'post') {
@@ -76,6 +88,6 @@ export class RestService {
   }
 
   getTags(): Observable<any> {
-    return this.httpclient.get(`${API_URL}/tags/`).pipe(catchError(this._handleError))
+    return this.cacheGetService.get(`${API_URL}/tags/`, 'tagsData', 10).pipe(catchError(this._handleError))
   }
 }

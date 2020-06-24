@@ -53,6 +53,7 @@ export class CommentComponent implements OnInit {
   }
 
   editar(data) {
+    data['post'] = this.comment_data.post
     this.restService.apiCommentsData(this.comment_data.id, data, 'put').subscribe(
       data => {
         this.modalDialogService.setGenericSubject(true)
