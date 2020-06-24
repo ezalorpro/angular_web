@@ -52,9 +52,9 @@ class UserData(Resource):
 class PostData(Resource):
     
     method_decorators = {
-        'post': [fprae.auth_required], 
-        'put': [fprae.auth_required], 
-        'delete': [fprae.auth_required]
+        'post': [fprae.roles_accepted('ROLE_ADMIN', 'ROLE_EDITOR')], 
+        'put': [fprae.roles_accepted('ROLE_ADMIN', 'ROLE_EDITOR')], 
+        'delete': [fprae.roles_accepted('ROLE_ADMIN', 'ROLE_EDITOR')]
         }
       
     def get(self, param=None):
@@ -260,7 +260,7 @@ class Register(Resource):
 
 class PostImageHandlerApi(Resource):
     
-    method_decorators = [fprae.auth_required]
+    method_decorators = [fprae.roles_accepted('ROLE_ADMIN', 'ROLE_EDITOR')]
     
     def post(self):
         image = request.files["file"]
