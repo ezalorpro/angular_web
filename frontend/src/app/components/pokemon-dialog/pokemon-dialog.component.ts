@@ -7,7 +7,7 @@ import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
 @Component({
   selector: 'app-pokemon-dialog',
   templateUrl: './pokemon-dialog.component.html',
-  styleUrls: ['./pokemon-dialog.component.css'],
+  styleUrls: ['./pokemon-dialog.component.scss'],
   animations: [FadeInOutAnimation()]
 })
 export class PokemonDialogComponent implements OnInit {

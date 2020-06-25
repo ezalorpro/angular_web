@@ -9,7 +9,7 @@ import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.css'],
+  styleUrls: ['./profile-edit.component.scss'],
   animations: [FadeInOutAnimation()]
 })
 export class ProfileEditComponent implements OnInit {

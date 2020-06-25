@@ -15,7 +15,7 @@ import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
 @Component({
   selector: 'app-post-view',
   templateUrl: './post-view.component.html',
-  styleUrls: ['./post-view.component.css'],
+  styleUrls: ['./post-view.component.scss'],
   animations: [FadeInOutAnimation()]
 })
 export class PostViewComponent implements OnInit {

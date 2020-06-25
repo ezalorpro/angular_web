@@ -9,7 +9,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  styleUrls: ['./register.component.scss'],
   animations: [
     trigger(
       'registerAnimation', [

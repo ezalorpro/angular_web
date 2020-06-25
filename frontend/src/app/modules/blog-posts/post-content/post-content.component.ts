@@ -4,7 +4,7 @@ import { PrismJSService } from '../prism-js.service';
 @Component({
   selector: 'app-post-content',
   templateUrl: './post-content.component.html',
-  styleUrls: ['./post-content.component.css']
+  styleUrls: ['./post-content.component.scss']
 })
 export class PostContentComponent implements OnInit, AfterViewChecked {
 

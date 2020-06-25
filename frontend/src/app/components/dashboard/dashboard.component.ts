@@ -10,7 +10,7 @@ import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  styleUrls: ['./dashboard.component.scss'],
   animations: [FadeInOutAnimation('300ms', '300ms')]
 })
 export class DashboardComponent implements OnInit {

@@ -11,7 +11,7 @@ import { FadeInOutAnimation } from 'src/app/animations/generic.animation';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.css'],
+  styleUrls: ['./comment.component.scss'],
   animations: [FadeInOutAnimation()]
 })
 export class CommentComponent implements OnInit {

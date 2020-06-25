@@ -13,7 +13,7 @@ import { AuthorizationService } from '../../auth/authorization.service';
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
-  styleUrls: ['./profile-view.component.css'],
+  styleUrls: ['./profile-view.component.scss'],
   animations: [FadeInOutAnimation()]
 })
 export class ProfileViewComponent implements OnInit {

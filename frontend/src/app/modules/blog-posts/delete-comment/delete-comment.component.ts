@@ -8,7 +8,7 @@ import { ModalDialogService } from 'src/app/services/modal-dialog.service';
 @Component({
   selector: 'app-delete-comment',
   templateUrl: './delete-comment.component.html',
-  styleUrls: ['./delete-comment.component.css']
+  styleUrls: ['./delete-comment.component.scss']
 })
 export class DeleteCommentComponent implements OnInit {
 
