@@ -9,7 +9,8 @@
     <a mat-button (click)="login()" *ngIf="authService.isLoggedOut() && media.isActive('gt-sm')">Login</a>
     <a mat-button mat-raised-button [routerLink]="['/register']" routerLinkActive="active"
       *ngIf="authService.isLoggedOut() && media.isActive('gt-sm')">Registrarse</a>
-      <a mat-button [routerLink]="['/profile/view']" *ngIf="authService.isLoggedIn()">Perfil</a>
+      <a mat-button [routerLink]="['/profile/view']"
+        *ngIf="authService.isLoggedIn() && media.isActive('gt-sm')">Perfil</a>
     <a mat-button (click)="authService.logout()" *ngIf="authService.isLoggedIn() && media.isActive('gt-sm')">Logout</a>
   </mat-toolbar-row>
 </mat-toolbar>

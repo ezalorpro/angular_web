@@ -1,5 +1,6 @@
 <mat-nav-list class="side-nav">
   <a mat-list-item [routerLink]="['/pokedex']">Pokedex</a>
+  <a mat-button [routerLink]="['/profile/view']" *ngIf="authService.isLoggedIn()">Perfil</a>
   <a mat-list-item (click)="authService.logout()" *ngIf="authService.isLoggedIn()">Logout</a>
   <a mat-list-item [routerLink]="['/register']" *ngIf="authService.isLoggedOut()">Registrarse</a>
   <a mat-list-item (click)="authDialog.loginDialogOpen()" *ngIf="authService.isLoggedOut()">Login</a>
