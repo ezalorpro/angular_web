@@ -3,12 +3,13 @@
     <button type="button" mat-button (click)="onClick()" *ngIf="!media.isActive('gt-sm')">
       <mat-icon>menu</mat-icon>
     </button>
+    <span class="example-spacer" *ngIf="!media.isActive('gt-sm')"></span>
     <span class="main-title" [routerLink]="['/home']">Pagina en Angular</span>
-    <span class="example-spacer"></span>
-    <a mat-button (click)="login()" *ngIf="authService.isLoggedOut()">Login</a>
+    <span class="example-spacer" *ngIf="media.isActive('gt-sm')"></span>
+    <a mat-button (click)="login()" *ngIf="authService.isLoggedOut() && media.isActive('gt-sm')">Login</a>
     <a mat-button mat-raised-button [routerLink]="['/register']" routerLinkActive="active"
-      *ngIf="authService.isLoggedOut()">Registrarse</a>
+      *ngIf="authService.isLoggedOut() && media.isActive('gt-sm')">Registrarse</a>
       <a mat-button [routerLink]="['/profile/view']" *ngIf="authService.isLoggedIn()">Perfil</a>
-    <a mat-button (click)="authService.logout()" *ngIf="authService.isLoggedIn()">Logout</a>
+    <a mat-button (click)="authService.logout()" *ngIf="authService.isLoggedIn() && media.isActive('gt-sm')">Logout</a>
   </mat-toolbar-row>
 </mat-toolbar>
